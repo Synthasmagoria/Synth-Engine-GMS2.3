@@ -2,6 +2,8 @@
 Assets that can be used to create fangames in GMS2.3
 v097
 
+Pre 2.3 version (old assets): https://github.com/Synthasmagoria/Synth-Engine-GMS2
+
  -- Saving something new --
 All saved values in this engine are based on enums defined in the create event of obj_World.
 To add more saved values you can add entries to the end of the enums before the 'NUMBER' entry.
