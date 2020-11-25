@@ -1,0 +1,42 @@
+{
+  "spriteId": {
+    "name": "spr_SpikeDown",
+    "path": "sprites/spr_SpikeDown/spr_SpikeDown.yy",
+  },
+  "solid": false,
+  "visible": true,
+  "spriteMaskId": {
+    "name": "spr_SpikeDownMask",
+    "path": "sprites/spr_SpikeDownMask/spr_SpikeDownMask.yy",
+  },
+  "persistent": false,
+  "parentObjectId": {
+    "name": "obj_Killer",
+    "path": "objects/obj_Killer/obj_Killer.yy",
+  },
+  "physicsObject": false,
+  "physicsSensor": false,
+  "physicsShape": 1,
+  "physicsGroup": 0,
+  "physicsDensity": 0.5,
+  "physicsRestitution": 0.1,
+  "physicsLinearDamping": 0.1,
+  "physicsAngularDamping": 0.1,
+  "physicsFriction": 0.2,
+  "physicsStartAwake": true,
+  "physicsKinematic": false,
+  "physicsShapePoints": [],
+  "eventList": [],
+  "properties": [],
+  "overriddenProperties": [],
+  "parent": {
+    "name": "Killers",
+    "path": "folders/Objects/Killers.yy",
+  },
+  "resourceVersion": "1.0",
+  "name": "obj_SpikeDown",
+  "tags": [
+    "general_level",
+  ],
+  "resourceType": "GMObject",
+}
