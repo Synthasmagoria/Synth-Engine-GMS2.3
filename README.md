@@ -38,3 +38,25 @@ the string step.
 Further comments on how the code works can be found in the scripts themselves.
 Don't forget to use the manual by pressing F1.
 Contact me on discord if you need further help Synthasmagoria#6751
+
+
+Changelog v097 (doesn't cover everything):
+- Added toggleable vsync
+- Added outside warp
+- Added mask rainbow
+- Added better coded cameras
+- Added utility scripts
+- Changed pause surface
+- Changed screenshot image naming
+- Added a new default tileset
+- All custom functions now have snake case names and no prefix
+	e.g. scr_PlayerJump -> player_jump
+- Blood is now a particle system and not an object using cpu drawing functions
+- Tried making saving functions more straightforward
+- Set global.save_number to 5
+- Added string saving functionality, use global.save_as_string
+- Rooms as now saved as strings
+- Pause surface now gets freed from memory
+- Formatted all scripts to the new GMS2.3 format
+- Gave player sounds player prefix
+- objCameraTrigger
