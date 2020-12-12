@@ -1,13 +1,18 @@
 ///@desc Player control
 
-if (!frozen) {
+var
+b_left = keyboard_check(global.button[BUTTON.LEFT]) * !frozen,
+b_right = keyboard_check(global.button[BUTTON.RIGHT]) * !frozen,
+b_jump = keyboard_check_pressed(global.button[BUTTON.JUMP]) * !frozen,
+b_fall = keyboard_check_released(global.button[BUTTON.JUMP]) * !frozen,
+b_shoot = keyboard_check_pressed(global.button[BUTTON.SHOOT]) * !frozen; 
 
 // Reset values
 hspeed = 0;
 situated = false;
 
 // Horizontal speed & orientation
-var orientation = keyboard_check(global.button[BUTTON.RIGHT]) - keyboard_check(global.button[BUTTON.LEFT]);
+var orientation = b_right - b_left;
 
 hspeed += hs_run * orientation;
 running = orientation != 0;
@@ -64,7 +69,7 @@ if (water) {
 #endregion
 
 #region Jump
-if (keyboard_check_pressed(global.button[BUTTON.JUMP])) {
+if (b_jump) {
 	if (situated || water_type == obj_Water1 || platform) {
 		djump_index = 0;
 		player_jump(vs_jump);
@@ -78,11 +83,11 @@ if (keyboard_check_pressed(global.button[BUTTON.JUMP])) {
 #endregion
 
 // Fall
-if (keyboard_check_released(global.button[BUTTON.JUMP]) && (vspeed < 0))
+if (b_fall && (vspeed < 0))
 	vspeed *= vs_fall;
 
 #region Shoot
-if (keyboard_check_pressed(global.button[BUTTON.SHOOT])) {
+if (b_shoot) {
 	player_shoot(facing, hs_bullet, 0, 0);
 	audio_play_sound(snd_PlayerShoot, 0, false);
 }
@@ -115,5 +120,3 @@ if (place_meeting(x + hspeed, y + vspeed, obj_Killer) || keyboard_check_pressed(
 	audio_play_sound(snd_PlayerDeath, 0, false);
 }
 #endregion
-
-} // frozen

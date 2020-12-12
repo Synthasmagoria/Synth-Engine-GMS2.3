@@ -160,7 +160,7 @@ function warp() {
 	var 
 	xx = 0,
 	yy = 0,
-	absolute = argument_count > 6 ? argument[7] : false;
+	absolute = argument_count > 6 ? argument[6] : false;
 	
 	if (absolute)
 	{
@@ -180,8 +180,8 @@ function warp() {
 	}
 
 	// Destroy/move
-	var destroy = argument_count > 5 ? argument[6] : false;
-	var keep = argument_count > 4 ? argument[5] : true;
+	var destroy = argument_count > 5 ? argument[5] : false;
+	var keep = argument_count > 4 ? argument[4] : true;
 
 	if (destroy)
 	{
@@ -199,7 +199,7 @@ function warp() {
 	}
 
 	// Warp
-	room_goto(r);
+	room_goto(argument[0]);
 }
 
 ///@desc Creates a surface and clears it with the specified color
