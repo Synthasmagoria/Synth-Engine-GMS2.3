@@ -60,3 +60,12 @@ Changelog v097 (doesn't cover everything):
 - Formatted all scripts to the new GMS2.3 format
 - Gave player sounds player prefix
 - objCameraTrigger
+
+v100:
+- Removed audiogroup macros
+- Fixed a bug that involved unnecessarily setting the window size when going out of fullscreen
+- Removed unnecessary parameter in player_jump
+- Added vines
+- Changed the way the player's maximum speed is handled
+- Secondary jumps now referred to as 'airjumps'
+- Water1 now refreshes airjumps (oops)
