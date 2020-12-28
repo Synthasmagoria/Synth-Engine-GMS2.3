@@ -4,6 +4,7 @@ var
 b_left = keyboard_check(global.button[BUTTON.LEFT]) * !frozen,
 b_right = keyboard_check(global.button[BUTTON.RIGHT]) * !frozen,
 b_jump = keyboard_check_pressed(global.button[BUTTON.JUMP]) * !frozen,
+b_jump_hold = keyboard_check(global.button[BUTTON.JUMP]) * !frozen,
 b_fall = keyboard_check_released(global.button[BUTTON.JUMP]) * !frozen,
 b_shoot = keyboard_check_pressed(global.button[BUTTON.SHOOT]) * !frozen; 
 
@@ -47,37 +48,64 @@ if (platform) {
 }
 #endregion
 
-// Vertical gravity
-vspeed = min(vspeed + vs_gravity, vs_max);
+vs_max = vs_max_air;
 
-// Check for blocks
-situated |= player_situated();
+#region Vines
+var
+vl = place_meeting(x - 1, y, obj_Vine),
+vr = place_meeting(x + 1, y, obj_Vine);
+on_vine = vl || vr;
 
-// refresh secondary jumps
-djump_index *= !situated;
+if (on_vine) {
+	vs_max = vs_max_vine;
+	vspeed = max(vspeed, 0);
+	
+	if (((vl && orientation == 1) || (vr && orientation == -1)) &&
+		!place_meeting(x + vine_jumpaway * orientation, y + vs_jump, obj_Block) &&
+		b_jump_hold) {
+		hspeed = vine_jumpaway * orientation;
+		player_jump(vs_jump);
+		audio_play_sound(snd_PlayerVineJump, 0, false);
+		on_vine = false;
+	}
+}
+#endregion
 
 #region Water
 var water, water_type;
 water = instance_place(x, y, obj_Water);
 
 if (water) {
-	vspeed = min(vspeed, vs_water);
+	vs_max = vs_max_water;
 	water_type = water.object_index;
+	
+	// Refresh airjumps when touching water 1
+	if (water_type == obj_Water1)
+		airjump_index = 0;
 } else {
 	water_type = -1;
 }
 #endregion
 
+// Vertical gravity
+vspeed = min(vspeed + vs_gravity, vs_max);
+
+// Check for blocks
+situated |= player_situated();
+
+// refresh airjumps
+airjump_index *= !situated;
+
 #region Jump
 if (b_jump) {
 	if (situated || water_type == obj_Water1 || platform) {
-		djump_index = 0;
+		airjump_index = 0;
 		player_jump(vs_jump);
 		audio_play_sound(snd_PlayerJump, 0, false);
-	} else if (djump_index < djump_number || water_type == obj_Water2) {
-		djump_index++;
-		player_jump(vs_djump);
-		audio_play_sound(snd_PlayerDjump, 0, false);
+	} else if (airjump_index < airjump_number || water_type == obj_Water2) {
+		airjump_index++;
+		player_jump(vs_airjump);
+		audio_play_sound(snd_PlayerAirjump, 0, false);
 	}
 }
 #endregion

@@ -20,9 +20,8 @@ function player_valign(block_id) {
 
 ///@func				player_jump(vspd, snd)
 ///@arg {real} vspd		Vertical speed of the jump
-///@arg {real} [snd]	Sound of the jump
 ///@desc				Sets the vspeed and plays a sound
-function player_jump(vs, snd) {
+function player_jump(vs) {
 	vspeed = vs;
 	situated = false;
 }

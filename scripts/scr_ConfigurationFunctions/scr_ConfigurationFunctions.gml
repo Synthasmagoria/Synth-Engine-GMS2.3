@@ -14,7 +14,6 @@ function setting_set(setting_index, value) {
 			window_set_position(display_get_width() / 2 - GAME_WIDTH / 2, display_get_height() / 2 - GAME_HEIGHT / 2);
 		} else {
 			var w = GAME_WIDTH * global.setting[SETTING.SCALE], h = GAME_HEIGHT * global.setting[SETTING.SCALE];
-			window_set_size(w, h);
 			window_set_position(display_get_width() / 2 - w / 2, display_get_height() / 2 - h / 2);
 		}
 		break;
@@ -27,8 +26,8 @@ function setting_set(setting_index, value) {
 		case SETTING.SCALE:
 		global.setting[setting_index] = value;
 		var w = GAME_WIDTH * value, h = GAME_HEIGHT * value;
-		window_set_size(w, h);
 		window_set_position(display_get_width() / 2 - w / 2, display_get_height() / 2 - h / 2);
+		window_set_size(w, h);
 		break;
 	
 		case SETTING.FRAMERATE:
@@ -57,12 +56,12 @@ function setting_set(setting_index, value) {
 	
 		case SETTING.MUSIC:
 		global.setting[setting_index] = clamp(value, 0, 1);
-		audio_group_set_gain(AUDIOGROUP_MUSIC, global.setting[setting_index], 0);
+		audio_group_set_gain(audiogroup_default, global.setting[setting_index], 0);
 		break;
 	
 		case SETTING.SOUND:
 		global.setting[setting_index] = clamp(value, 0, 1);
-		audio_group_set_gain(AUDIOGROUP_SOUND, global.setting[setting_index], 0);
+		audio_group_set_gain(audiogroup_sound, global.setting[setting_index], 0);
 		break;
 	
 		case SETTING.VSYNC:
@@ -71,6 +70,7 @@ function setting_set(setting_index, value) {
 			display_set_timing_method(tm_countvsyncs);
 		else
 			display_set_timing_method(tm_sleep);
+		break;
 	
 		default: // exit the script is non-existant setting value is passed
 		exit;

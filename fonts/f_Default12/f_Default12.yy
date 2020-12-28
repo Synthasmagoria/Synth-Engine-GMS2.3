@@ -127,8 +127,8 @@
   "canGenerateBitmap": true,
   "maintainGms1Font": false,
   "parent": {
-    "name": "Synth Engine v097",
-    "path": "Synth Engine v097.yyp",
+    "name": "Synth-Engine-GMS2.3",
+    "path": "Synth-Engine-GMS2.3.yyp",
   },
   "resourceVersion": "1.0",
   "name": "f_Default12",

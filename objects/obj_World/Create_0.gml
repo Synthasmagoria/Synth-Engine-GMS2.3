@@ -9,13 +9,9 @@ if (instance_number(object_index) > 1) {
 // Randomize
 randomize();
 
-// Set audio group macros
-#macro AUDIOGROUP_MUSIC audiogroup_default
-#macro AUDIOGROUP_SOUND audiogroup_sound
-
-// Initialize sound effects
-if (!audio_group_is_loaded(AUDIOGROUP_SOUND)) 
-	audio_group_load(AUDIOGROUP_SOUND);
+// Load sound effect audio group (audiogroup_default is for music)
+if (!audio_group_is_loaded(audiogroup_sound)) 
+	audio_group_load(audiogroup_sound);
 
 // Set config file macros
 #macro CONFIG_FILENAME "config.ini"
@@ -31,7 +27,7 @@ global.debug_save_button = vk_home;
 global.debug_warp_button = vk_delete;
 global.debug_text = "DEBUG";
 
-// Set game macros
+// Set game macros	
 #macro GAME_WIDTH 800
 #macro GAME_HEIGHT 608
 

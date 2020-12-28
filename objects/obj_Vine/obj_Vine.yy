@@ -1,5 +1,8 @@
 {
-  "spriteId": null,
+  "spriteId": {
+    "name": "spr_vine",
+    "path": "sprites/spr_vine/spr_vine.yy",
+  },
   "solid": false,
   "visible": true,
   "spriteMaskId": null,
@@ -21,11 +24,11 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Killers",
-    "path": "folders/Objects/Killers.yy",
+    "name": "Misc",
+    "path": "folders/Objects/Misc.yy",
   },
   "resourceVersion": "1.0",
-  "name": "obj_SpikeUp16px",
+  "name": "obj_Vine",
   "tags": [],
   "resourceType": "GMObject",
 }

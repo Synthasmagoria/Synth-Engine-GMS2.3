@@ -10,14 +10,14 @@
     "name": "audiogroup_sound",
     "path": "audiogroups/audiogroup_sound",
   },
-  "soundFile": "snd_PlayerDjump",
-  "duration": 0.10949,
+  "soundFile": "snd_PlayerVineJump.wav",
+  "duration": 0.17915,
   "parent": {
     "name": "Sound Effects",
     "path": "folders/Sounds/Sound Effects.yy",
   },
   "resourceVersion": "1.0",
-  "name": "snd_PlayerDjump",
+  "name": "snd_PlayerVineJump",
   "tags": [],
   "resourceType": "GMSound",
 }
