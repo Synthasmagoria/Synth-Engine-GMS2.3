@@ -43,9 +43,8 @@ function savedata_load() {
 	savedata_start_game(true);
 }
 
-///@func		savedata_new_game(save_index)
+///@func		savedata_new_game()
 ///@desc		Sets global.save and global.save_active to default values
-///@arg {real}	save_index
 function savedata_new_game() {
 
 	for (var i = 0; i < SAVE.NUMBER; i++) {
@@ -56,8 +55,8 @@ function savedata_new_game() {
 	savedata_start_game(false);
 }
 
-///@func					savedata_read(save_index)
-///@desc					Reads values from save file of the set index
+///@func	savedata_read()
+///@desc	Reads values from save file of the set index
 function savedata_read() {
 
 	var savename = savedata_get_savename();
@@ -132,7 +131,7 @@ function savedata_start_game(spawn_player) {
 	global.game_playing = true;
 }
 
-///@func			savedata_write(save_index)
+///@func			savedata_write()
 ///@desc			Writes save values in global.save to file of the set index
 function savedata_write() {
 
@@ -150,23 +149,20 @@ function savedata_write() {
 	file_text_close(f);
 }
 
-///@func		savedata_get_savename(save_index)
+///@func		savedata_get_savename()
 ///@desc		Gets the name of a save file
-///@arg {real}	save_index
 function savedata_get_savename() {
 	return string(global.save_index);	
 }
 
-///@func		savedata_exists(save_index)
+///@func		savedata_exists()
 ///@desc		Checks if a save file exists
-///@arg {real}	save_index
 function savedata_exists() {
 	return file_exists(savedata_get_savename());	
 }
 
-///@func		savedata_is_read(save_index)
+///@func		savedata_is_read()
 ///@desc		Checks if the data of the save index has been read
-///@arg {real}	save_index
 function savedata_is_read() {
 	return global.save_is_read;	
 }

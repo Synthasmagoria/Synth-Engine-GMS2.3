@@ -1,1 +1,1 @@
-hspeed = 2;
+hspeed = 2 * global.fps_calculation;

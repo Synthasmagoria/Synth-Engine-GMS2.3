@@ -14,8 +14,8 @@ draw_sprite_ext(
 	image_index,
 	floor(x), 
 	y,
-	facing,
-	1,
-	0,
-	c_white,
-	1.0);
+	image_xscale * facing,
+	image_yscale,
+	image_angle,
+	image_blend,
+	image_alpha);
