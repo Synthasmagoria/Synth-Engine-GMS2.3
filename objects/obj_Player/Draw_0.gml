@@ -1,21 +1,18 @@
-///@desc Player animation
 
-if (situated)
-	sprite_index = running ? spr_PlayerRun : spr_PlayerIdle;
-else
-	if (on_vine)
-		sprite_index = spr_PlayerSlide;
+if (situated) {
+	if (running)
+		sprite_index = spr_PlayerRun;
 	else
-		sprite_index = vspeed < 0 ? spr_PlayerJump : spr_PlayerFall;
+		sprite_index = spr_PlayerIdle;
+} else {
+	if (grav_spd > 0.0)
+		sprite_index = spr_PlayerJump;
+	else
+		sprite_index = spr_PlayerFall;
+}
 
+image_xscale = abs(image_xscale) * facing;
 
-draw_sprite_ext(
-	sprite_index,
-	image_index,
-	floor(x), 
-	y,
-	image_xscale * facing,
-	image_yscale,
-	image_angle,
-	image_blend,
-	image_alpha);
+draw_self();
+
+draw_text_outline(x, y, "grav dir: " + string(grav_dir), c_black);

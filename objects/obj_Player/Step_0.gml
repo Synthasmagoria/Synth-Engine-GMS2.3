@@ -1,156 +1,126 @@
-///@desc Player control
+///@desc Control & movement
 
 var
-b_left = keyboard_check(g.button[BUTTON.LEFT]) * !frozen,
-b_right = keyboard_check(g.button[BUTTON.RIGHT]) * !frozen,
-b_jump = keyboard_check_pressed(g.button[BUTTON.JUMP]) * !frozen,
-b_jump_hold = keyboard_check(g.button[BUTTON.JUMP]) * !frozen,
-b_fall = keyboard_check_released(g.button[BUTTON.JUMP]) * !frozen,
-b_shoot = keyboard_check_pressed(g.button[BUTTON.SHOOT]) * !frozen; 
+_bLeft = keyboard_check(g.button[BUTTON.LEFT]),
+_bRight = keyboard_check(g.button[BUTTON.RIGHT]),
+_bDir;
 
-// Reset values
-hspeed = 0;
-situated = false;
-
-// Horizontal speed & orientation
-var orientation = b_right - b_left;
-
-hspeed += hs_run * orientation;
-running = orientation != 0;
-facing = running ? orientation : facing;
-
-#region Platforms
-var platform = collision_rectangle(
-	bbox_left,
-	bbox_top,
-	bbox_right,
-	bbox_bottom + max(vspeed, 1) + frac(y),
-	obj_Platform,
-	false,
-	false
-);
-
-if (platform) {
-	
-	with (platform)
-		event_user(0);
-	
-	hspeed += platform.hspeed;
-	
-	if (y < platform.y && 
-		!(bbox_bottom < platform.y && vspeed < platform.vspeed) &&
-		!place_meeting(x, platform.y - HITBOX_Y2 - 1, obj_Block)
-	) {
-		y = platform.y - HITBOX_Y2 - 1;
-		vspeed = platform.vspeed;
-		situated = true;
-	}
+// Check if standing on block
+if (place_meeting(x + vertical_normal.x, y + vertical_normal.y, obj_Block))
+{
+	situated = true;
+	airjump_index = 0;
 }
-#endregion
-
-vs_max = vs_max_air;
-
-#region Vines
-var
-vl = place_meeting(x - 1, y, obj_Vine),
-vr = place_meeting(x + 1, y, obj_Vine);
-on_vine = vl || vr;
-
-if (on_vine) {
-	vs_max = vs_max_vine;
-	vspeed = max(vspeed, 0);
-	
-	if (((vl && orientation == 1) || (vr && orientation == -1)) &&
-		!place_meeting(x + vine_jumpaway * orientation, y + vs_jump, obj_Block) &&
-		b_jump_hold) {
-		hspeed = vine_jumpaway * orientation;
-		player_jump(vs_jump);
-		audio_play_sound(snd_PlayerVineJump, 0, false);
-		on_vine = false;
-	}
+else
+{
+	situated = false;
 }
-#endregion
 
-#region Water
-var water, water_type;
-water = instance_place(x, y, obj_Water);
-
-if (water) {
-	vs_max = vs_max_water;
-	water_type = water.object_index;
-	
-	// Refresh airjumps when touching water 1
-	if (water_type == obj_Water1)
-		airjump_index = 0;
-} else {
-	water_type = -1;
+var _gravArrow = instance_place(x, y, obj_GravityArrow);
+if (_gravArrow)
+{
+	player_set_gravity_direction(_gravArrow.image_angle);
 }
-#endregion
 
-#region Gravity
-var gravity_arrow = instance_place(x + hspeed, y + vspeed, obj_GravityArrow);
-if (gravity_arrow) {
-	image_angle = gravity_arrow.image_angle;
-	gravity_direction = gravity_arrow.image_angle;
+// Speed calculations
+if (grav_dir > 0 && grav_dir <= 180)
+	_bDir = _bLeft - _bRight;
+else
+	_bDir = _bRight - _bLeft;
+
+if (_bDir != 0)
+{
+	facing = _bDir;
+	running = true;
 }
-#endregion
+else
+{
+	running = false;
+}
 
-// Vertical gravity
-vspeed = min(vspeed + vs_gravity, vs_max);
+var _runSpeed = new vec2(
+	lengthdir_x(run_speed, grav_dir + 90) * _bDir,
+	lengthdir_y(run_speed, grav_dir + 90) * _bDir);
 
-// Check for blocks
-situated |= player_situated();
+// Apply gravity
+grav_spd = min(grav_spd + grav, grav_spd_max);
 
-// refresh airjumps
-airjump_index *= !situated;
-
-#region Jump
-if (b_jump) {
-	if (situated || water_type == obj_Water1 || platform) {
-		airjump_index = 0;
-		player_jump(vs_jump);
+if (keyboard_check_pressed(g.button[BUTTON.JUMP]))
+{
+	if (situated)
+	{
+		grav_spd = -jump_speed;
 		audio_play_sound(snd_PlayerJump, 0, false);
-	} else if (airjump_index < airjump_number || water_type == obj_Water2) {
+	}
+	else if (airjump_index < airjump_number)
+	{
+		grav_spd = -airjump_speed;
 		airjump_index++;
-		player_jump(vs_airjump);
 		audio_play_sound(snd_PlayerAirjump, 0, false);
 	}
 }
-#endregion
 
-// Fall
-if (b_fall && (vspeed < 0))
-	vspeed *= vs_fall;
+if (keyboard_check_released(g.button[BUTTON.JUMP]) && grav_spd < 0.0)
+	grav_spd *= fall_multiplier;
 
-#region Shoot
-if (b_shoot) {
-	player_shoot(facing, hs_bullet, 0, 0);
-	audio_play_sound(snd_PlayerShoot, 0, false);
-}
-#endregion
+// Gravity influenced speed calculations
+var _gravSpeed = new vec2(
+	lengthdir_x(grav_spd, grav_dir),
+	lengthdir_y(grav_spd, grav_dir))
 
-#region Block
-if (place_meeting(x + hspeed, y + vspeed, obj_Block)) {
-	while (place_meeting(x + hspeed, y, obj_Block) && hspeed != 0.0) {
-		hspeed = approach(hspeed, 0, 1);
+var _totalSpeed = new vec2(
+	_gravSpeed.x + _runSpeed.x,
+	_gravSpeed.y + _runSpeed.y);
+
+// Block collisions
+if (place_meeting(x + _totalSpeed.x, y + _totalSpeed.y, obj_Block))
+{
+	var _colStep;
+	
+	// Horizontal collision
+	if (_runSpeed.length() != 0 &&
+		place_meeting(x + _runSpeed.x, y + _runSpeed.y, obj_Block))
+	{
+		_colStep = _runSpeed.normalize();
+		_colStep.x *= sign(_runSpeed.x);
+		_colStep.y *= sign(_runSpeed.y);
+	
+		show_debug_message(_colStep);
+		while (!place_meeting(x + _colStep.x, y + _colStep.y, obj_Block))
+		{
+			x += _colStep.x;
+			y += _colStep.y;
+		}
+	} 
+	else
+	{
+		x += _runSpeed.x;
+		y += _runSpeed.y;
 	}
 	
-	x += hspeed;
-	hspeed = 0;
-	
-	if (place_meeting(x, y + vspeed, obj_Block)) {
-		do {
-			vspeed = approach(vspeed, 0, 1);
-		} until (!place_meeting(x, y + vspeed, obj_Block) || vspeed == 0.0);
-		y += vspeed;
-		vspeed = 0;
+	// Vertical collision
+	if (_gravSpeed.length() != 0 &&
+		place_meeting(x + _gravSpeed.x, y + _gravSpeed.y, obj_Block))
+	{
+		_colStep = _gravSpeed.normalize();
+		_colStep.x *= sign(_gravSpeed.x);
+		_colStep.y *= sign(_gravSpeed.y);
+		
+		show_debug_message(_colStep);
+		while (!place_meeting(x + _colStep.x, y + _colStep.y, obj_Block))
+		{
+			x += _colStep.x;
+			y += _colStep.y;
+		}
+	}
+	else
+	{
+		x += _gravSpeed.x;
+		y += _gravSpeed.y;
 	}
 }
-#endregion
-
-#region Death
-if (place_meeting(x + hspeed, y + vspeed, obj_Killer) || keyboard_check_pressed(g.button[BUTTON.SUICIDE])) {
-	player_kill(self);
-	audio_play_sound(snd_PlayerDeath, 0, false);
+else
+{
+	x += _totalSpeed.x;
+	y += _totalSpeed.y;
 }
-#endregion

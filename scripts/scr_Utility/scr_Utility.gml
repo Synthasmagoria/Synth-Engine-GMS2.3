@@ -3,6 +3,38 @@
 	objects to work
 */
 
+///@function wrap(value, min, max)
+///@arg {real} value
+///@arg {real} min
+///@arg {real} max
+///@desc Returns the value wrapped, values over or under will be wrapped around
+function wrap(val, mn, mx) {
+	if (val mod 1 == 0)
+	{
+	    while (val > mx || val < mn)
+	    {
+	        if (val > mx)
+	            val += mn - mx - 1;
+	        else if (val < mn)
+	            val += mx - mn + 1;
+	    }
+	    return(val);
+	}
+	else
+	{
+	    var vOld = val + 1;
+	    while (val != vOld)
+	    {
+	        vOld = val;
+	        if (val < mn)
+	            val = mx - (mn - val);
+	        else if (val > mx)
+	            val = mn + (val - mx);
+	    }
+	    return(val);
+	}
+}
+
 ///@desc Maps a range of values to another range
 function map(val, src_min, src_max, dest_min, dest_max) {
 	return (val - src_min) / (src_max - src_min) * (dest_max - dest_min) + dest_min;

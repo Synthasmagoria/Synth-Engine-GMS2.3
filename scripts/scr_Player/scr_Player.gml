@@ -6,6 +6,21 @@ function player_jump(vs) {
 	situated = false;
 }
 
+///@func			player_set_gravity_direction(dir)
+///@arg {real} dir	Gravity direction
+///@desc			Safely sets the gravity direction of the player
+function player_set_gravity_direction(dir) {
+	grav_dir = dir;
+	image_angle = dir - 270;
+	
+	horizontal_normal = new vec2(
+		lengthdir_x(1, grav_dir + 90),
+		lengthdir_y(1, grav_dir + 90));
+	vertical_normal = new vec2(
+		lengthdir_x(1, grav_dir),
+		lengthdir_y(1, grav_dir));
+}
+
 ///@func					player_kill([inst/obj])
 ///@desc					Creates a gameover scenario
 ///@arg {real} inst/obj		The instance or object to kill
@@ -45,25 +60,27 @@ function player_spawn(xx, yy) {
 		obj_Player);
 }
 
-///@desc				Saving as done in obj_Save and adjacent objects
-///@func				scr_Save_Live([x], [y], [room])
-///@arg {real} [x]		x position to save
-///@arg {real} [y]		y position to save
-///@arg {real} [rot]	rotation to save
-///@arg {real} [room]	room to save
+///@desc					Saving as done in obj_Save and adjacent objects
+///@func					player_save([x], [y], [room])
+///@arg {real} [x]			x position to save
+///@arg {real} [y]			y position to save
+///@arg {real} [grav_dir]	rotation to save
+///@arg {real} [room]		room to save
 function player_save() {
 
 	if (argument_count >= 3)
 	{
 		g.save_active[SAVE.X] = argument[0];
 		g.save_active[SAVE.Y] = argument[1];
-		g.save_active[SAVE.ROTATION] = argument[2];
+		g.save_active[SAVE.GRAVITY_DIRECTION] = argument[2];
+		g.save_active[SAVE.FACING] = 1;
 	}
 	else
 	{
 		g.save_active[SAVE.X] = obj_Player.x;
 		g.save_active[SAVE.Y] = obj_Player.y;
-		g.save_active[SAVE.ROTATION] = obj_Player.image_angle;
+		g.save_active[SAVE.GRAVITY_DIRECTION] = obj_Player.grav_dir;
+		g.save_active[SAVE.FACING] = obj_Player.facing;
 	}
 
 	if (argument_count >= 4)

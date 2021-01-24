@@ -1,25 +1,23 @@
-///@desc Initialize
+///@desc init
 
-hs_run = 3 * g.fps_calculation;
-hs_bullet = 12 * g.fps_calculation;
+run_speed = 3 * g.fps_calculation;
+jump_speed = 8.4 * g.fps_calculation;
+fall_multiplier = 0.45;
 
-vs_max_air = 9.4 * g.fps_calculation;
-vs_max_water = 2.4 * g.fps_calculation;
-vs_max_vine = 2.4 * g.fps_calculation;
-vs_max = vs_max_air;
+horizontal_normal = new vec2(0.0, 0.0); // vector facing right
+vertical_normal = new vec2(0.0, 0.0); // vector facing the floor
 
-vs_gravity = 0.4 * g.fps_calculation_squared;
-vs_jump = -8.1 * g.fps_calculation;
-vs_airjump = -6.6 * g.fps_calculation;
-vs_fall = 0.45;
-
+airjump_speed = 7 * g.fps_calculation;
 airjump_number = 1;
 airjump_index = 0;
 
-on_vine = false;
-vine_jumpaway = 15;
+grav = 0.4 * g.fps_calculation_squared;
+grav_dir = 270;
+grav_spd = 0.0;
+grav_spd_max = 9.0 * g.fps_calculation;
 
-frozen = false;
 situated = false;
-running = false;
-facing = 1;
+facing = g.save_active[SAVE.FACING];
+running = true;
+
+player_set_gravity_direction(g.save_active[SAVE.GRAVITY_DIRECTION]);

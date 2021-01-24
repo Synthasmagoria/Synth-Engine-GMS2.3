@@ -84,7 +84,8 @@ enum SAVE { // Add new savable values here
 	DEATH,
 	TIME,
 	FLAG,
-	ROTATION,
+	GRAVITY_DIRECTION,
+	FACING,
 	NUMBER
 }
 
@@ -143,6 +144,8 @@ g.save_number = 5;
 // Default save values (used when starting a new game)
 g.save_default = array_create(SAVE.NUMBER);
 g.save_default[SAVE.ROOM] = "rm_Stage01";
+g.save_default[SAVE.FACING] = 1;
+g.save_default[SAVE.GRAVITY_DIRECTION] = 270;
 
 g.save_as_string = array_create(SAVE.NUMBER);
 g.save_as_string[SAVE.ROOM] = true;

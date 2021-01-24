@@ -1,0 +1,1 @@
+image_angle = wrap(image_angle, 0, 359);
