@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "spr_vine",
-    "path": "sprites/spr_vine/spr_vine.yy",
+    "name": "spr_Vine",
+    "path": "sprites/spr_Vine/spr_Vine.yy",
   },
   "solid": false,
   "visible": true,

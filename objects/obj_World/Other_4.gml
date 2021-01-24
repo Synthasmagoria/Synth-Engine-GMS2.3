@@ -4,7 +4,7 @@
 resetting_room = -1;
 
 // Clear blood particles
-part_particles_clear(global.player_blood_part_sys);
+part_particles_clear(g.player_blood_part_sys);
 
 // Set room music
 var mus;

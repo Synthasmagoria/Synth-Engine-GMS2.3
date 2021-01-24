@@ -1,12 +1,12 @@
 ///@desc Player control
 
 var
-b_left = keyboard_check(global.button[BUTTON.LEFT]) * !frozen,
-b_right = keyboard_check(global.button[BUTTON.RIGHT]) * !frozen,
-b_jump = keyboard_check_pressed(global.button[BUTTON.JUMP]) * !frozen,
-b_jump_hold = keyboard_check(global.button[BUTTON.JUMP]) * !frozen,
-b_fall = keyboard_check_released(global.button[BUTTON.JUMP]) * !frozen,
-b_shoot = keyboard_check_pressed(global.button[BUTTON.SHOOT]) * !frozen; 
+b_left = keyboard_check(g.button[BUTTON.LEFT]) * !frozen,
+b_right = keyboard_check(g.button[BUTTON.RIGHT]) * !frozen,
+b_jump = keyboard_check_pressed(g.button[BUTTON.JUMP]) * !frozen,
+b_jump_hold = keyboard_check(g.button[BUTTON.JUMP]) * !frozen,
+b_fall = keyboard_check_released(g.button[BUTTON.JUMP]) * !frozen,
+b_shoot = keyboard_check_pressed(g.button[BUTTON.SHOOT]) * !frozen; 
 
 // Reset values
 hspeed = 0;
@@ -87,6 +87,14 @@ if (water) {
 }
 #endregion
 
+#region Gravity
+var gravity_arrow = instance_place(x + hspeed, y + vspeed, obj_GravityArrow);
+if (gravity_arrow) {
+	image_angle = gravity_arrow.image_angle;
+	gravity_direction = gravity_arrow.image_angle;
+}
+#endregion
+
 // Vertical gravity
 vspeed = min(vspeed + vs_gravity, vs_max);
 
@@ -123,27 +131,25 @@ if (b_shoot) {
 
 #region Block
 if (place_meeting(x + hspeed, y + vspeed, obj_Block)) {
+	while (place_meeting(x + hspeed, y, obj_Block) && hspeed != 0.0) {
+		hspeed = approach(hspeed, 0, 1);
+	}
 	
-	var block;
-	
-	block = instance_place(x + hspeed, y, obj_Block);
-	if (block)
-		player_halign(block);
-	else
-		x += hspeed;	
-	
+	x += hspeed;
 	hspeed = 0;
 	
-	block = instance_place(x, y + vspeed, obj_Block);
-	if (block) {
-		player_valign(block);
+	if (place_meeting(x, y + vspeed, obj_Block)) {
+		do {
+			vspeed = approach(vspeed, 0, 1);
+		} until (!place_meeting(x, y + vspeed, obj_Block) || vspeed == 0.0);
+		y += vspeed;
 		vspeed = 0;
 	}
 }
 #endregion
 
 #region Death
-if (place_meeting(x + hspeed, y + vspeed, obj_Killer) || keyboard_check_pressed(global.button[BUTTON.SUICIDE])) {
+if (place_meeting(x + hspeed, y + vspeed, obj_Killer) || keyboard_check_pressed(g.button[BUTTON.SUICIDE])) {
 	player_kill(self);
 	audio_play_sound(snd_PlayerDeath, 0, false);
 }

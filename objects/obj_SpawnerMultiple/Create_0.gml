@@ -20,4 +20,4 @@ e.g. object = [obj_Platform, obj_SpikeUp, obj_Cherry];
 */
 
 // Do not set in creation code
-time_incr = 1 * global.fps_calculation;
+time_incr = 1 * g.fps_calculation;

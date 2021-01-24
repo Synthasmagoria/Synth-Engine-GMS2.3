@@ -1,6 +1,6 @@
 ///@desc Create pause surface
 
-if (global.game_paused && !surface_exists(pause_surface)) {
+if (g.game_paused && !surface_exists(pause_surface)) {
 		pause_surface = surface_create(GAME_WIDTH, GAME_HEIGHT);
 		
 		surface_copy(pause_surface, 0, 0, application_surface);
@@ -13,8 +13,8 @@ if (global.game_paused && !surface_exists(pause_surface)) {
 		draw_set_color(c_white);
 		draw_set_alpha(1.0);
 		
-		draw_text(0, 0, "DEATH: " + string(global.save_active[SAVE.DEATH]));
-		draw_text(0, 16, "TIME: " + time_to_string(global.save_active[SAVE.TIME]));
+		draw_text(0, 0, "DEATH: " + string(g.save_active[SAVE.DEATH]));
+		draw_text(0, 16, "TIME: " + time_to_string(g.save_active[SAVE.TIME]));
 		
 		draw_set_halign(fa_center);
 		draw_set_valign(fa_middle);

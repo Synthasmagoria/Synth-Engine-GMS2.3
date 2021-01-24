@@ -18,7 +18,7 @@ Remember to specify whether the new saved value is a string or not.w
 Index the arrays that are linked to saved values with the enum entry.
 
 e.g.
-global.save_as_string[SAVE.USERNAME] = true;
+g.save_as_string[SAVE.USERNAME] = true;
 
 Now you just need to define the behavior of the newly added button in
 whatever object will use it. And don't forget to make it remappable in

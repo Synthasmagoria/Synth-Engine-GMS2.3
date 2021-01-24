@@ -17,7 +17,7 @@ menu_sub_buttons = 5;
 option_index = 0;
 option_number = array_create(menu_number);
 option_number[menu_sub_main] = 4;
-option_number[menu_sub_save] = global.save_number;
+option_number[menu_sub_save] = g.save_number;
 option_number[menu_sub_start] = 2;
 option_number[menu_sub_overwrite] = 2;
 option_number[menu_sub_settings] = SETTING.NUMBER + 1;
@@ -61,7 +61,7 @@ option[menu_sub_main,0] = "Play";
 option[menu_sub_main,1] = "Settings";
 option[menu_sub_main,2] = "Buttons";
 option[menu_sub_main,3] = "Quit";
-for (var i = 0; i < global.save_number; i++) {
+for (var i = 0; i < g.save_number; i++) {
 	option[menu_sub_save,i] = "Save " + string(i+1);
 }
 option[menu_sub_start,0] = "Continue";
@@ -120,19 +120,19 @@ setting_scale_max = min(
 	floor(display_get_height() / GAME_HEIGHT * 2) / 2
 );
 
-while (setting_framerate[setting_framerate_index] < global.setting[SETTING.FRAMERATE]) {
+while (setting_framerate[setting_framerate_index] < g.setting[SETTING.FRAMERATE]) {
 	setting_framerate_index++;
 }
 
 // Button string array
 button = array_create(option_number[menu_sub_buttons], "");
 for (var i = 0; i < BUTTON.NUMBER; i++)
-	button[i] = button_to_string(global.button[i]);
+	button[i] = button_to_string(g.button[i]);
 
-button[10] = button_to_string(global.button_world[BUTTON_WORLD.MENU]);
-button[11] = button_to_string(global.button_world[BUTTON_WORLD.QUIT]);
-button[12] = button_to_string(global.button_world[BUTTON_WORLD.FULLSCREEN]);
-button[13] = button_to_string(global.button_world[BUTTON_WORLD.SCREENSHOT]);
+button[10] = button_to_string(g.button_world[BUTTON_WORLD.MENU]);
+button[11] = button_to_string(g.button_world[BUTTON_WORLD.QUIT]);
+button[12] = button_to_string(g.button_world[BUTTON_WORLD.FULLSCREEN]);
+button[13] = button_to_string(g.button_world[BUTTON_WORLD.SCREENSHOT]);
 #endregion
 
 // Get the maximum option width to draw the menu more easily

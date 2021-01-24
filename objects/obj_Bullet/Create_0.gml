@@ -1,2 +1,2 @@
 ///@desc Set speed
-hspeed = 12 * global.fps_calculation;
+hspeed = 12 * g.fps_calculation;

@@ -7,7 +7,7 @@ if (button_changing) {
 		
 		button_set(option_index, keyboard_lastkey);
 		for (var i = 0; i < BUTTON.NUMBER; i++) {
-			button[i] = button_to_string(global.button[i]);
+			button[i] = button_to_string(g.button[i]);
 		}
 		
 		var buttonWidth;
@@ -18,8 +18,8 @@ if (button_changing) {
 	
 	// Navigate menu
 	var buttonUp, buttonDown;
-	buttonUp = keyboard_check_pressed(global.button_menu[BUTTON_MENU.UP]);
-	buttonDown = keyboard_check_pressed(global.button_menu[BUTTON_MENU.DOWN]);
+	buttonUp = keyboard_check_pressed(g.button_menu[BUTTON_MENU.UP]);
+	buttonDown = keyboard_check_pressed(g.button_menu[BUTTON_MENU.DOWN]);
 	
 	if (buttonUp || buttonDown) {
 		option_index = option_index + buttonDown - buttonUp;
@@ -37,7 +37,7 @@ if (button_changing) {
 		}
 	}
 	
-	if (keyboard_check_pressed(global.button_menu[BUTTON_MENU.ACCEPT])) {
+	if (keyboard_check_pressed(g.button_menu[BUTTON_MENU.ACCEPT])) {
 		switch (menu_index) {
 			case menu_sub_main:
 			switch (option_index) {
@@ -108,15 +108,15 @@ if (button_changing) {
 			case menu_sub_settings:
 			switch (option_index) {
 				case 0: // toggle fullscreen
-				setting_set(SETTING.FULLSCREEN, !global.setting[SETTING.FULLSCREEN]);
+				setting_set(SETTING.FULLSCREEN, !g.setting[SETTING.FULLSCREEN]);
 				break;
 				
 				case 1: // toggle smoothing
-				setting_set(SETTING.SMOOTHING, !global.setting[SETTING.SMOOTHING]);
+				setting_set(SETTING.SMOOTHING, !g.setting[SETTING.SMOOTHING]);
 				break;
 				
 				case 6: // toggle vsync
-				setting_set(SETTING.VSYNC, !global.setting[SETTING.VSYNC]);
+				setting_set(SETTING.VSYNC, !g.setting[SETTING.VSYNC]);
 				break;
 				
 				case 7: // restore default settings
@@ -146,7 +146,7 @@ if (button_changing) {
 				case BUTTON.NUMBER: // restore default button configuration
 				button_set_default();
 				for (var i = 0; i < BUTTON.NUMBER; i++) {
-					button[i] = button_to_string(global.button[i]);
+					button[i] = button_to_string(g.button[i]);
 				}
 				break;
 			}
@@ -154,7 +154,7 @@ if (button_changing) {
 		}
 	}
 	
-	if (keyboard_check_pressed(global.button_menu[BUTTON_MENU.DECLINE])) {
+	if (keyboard_check_pressed(g.button_menu[BUTTON_MENU.DECLINE])) {
 		switch (menu_index) {
 			case menu_sub_save: // return to main menu from save select
 			menu_index = 0;
@@ -184,31 +184,31 @@ if (button_changing) {
 	}
 	
 	var buttonLeft, buttonRight;
-	buttonRight = keyboard_check_pressed(global.button_menu[BUTTON_MENU.RIGHT]);
-	buttonLeft = keyboard_check_pressed(global.button_menu[BUTTON_MENU.LEFT]);
+	buttonRight = keyboard_check_pressed(g.button_menu[BUTTON_MENU.RIGHT]);
+	buttonLeft = keyboard_check_pressed(g.button_menu[BUTTON_MENU.LEFT]);
 	
 	if (buttonLeft || buttonRight) {
 		if (menu_index == menu_sub_settings) {
 			switch (option_index) {
 				case 2: // set scale
-				setting_set(SETTING.SCALE, clamp(global.setting[SETTING.SCALE] + (buttonRight - buttonLeft) / 2, 1, setting_scale_max));
-				setting[SETTING.SCALE] = string(global.setting[SETTING.SCALE]) + "x";
+				setting_set(SETTING.SCALE, clamp(g.setting[SETTING.SCALE] + (buttonRight - buttonLeft) / 2, 1, setting_scale_max));
+				setting[SETTING.SCALE] = string(g.setting[SETTING.SCALE]) + "x";
 				break;
 				
 				case 3: // set framerate
 				setting_framerate_index = clamp(setting_framerate_index + buttonRight - buttonLeft, 0, setting_framerate_number - 1);
 				setting_set(SETTING.FRAMERATE, setting_framerate[setting_framerate_index]);
-				setting[SETTING.FRAMERATE] = string(global.setting[SETTING.FRAMERATE]);
+				setting[SETTING.FRAMERATE] = string(g.setting[SETTING.FRAMERATE]);
 				break;
 
 				case 4: // set music volume
-				setting_set(SETTING.MUSIC, global.setting[SETTING.MUSIC] + setting_music_change * (buttonRight - buttonLeft));
-				setting[SETTING.MUSIC] = string(global.setting[SETTING.MUSIC]);
+				setting_set(SETTING.MUSIC, g.setting[SETTING.MUSIC] + setting_music_change * (buttonRight - buttonLeft));
+				setting[SETTING.MUSIC] = string(g.setting[SETTING.MUSIC]);
 				break;
 				
 				case 5: // set sound effect volume
-				setting_set(SETTING.SOUND, global.setting[SETTING.SOUND] + setting_sound_change * (buttonRight - buttonLeft));
-				setting[SETTING.SOUND] = string(global.setting[SETTING.SOUND]);
+				setting_set(SETTING.SOUND, g.setting[SETTING.SOUND] + setting_sound_change * (buttonRight - buttonLeft));
+				setting[SETTING.SOUND] = string(g.setting[SETTING.SOUND]);
 				break;
 			}
 		}
