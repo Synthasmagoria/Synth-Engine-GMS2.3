@@ -60,7 +60,7 @@
     "eventStubScript": null,
     "parent": {"name":"spr_Block","path":"sprites/spr_Block/spr_Block.yy",},
     "resourceVersion": "1.3",
-    "name": "spr_Block",
+    "name": "",
     "tags": [],
     "resourceType": "GMSequence",
   },

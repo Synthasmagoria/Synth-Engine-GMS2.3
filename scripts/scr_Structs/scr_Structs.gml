@@ -1,11 +1,16 @@
 ///@func vec2(x, y)
-///@arg x
-///@arg y
+///@arg {real}	x
+///@arg {real}	y
 function vec2(_x, _y) constructor {
 	x = _x;
 	y = _y;
 	static length = function() {return sqrt(x * x + y * y);};
 	static set = function(_x, _y) {x = _x; y = _y;};
+	static normalize = function() {
+		var absolute = new vec2(abs(x), abs(y));
+		var longest = max(absolute.x, absolute.y);
+		return new vec2(absolute.x / longest, absolute.y / longest);
+	}
 }
 
 ///@func vec3(x, y, z)
