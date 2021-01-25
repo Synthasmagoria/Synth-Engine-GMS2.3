@@ -5,7 +5,7 @@ if (situated) {
 	else
 		sprite_index = spr_PlayerIdle;
 } else {
-	if (grav_spd > 0.0)
+	if (grav_spd < 0.0)
 		sprite_index = spr_PlayerJump;
 	else
 		sprite_index = spr_PlayerFall;

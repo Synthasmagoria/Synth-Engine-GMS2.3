@@ -38,9 +38,7 @@ else
 	running = false;
 }
 
-var _runSpeed = new vec2(
-	lengthdir_x(run_speed, grav_dir + 90) * _bDir,
-	lengthdir_y(run_speed, grav_dir + 90) * _bDir);
+var _runSpeed = horizontal_normal.mult(_bDir * run_speed);
 
 // Apply gravity
 grav_spd = min(grav_spd + grav, grav_spd_max);
@@ -64,9 +62,7 @@ if (keyboard_check_released(g.button[BUTTON.JUMP]) && grav_spd < 0.0)
 	grav_spd *= fall_multiplier;
 
 // Gravity influenced speed calculations
-var _gravSpeed = new vec2(
-	lengthdir_x(grav_spd, grav_dir),
-	lengthdir_y(grav_spd, grav_dir))
+var _gravSpeed = vertical_normal.mult(grav_spd);
 
 var _totalSpeed = new vec2(
 	_gravSpeed.x + _runSpeed.x,
@@ -81,11 +77,8 @@ if (place_meeting(x + _totalSpeed.x, y + _totalSpeed.y, obj_Block))
 	if (_runSpeed.length() != 0 &&
 		place_meeting(x + _runSpeed.x, y + _runSpeed.y, obj_Block))
 	{
-		_colStep = _runSpeed.normalize();
-		_colStep.x *= sign(_runSpeed.x);
-		_colStep.y *= sign(_runSpeed.y);
+		_colStep = _runSpeed.unit();
 	
-		show_debug_message(_colStep);
 		while (!place_meeting(x + _colStep.x, y + _colStep.y, obj_Block))
 		{
 			x += _colStep.x;
@@ -102,9 +95,7 @@ if (place_meeting(x + _totalSpeed.x, y + _totalSpeed.y, obj_Block))
 	if (_gravSpeed.length() != 0 &&
 		place_meeting(x + _gravSpeed.x, y + _gravSpeed.y, obj_Block))
 	{
-		_colStep = _gravSpeed.normalize();
-		_colStep.x *= sign(_gravSpeed.x);
-		_colStep.y *= sign(_gravSpeed.y);
+		_colStep = _gravSpeed.unit();
 		
 		show_debug_message(_colStep);
 		while (!place_meeting(x + _colStep.x, y + _colStep.y, obj_Block))

@@ -13,10 +13,10 @@ function player_set_gravity_direction(dir) {
 	grav_dir = dir;
 	image_angle = dir - 270;
 	
-	horizontal_normal = new vec2(
+	horizontal_normal.set(
 		lengthdir_x(1, grav_dir + 90),
 		lengthdir_y(1, grav_dir + 90));
-	vertical_normal = new vec2(
+	vertical_normal.set(
 		lengthdir_x(1, grav_dir),
 		lengthdir_y(1, grav_dir));
 }

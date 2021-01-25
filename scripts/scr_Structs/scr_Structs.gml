@@ -4,13 +4,22 @@
 function vec2(_x, _y) constructor {
 	x = _x;
 	y = _y;
-	static length = function() {return sqrt(x * x + y * y);};
+	static length = function() {return sqrt(sqr(x) + sqr(y));};
 	static set = function(_x, _y) {x = _x; y = _y;};
-	static normalize = function() {
-		var absolute = new vec2(abs(x), abs(y));
-		var longest = max(absolute.x, absolute.y);
-		return new vec2(absolute.x / longest, absolute.y / longest);
+	static normalize = function() { // Normalizes the vector
+		var _len = length();
+		if (_len > 0)
+			set(x / _len, y / _len)
+		else
+			set(0.0, 0.0);
 	}
+	static unit = function() { // Like normalize, returns the normalized vector
+		var _len = length();
+		if (_len > 0) {
+			return new vec2(x / _len, y / _len);
+		}
+	}
+	static mult = function(val) {return new vec2(x * val, y * val);}
 }
 
 ///@func vec3(x, y, z)
