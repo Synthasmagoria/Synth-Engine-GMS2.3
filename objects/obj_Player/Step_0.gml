@@ -22,12 +22,13 @@ if (_gravArrow)
 	player_set_gravity_direction(_gravArrow.image_angle);
 }
 
-// Speed calculations
+// Make controlling gravity a bit more intuitive
 if (grav_dir > 0 && grav_dir <= 180)
 	_bDir = _bLeft - _bRight;
 else
 	_bDir = _bRight - _bLeft;
 
+// 
 if (_bDir != 0)
 {
 	facing = _bDir;
@@ -74,12 +75,24 @@ if (place_meeting(x + _totalSpeed.x, y + _totalSpeed.y, obj_Block))
 	var _colStep;
 	
 	// Horizontal collision
-	if (_runSpeed.length() != 0 &&
+	if (_runSpeed.length() > 0 &&
 		place_meeting(x + _runSpeed.x, y + _runSpeed.y, obj_Block))
 	{
 		_colStep = _runSpeed.unit();
-	
 		while (!place_meeting(x + _colStep.x, y + _colStep.y, obj_Block))
+		{
+			x += _colStep.x;
+			y += _colStep.y;
+			_runSpeed.set(_runSpeed.x - _colStep.x, _runSpeed.y - _colStep.y);
+		}
+		
+		// Primitive 45 degree slope movement
+		var _length = _runSpeed.length();
+		_colStep.set(
+			lengthdir_x(_length, grav_dir + 135 * facing),
+			lengthdir_y(_length, grav_dir + 135 * facing));
+		
+		if (!place_meeting(x + _colStep.x, y + _colStep.y, obj_Block))
 		{
 			x += _colStep.x;
 			y += _colStep.y;
@@ -92,12 +105,10 @@ if (place_meeting(x + _totalSpeed.x, y + _totalSpeed.y, obj_Block))
 	}
 	
 	// Vertical collision
-	if (_gravSpeed.length() != 0 &&
+	if (_gravSpeed.length() > 0 &&
 		place_meeting(x + _gravSpeed.x, y + _gravSpeed.y, obj_Block))
 	{
 		_colStep = _gravSpeed.unit();
-		
-		show_debug_message(_colStep);
 		while (!place_meeting(x + _colStep.x, y + _colStep.y, obj_Block))
 		{
 			x += _colStep.x;
