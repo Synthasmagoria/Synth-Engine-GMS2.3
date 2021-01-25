@@ -9,7 +9,7 @@
     "name": "spr_PlayerMask",
     "path": "sprites/spr_PlayerMask/spr_PlayerMask.yy",
   },
-  "persistent": false,
+  "persistent": true,
   "parentObjectId": null,
   "physicsObject": false,
   "physicsSensor": false,

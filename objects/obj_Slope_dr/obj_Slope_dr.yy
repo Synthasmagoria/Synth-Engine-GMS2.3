@@ -8,8 +8,8 @@
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {
-    "name": "obj_Slope_Parent",
-    "path": "objects/obj_Slope_Parent/obj_Slope_Parent.yy",
+    "name": "obj_Slope",
+    "path": "objects/obj_Slope/obj_Slope.yy",
   },
   "physicsObject": false,
   "physicsSensor": false,

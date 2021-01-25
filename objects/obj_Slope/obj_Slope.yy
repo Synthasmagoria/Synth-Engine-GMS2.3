@@ -31,7 +31,7 @@
     "path": "folders/Objects/Block.yy",
   },
   "resourceVersion": "1.0",
-  "name": "obj_Slope_Parent",
+  "name": "obj_Slope",
   "tags": [],
   "resourceType": "GMObject",
 }

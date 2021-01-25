@@ -15,4 +15,4 @@ image_xscale = abs(image_xscale) * facing;
 
 draw_self();
 
-draw_text_outline(x, y, "grav dir: " + string(grav_dir), c_black);
+draw_text_outline(x, y, "on_slope: " + string(on_slope), c_black);

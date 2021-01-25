@@ -15,7 +15,7 @@ switch (room) {
 		break;
 	
 	default:			
-		mus = -1;		// Don't change the music
+		mus = mus_Useful;
 		break;
 }
 

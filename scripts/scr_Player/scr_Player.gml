@@ -6,6 +6,17 @@ function player_jump(vs) {
 	situated = false;
 }
 
+function move_contact_object(normal, distance, object) {
+	var step = min(distance, 1);
+	while (!place_meeting(x + normal.x * step, y + normal.y * step, object) && distance > 0)
+	{
+		x += normal.x * step;
+		y += normal.y * step;
+		distance--;
+		step = min(distance, 1);
+	}
+}
+
 ///@func			player_set_gravity_direction(dir)
 ///@arg {real} dir	Gravity direction
 ///@desc			Safely sets the gravity direction of the player
