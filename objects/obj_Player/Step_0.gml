@@ -10,6 +10,7 @@ if (place_meeting(x + vertical_normal.x, y + vertical_normal.y, obj_Block))
 {
 	situated = true;
 	airjump_index = 0;
+	grav_spd = 0;
 }
 else
 {
@@ -92,7 +93,9 @@ if (place_meeting(x + _totalSpeed.x, y + _totalSpeed.y, obj_Block))
 			lengthdir_x(_length, grav_dir + 135 * facing),
 			lengthdir_y(_length, grav_dir + 135 * facing));
 		
-		if (!place_meeting(x + _colStep.x, y + _colStep.y, obj_Block))
+		
+		
+		if (!place_meeting(x + _colStep.x - vertical_normal.x, y + _colStep.y - vertical_normal.y, obj_Block))
 		{
 			x += _colStep.x;
 			y += _colStep.y;
@@ -114,6 +117,8 @@ if (place_meeting(x + _totalSpeed.x, y + _totalSpeed.y, obj_Block))
 			x += _colStep.x;
 			y += _colStep.y;
 		}
+		
+		grav_spd = 0;
 	}
 	else
 	{

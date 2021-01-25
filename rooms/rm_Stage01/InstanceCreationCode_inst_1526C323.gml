@@ -1,1 +1,0 @@
-hspeed = 2 * g.fps_calculation;

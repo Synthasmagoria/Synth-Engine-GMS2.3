@@ -1,1 +1,0 @@
-flag_index = 0;

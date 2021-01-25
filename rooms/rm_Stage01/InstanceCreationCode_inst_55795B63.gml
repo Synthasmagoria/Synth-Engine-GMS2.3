@@ -1,1 +1,0 @@
-object = obj_PlatformTouch;
