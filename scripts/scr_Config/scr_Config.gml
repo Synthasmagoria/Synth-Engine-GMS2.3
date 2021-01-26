@@ -32,24 +32,24 @@ function setting_set(setting_index, value) {
 	
 		case SETTING.FRAMERATE:
 		g.setting[setting_index] = value;
-		g.fps_calculation = FPS_MULTIPLIER_CALCULATION;
-		g.fps_calculation_squared = FPS_MULTIPLIER_CALCULATION_SQUARED;
+		g.fps_adjust = FPS_MULTIPLIER_CALCULATION;
+		g.fps_adjust_squared = FPS_MULTIPLIER_CALCULATION_SQUARED;
 		game_set_speed(g.setting[setting_index], gamespeed_fps);
 		
 		#region Set blood particle variables
 		part_type_life(
 			g.player_blood_part,
-			g.player_blood_part_life / g.fps_calculation,
-			g.player_blood_part_life / g.fps_calculation);
+			g.player_blood_part_life / g.fps_adjust,
+			g.player_blood_part_life / g.fps_adjust);
 		part_type_speed(
 			g.player_blood_part,
 			0,
-			g.player_blood_part_speed  * g.fps_calculation,
+			g.player_blood_part_speed  * g.fps_adjust,
 			0,
 			0);
 		part_type_gravity(
 			g.player_blood_part,
-			g.player_blood_part_gravity * g.fps_calculation_squared,
+			g.player_blood_part_gravity * g.fps_adjust_squared,
 			270);
 		#endregion
 		break;

@@ -3,6 +3,23 @@
 	objects to work
 */
 
+///@func move_contact_object(normal, distance, object)
+///@arg {real} normal
+///@arg {real} distance
+///@arg {real} object
+///@desc Moves as close as possible to an object in a direction
+function move_contact_object(normal, distance, object) {
+	var step = min(distance, 1);
+	while (!place_meeting(x + normal.x * step, y + normal.y * step, object) && distance > 0)
+	{
+		distance -= step;
+		x += normal.x * step;
+		y += normal.y * step;
+		step = min(distance, 1);
+	}
+	return max(distance, 0);
+}
+
 ///@function wrap(value, min, max)
 ///@arg {real} value
 ///@arg {real} min

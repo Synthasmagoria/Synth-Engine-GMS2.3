@@ -6,8 +6,11 @@ _bRight = keyboard_check(g.button[BUTTON.RIGHT]),
 _bDir;
 
 // Check if standing on block
-var _blockCollision = place_meeting(x + vertical_normal.x, y + vertical_normal.y, obj_Block);
-on_slope = place_meeting(x + vertical_normal.x, y + vertical_normal.y, obj_Slope);
+var _blockCollision = place_meeting(x + down_vector.x, y + down_vector.y, obj_Block);
+on_slope = place_meeting(x + down_vector.x, y + down_vector.y, obj_Slope);
+
+if (keyboard_check_pressed(vk_space))
+	player_set_gravity_direction(grav_dir + 45);
 
 if (_blockCollision)
 {
@@ -50,9 +53,9 @@ var _horVelocity = _bDir * run_speed;
 // Vines
 if (!on_vine)
 {
-	var _vine = instance_place(x + horizontal_normal.x * facing, y + horizontal_normal.y * facing, obj_Vine)
+	var _vine = instance_place(x + right_vector.x * facing, y + right_vector.y * facing, obj_Vine)
 	
-	if (_vine && (grav_dir % 180) == (_vine.image_angle % 180))
+	if (_vine)
 	{
 		on_vine = true;
 		vine_direction = facing;
@@ -60,7 +63,7 @@ if (!on_vine)
 		grav_spd = max(0, grav_spd);
 	}
 }
-else if (on_vine && !place_meeting(x + horizontal_normal.x * _bDir, y + horizontal_normal.y * _bDir, obj_Vine))
+else if (on_vine && !place_meeting(x + right_vector.x * _bDir, y + right_vector.y * _bDir, obj_Vine))
 {
 	if (keyboard_check(g.button[BUTTON.JUMP]) && _bDir != vine_direction)
 	{
@@ -76,6 +79,7 @@ else if (on_vine && !place_meeting(x + horizontal_normal.x * _bDir, y + horizont
 // Apply gravity
 grav_spd = min(grav_spd + grav, grav_spd_max);
 
+// Jump
 if (keyboard_check_pressed(g.button[BUTTON.JUMP]))
 {
 	if (situated)
@@ -95,37 +99,68 @@ if (keyboard_check_pressed(g.button[BUTTON.JUMP]))
 if (keyboard_check_released(g.button[BUTTON.JUMP]) && grav_spd < 0.0)
 	grav_spd *= fall_multiplier;
 
-// Speed calculations
-var _horSpeed = horizontal_normal.mult(_horVelocity);
+// Shoot
+if (keyboard_check_pressed(g.button[BUTTON.SHOOT]))
+{
+	var _bullet = instance_create_depth(
+		x + 5 * image_xscale * facing,
+		y + -2 * image_yscale,
+		depth + 1,
+		obj_Bullet);
+	_bullet.hspeed = right_vector.x * facing * shot_speed;
+	_bullet.vspeed = right_vector.y * facing * shot_speed;
+}
 
-var _gravSpeed = vertical_normal.mult(grav_spd);
+// Speed calculations
+var _horSpeed = right_vector.mult(_horVelocity);
+
+var _verSpeed = down_vector.mult(grav_spd);
 
 var _totalSpeed = new vec2(
-	_gravSpeed.x + _horSpeed.x,
-	_gravSpeed.y + _horSpeed.y);
+	_verSpeed.x + _horSpeed.x,
+	_verSpeed.y + _horSpeed.y);
 
 // Block collisions
 if (place_meeting(x + _totalSpeed.x, y + _totalSpeed.y, obj_Block))
 {
+	var _runSpeedRemainder;
+	
+	// Horizontal collisions
 	if (place_meeting(x + _horSpeed.x, y + _horSpeed.y, obj_Block))
 	{
-		move_contact_object(horizontal_normal.mult(_bDir), run_speed, obj_Block);
+		_runSpeedRemainder = 
+			move_contact_object(right_vector.mult(_bDir), run_speed, obj_Block);
 	}
 	else
 	{
 		x += _horSpeed.x;
 		y += _horSpeed.y;
+		_runSpeedRemainder = 0;
 	}
 	
-	if (place_meeting(x + _gravSpeed.x, y + _gravSpeed.y, obj_Block))
+	// Vertical collisions
+	if (place_meeting(x + _verSpeed.x, y + _verSpeed.y, obj_Block))
 	{
-		move_contact_object(vertical_normal.mult(sign(grav_spd)), abs(grav_spd), obj_Block);
+		move_contact_object(down_vector.mult(sign(grav_spd)), abs(grav_spd), obj_Block);
 		grav_spd = 0;
 	}
 	else
 	{
-		x += _gravSpeed.x;
-		y += _gravSpeed.y;
+		x += _verSpeed.x;
+		y += _verSpeed.y;
+	}
+	
+	// Move up slopes
+	if (place_meeting(x + right_vector.x * _runSpeedRemainder, y + right_vector.y * _runSpeedRemainder, obj_Slope))
+	{
+		x += right_vector.x * _runSpeedRemainder;
+		y += right_vector.y * _runSpeedRemainder;
+		
+		while (place_meeting(x, y, obj_Block))
+		{
+			x -= down_vector.x;
+			y -= down_vector.y;
+		}
 	}
 }
 else

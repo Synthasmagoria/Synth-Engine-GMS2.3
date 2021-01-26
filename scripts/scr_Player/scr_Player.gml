@@ -6,28 +6,18 @@ function player_jump(vs) {
 	situated = false;
 }
 
-function move_contact_object(normal, distance, object) {
-	var step = min(distance, 1);
-	while (!place_meeting(x + normal.x * step, y + normal.y * step, object) && distance > 0)
-	{
-		x += normal.x * step;
-		y += normal.y * step;
-		distance--;
-		step = min(distance, 1);
-	}
-}
-
 ///@func			player_set_gravity_direction(dir)
 ///@arg {real} dir	Gravity direction
 ///@desc			Safely sets the gravity direction of the player
 function player_set_gravity_direction(dir) {
-	grav_dir = dir;
-	image_angle = dir - 270;
+	var _new_dir = wrap(dir, 0, 359);
+	grav_dir = _new_dir;
+	image_angle = _new_dir - 270;
 	
-	horizontal_normal.set(
+	right_vector.set(
 		lengthdir_x(1, grav_dir + 90),
 		lengthdir_y(1, grav_dir + 90));
-	vertical_normal.set(
+	down_vector.set(
 		lengthdir_x(1, grav_dir),
 		lengthdir_y(1, grav_dir));
 }
@@ -100,28 +90,6 @@ function player_save() {
 		g.save_active[SAVE.ROOM] = room_get_name(room);
 
 	savedata_save();
-}
-
-///@desc					Spawns a bullet traveling in a direction
-///@func					player_shoot(dir, spd, [xoffset], [yoffset])
-///@arg {real} dir			Direction to shoot in
-///@arg {real} spd			Speed of the bullet
-///@arg {real} [xoffset]	x offset of the bullet spawn
-///@arg {real} [yoffset]	y offset of the bullet spawn
-function player_shoot(dir, spd) {
-	var
-	xoffset = 5,
-	yoffset = -2;
-
-	if (argument_count > 2)
-	{
-		xoffset += argument[2];
-		yoffset += argument[3];
-	}
-
-	var bullet = instance_create_depth(x + xoffset * dir, y + yoffset, depth, obj_Bullet);
-	bullet.hspeed = spd * dir;
-	return bullet;
 }
 
 ///@func player_situated()

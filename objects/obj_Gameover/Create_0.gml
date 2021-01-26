@@ -4,4 +4,4 @@ x = GAME_WIDTH / 2;
 y = GAME_HEIGHT / 2;
 
 time = 0;
-offset = 50 / g.fps_calculation;
+offset = 50 / g.fps_adjust;
