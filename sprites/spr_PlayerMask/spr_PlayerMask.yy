@@ -55,7 +55,7 @@
     "backdropXOffset": 0.0,
     "backdropYOffset": 0.0,
     "xorigin": 5,
-    "yorigin": 11,
+    "yorigin": 12,
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_PlayerMask","path":"sprites/spr_PlayerMask/spr_PlayerMask.yy",},

@@ -16,10 +16,14 @@ if (keyboard_check_pressed(vk_space))
 	player_set_gravity_direction(grav_dir + 45);
 
 // 360 ad
-//_horVelocity += keyboard_check_pressed(ord("D")) - keyboard_check_pressed(ord("A"));
+_horVelocity += keyboard_check_pressed(ord("D")) - keyboard_check_pressed(ord("A"));
 
 // Check if standing on block
-var _blockCollision = place_meeting(x + down_vector.x, y + down_vector.y, obj_Block);
+var _blockCheckDistance = player_gravity_is_diagonal() ? 2 : 1;
+var _blockCollision = place_meeting(
+	x + down_vector.x * _blockCheckDistance,
+	y + down_vector.y * _blockCheckDistance,
+	obj_Block);
 
 if (_blockCollision)
 {
@@ -57,8 +61,8 @@ else
 	running = false;
 }
 
-if (keyboard_check_pressed(ord("D")))
-	facing *= -1;
+/*if (keyboard_check_pressed(ord("D")))
+	facing *= -1;*/
 
 /*if (facing == -1)
 	image_angle = grav_dir - 315 - 180;
@@ -168,69 +172,62 @@ if (keyboard_check_pressed(g.button[BUTTON.SHOOT]))
 	_bullet.vspeed = right_vector.y * facing * shot_speed;
 }
 
-// Speed calculations
-var _hDir = sign(_horVelocity);
-
-var _horSpeed = right_vector.mult(_horVelocity);
-
-var _verSpeed = down_vector.mult(grav_spd);
-
-var _totalSpeed = new vec2(
-	_verSpeed.x + _horSpeed.x,
-	_verSpeed.y + _horSpeed.y);
-
-total_speed = _totalSpeed;
-
 // Block collisions
-if (place_meeting(x + _totalSpeed.x, y + _totalSpeed.y, obj_Block))
+if (!player_gravity_is_diagonal())
 {
-	
-	if (place_meeting(
-		x + _horSpeed.x	+ right_vector.x * _hDir * player_gravity_is_diagonal(),
-		y + _horSpeed.y	+ right_vector.y * _hDir * player_gravity_is_diagonal(),
-		obj_Block))
-	{
-		while (!place_meeting(
-			x + right_vector.x * _hDir * (1 + player_gravity_is_diagonal()),
-			y + right_vector.y * _hDir * (1 + player_gravity_is_diagonal()),
-			obj_Block))
-		{
-			x += right_vector.x * _hDir;
-			y += right_vector.y * _hDir;
-		}
-	}
-	else
-	{
-		x += _horSpeed.x;
-		y += _horSpeed.y;
-	}
-	
-	// Vertical collisions
-	if (place_meeting(
-		x + _verSpeed.x,
-		y + _verSpeed.y,
-		obj_Block))
-	{
-		var _vDir = sign(grav_spd);
+	var _horSpeed = right_vector.mult(_horVelocity);
+
+	var _verSpeed = down_vector.mult(grav_spd);
+
+	var _totalSpeed = new vec2(
+		_verSpeed.x + _horSpeed.x,
+		_verSpeed.y + _horSpeed.y);
 		
-		while (!place_meeting(
-			x + down_vector.x * _vDir * (1 + player_gravity_is_diagonal()),
-			y + down_vector.y * _vDir * (1 + player_gravity_is_diagonal()),
-			obj_Block))
-		{
-			x += down_vector.x * _vDir;
-			y += down_vector.y * _vDir;
+	if (place_meeting(x + _totalSpeed.x, y + _totalSpeed.y, obj_Block)) {
+		if (place_meeting(x + _horSpeed.x, y + _horSpeed.y, obj_Block)) {
+			move_contact_object(right_vector.mult(sign(_horVelocity)), abs(_horVelocity), obj_Block);
+		} else {
+			x += _horSpeed.x;
+			y += _horSpeed.y;
 		}
+		
+		if (place_meeting(x + _verSpeed.x, y + _verSpeed.y, obj_Block)) {
+			move_contact_object(down_vector.mult(sign(grav_spd)), abs(grav_spd), obj_Block);
+			grav_spd = 0;
+		} else {
+			x += _verSpeed.x;
+			y += _verSpeed.y;
+		}
+	} else {
+		x += _totalSpeed.x;
+		y += _totalSpeed.y;
+	}
+} else {
+	// Diagonal horizontal collisions
+	var
+	_dir = sign(_horVelocity),
+	_dist = abs(_horVelocity),
+	_step = min(1, _dist);
+	
+	while (!place_meeting(x + right_vector.x * _dir * (_step + 0.5), y + right_vector.y * _dir * (_step + 0.5), obj_Block) && _dist > 0) {
+		x += right_vector.x * _dir;
+		y += right_vector.y * _dir;
+		_dist -= _step;
+		_step = min(1, _dist);
+	}
+	
+	// Diagonal vertical collisions
+	_dir = sign(grav_spd);
+	_dist = abs(grav_spd);
+	_step = min(1, _dist);
+	
+	while (!place_meeting(x + down_vector.x * _dir, y + down_vector.y * _dir, obj_Block) && _dist > 0) {
+		x += down_vector.x * _dir;
+		y += down_vector.y * _dir;
+		_dist -= _step;
+		_step = min(1, _dist);
+	}
+	
+	if (_dist > 0)
 		grav_spd = 0;
-	}
-	else
-	{
-		x += _verSpeed.x;
-		y += _verSpeed.y;
-	}
-}
-else
-{
-	x += _totalSpeed.x;
-	y += _totalSpeed.y;
 }

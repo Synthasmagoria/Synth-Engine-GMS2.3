@@ -7,7 +7,6 @@
     {"id":{"name":"spr_Block_Slope_dr","path":"sprites/spr_Block_Slope_dr/spr_Block_Slope_dr.yy",},"order":5,},
     {"id":{"name":"obj_PlayerStartSave","path":"objects/obj_PlayerStartSave/obj_PlayerStartSave.yy",},"order":5,},
     {"id":{"name":"obj_Block16px","path":"objects/obj_Block16px/obj_Block16px.yy",},"order":1,},
-    {"id":{"name":"spr_PlayerMaskDiagonal","path":"sprites/spr_PlayerMaskDiagonal/spr_PlayerMaskDiagonal.yy",},"order":11,},
     {"id":{"name":"obj_Block24px","path":"objects/obj_Block24px/obj_Block24px.yy",},"order":2,},
     {"id":{"name":"obj_Slope_ur","path":"objects/obj_Slope_ur/obj_Slope_ur.yy",},"order":8,},
     {"id":{"name":"obj_BloodEmitter","path":"objects/obj_BloodEmitter/obj_BloodEmitter.yy",},"order":0,},

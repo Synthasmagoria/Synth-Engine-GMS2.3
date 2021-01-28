@@ -24,6 +24,4 @@ draw_sprite_ext(
 	image_blend,
 	image_alpha);
 
-draw_sprite_ext(mask_index, 0, x, y, image_xscale, image_yscale, image_angle, image_blend, 0.5);
-
-draw_line(x, y, x + total_speed.x * 4, y + total_speed.y * 4);
+ draw_sprite_ext(mask_index, 0, x, y, image_xscale, image_yscale, image_angle, image_blend, 0.5);
