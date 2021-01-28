@@ -6,13 +6,28 @@ function player_jump(vs) {
 	situated = false;
 }
 
+///@func			player_gravity_compatible(inst)
+///@arg {real} inst Instance to check
+///@desc
+/*
+	This function assumes that the object you're checking agains has a default
+	image_angle that is compatible with gravity direction 270
+*/
+function player_gravity_compatible(inst) {
+	return grav_dir == wrap(inst.image_angle + 270, 0, 359);
+}
+
+///@func
+function player_gravity_is_diagonal() {
+	return frac(grav_dir / 90) != 0
+}
+
 ///@func			player_set_gravity_direction(dir)
 ///@arg {real} dir	Gravity direction
 ///@desc			Safely sets the gravity direction of the player
 function player_set_gravity_direction(dir) {
-	var _new_dir = wrap(dir, 0, 359);
-	grav_dir = _new_dir;
-	image_angle = _new_dir - 270;
+	grav_dir = wrap(dir, 0, 359);
+	image_angle = grav_dir - 270;
 	
 	right_vector.set(
 		lengthdir_x(1, grav_dir + 90),

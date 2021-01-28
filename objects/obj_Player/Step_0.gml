@@ -1,16 +1,25 @@
 ///@desc Control & movement
 
+// Apply gravity
+grav_spd = min(grav_spd + grav, grav_spd_max);
+
+// Buttons
 var
 _bLeft = keyboard_check(g.button[BUTTON.LEFT]),
 _bRight = keyboard_check(g.button[BUTTON.RIGHT]),
 _bDir;
 
-// Check if standing on block
-var _blockCollision = place_meeting(x + down_vector.x, y + down_vector.y, obj_Block);
-on_slope = place_meeting(x + down_vector.x, y + down_vector.y, obj_Slope);
+var _horVelocity = 0;
 
+// Change rotation
 if (keyboard_check_pressed(vk_space))
 	player_set_gravity_direction(grav_dir + 45);
+
+// 360 ad
+//_horVelocity += keyboard_check_pressed(ord("D")) - keyboard_check_pressed(ord("A"));
+
+// Check if standing on block
+var _blockCollision = place_meeting(x + down_vector.x, y + down_vector.y, obj_Block);
 
 if (_blockCollision)
 {
@@ -48,24 +57,31 @@ else
 	running = false;
 }
 
-var _horVelocity = _bDir * run_speed;
+if (keyboard_check_pressed(ord("D")))
+	facing *= -1;
+
+/*if (facing == -1)
+	image_angle = grav_dir - 315 - 180;
+else
+	image_angle = grav_dir - 315;*/
+
+//image_xscale = abs(image_xscale) * facing;
+
+_horVelocity += _bDir * run_speed;
 
 // Vines
-if (!on_vine)
+var _vine = instance_place(x + right_vector.x * facing, y + right_vector.y * facing, obj_Vine)
+
+if (!on_vine && _vine && player_gravity_compatible(_vine))
 {
-	var _vine = instance_place(x + right_vector.x * facing, y + right_vector.y * facing, obj_Vine)
-	
-	if (_vine)
-	{
-		on_vine = true;
-		vine_direction = facing;
-		grav_spd_max = grav_spd_max_vine;
-		grav_spd = max(0, grav_spd);
-	}
+	on_vine = true;
+	vine_facing = facing;
+	grav_spd_max = grav_spd_max_vine;
+	grav_spd = max(0, grav_spd);
 }
-else if (on_vine && !place_meeting(x + right_vector.x * _bDir, y + right_vector.y * _bDir, obj_Vine))
+else if (on_vine && !_vine)
 {
-	if (keyboard_check(g.button[BUTTON.JUMP]) && _bDir != vine_direction)
+	if (facing != vine_facing && keyboard_check(g.button[BUTTON.JUMP]))
 	{
 		_horVelocity = _bDir * vine_jumpaway;
 		grav_spd = -jump_speed;
@@ -76,15 +92,56 @@ else if (on_vine && !place_meeting(x + right_vector.x * _bDir, y + right_vector.
 	grav_spd_max = grav_spd_max_default;
 }
 
-// Apply gravity
-grav_spd = min(grav_spd + grav, grav_spd_max);
+// Platforms
+var _platform = instance_place(
+	x + down_vector.x * max(grav_spd, 1),
+	y + down_vector.y * max(grav_spd, 1),
+	obj_Platform);
+
+if (_platform)
+{
+	var _platDir = wrap(_platform.image_angle + 270, 0, 359);
+	
+	// Check if platform rotation is compatible with gravity
+	if (_platDir == grav_dir)
+	{
+		var _platTop = new vec2(
+			_platform.x + lengthdir_x(_platform.sprite_width, _platDir - 180) / 2,
+			_platform.y + lengthdir_y(_platform.sprite_height, _platDir - 180) / 2);
+		
+		var
+		_playerDir = point_direction(_platTop.x, _platTop.y, x, y),
+		_platAngle = wrap(_platform.image_angle, 0, 359) % 180;
+		
+		// Check is player is above platform
+		if (_playerDir > _platAngle && _playerDir < _platAngle + 180)
+		{
+			var _feetDistance = (sprite_get_bbox_bottom(sprite_index) - sprite_get_xoffset(sprite_index)) * image_yscale;
+			
+			grav_spd = 0;
+			
+			if (place_meeting(x, y, _platform))
+				do grav_spd--; until (!place_meeting(x + down_vector.x * grav_spd, y + down_vector.y * grav_spd, _platform));
+			else
+				do grav_spd++; until (place_meeting(x + down_vector.x * grav_spd, y + down_vector.y * grav_spd, _platform));
+			
+			// Project the platform's movement vector onto the player's down vector
+			grav_spd += dot_product(down_vector.x, down_vector.y, _platform.hspeed, _platform.vspeed);
+			
+			// Refresh airjumps and let the player "stand" on the platform
+			situated = true;
+			airjump_index = 0;
+		}
+	}
+}
 
 // Jump
 if (keyboard_check_pressed(g.button[BUTTON.JUMP]))
 {
-	if (situated)
+	if (situated || _platform)
 	{
 		grav_spd = -jump_speed;
+		airjump_index = 0;
 		audio_play_sound(snd_PlayerJump, 0, false);
 		situated = false;
 	}
@@ -112,6 +169,8 @@ if (keyboard_check_pressed(g.button[BUTTON.SHOOT]))
 }
 
 // Speed calculations
+var _hDir = sign(_horVelocity);
+
 var _horSpeed = right_vector.mult(_horVelocity);
 
 var _verSpeed = down_vector.mult(grav_spd);
@@ -120,47 +179,54 @@ var _totalSpeed = new vec2(
 	_verSpeed.x + _horSpeed.x,
 	_verSpeed.y + _horSpeed.y);
 
+total_speed = _totalSpeed;
+
 // Block collisions
 if (place_meeting(x + _totalSpeed.x, y + _totalSpeed.y, obj_Block))
 {
-	var _runSpeedRemainder;
 	
-	// Horizontal collisions
-	if (place_meeting(x + _horSpeed.x, y + _horSpeed.y, obj_Block))
+	if (place_meeting(
+		x + _horSpeed.x	+ right_vector.x * _hDir * player_gravity_is_diagonal(),
+		y + _horSpeed.y	+ right_vector.y * _hDir * player_gravity_is_diagonal(),
+		obj_Block))
 	{
-		_runSpeedRemainder = 
-			move_contact_object(right_vector.mult(_bDir), run_speed, obj_Block);
+		while (!place_meeting(
+			x + right_vector.x * _hDir * (1 + player_gravity_is_diagonal()),
+			y + right_vector.y * _hDir * (1 + player_gravity_is_diagonal()),
+			obj_Block))
+		{
+			x += right_vector.x * _hDir;
+			y += right_vector.y * _hDir;
+		}
 	}
 	else
 	{
 		x += _horSpeed.x;
 		y += _horSpeed.y;
-		_runSpeedRemainder = 0;
 	}
 	
 	// Vertical collisions
-	if (place_meeting(x + _verSpeed.x, y + _verSpeed.y, obj_Block))
+	if (place_meeting(
+		x + _verSpeed.x,
+		y + _verSpeed.y,
+		obj_Block))
 	{
-		move_contact_object(down_vector.mult(sign(grav_spd)), abs(grav_spd), obj_Block);
+		var _vDir = sign(grav_spd);
+		
+		while (!place_meeting(
+			x + down_vector.x * _vDir * (1 + player_gravity_is_diagonal()),
+			y + down_vector.y * _vDir * (1 + player_gravity_is_diagonal()),
+			obj_Block))
+		{
+			x += down_vector.x * _vDir;
+			y += down_vector.y * _vDir;
+		}
 		grav_spd = 0;
 	}
 	else
 	{
 		x += _verSpeed.x;
 		y += _verSpeed.y;
-	}
-	
-	// Move up slopes
-	if (place_meeting(x + right_vector.x * _runSpeedRemainder, y + right_vector.y * _runSpeedRemainder, obj_Slope))
-	{
-		x += right_vector.x * _runSpeedRemainder;
-		y += right_vector.y * _runSpeedRemainder;
-		
-		while (place_meeting(x, y, obj_Block))
-		{
-			x -= down_vector.x;
-			y -= down_vector.y;
-		}
 	}
 }
 else

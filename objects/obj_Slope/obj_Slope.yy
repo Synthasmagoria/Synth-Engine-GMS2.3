@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "spr_Block_Precise",
-    "path": "sprites/spr_Block_Precise/spr_Block_Precise.yy",
+    "name": "spr_Block_Rotatable",
+    "path": "sprites/spr_Block_Rotatable/spr_Block_Rotatable.yy",
   },
   "solid": false,
   "visible": true,
