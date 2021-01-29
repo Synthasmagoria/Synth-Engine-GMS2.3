@@ -31,5 +31,8 @@ shot_speed = 15 * g.fps_adjust;
 situated = false;
 facing = g.save_active[SAVE.FACING];
 running = true;
+diagonal = false;
+
+platform_top = new vec2(0.0, 0.0);
 
 player_set_gravity_direction(g.save_active[SAVE.GRAVITY_DIRECTION]);

@@ -13,15 +13,18 @@ if (situated) {
 		sprite_index = spr_PlayerFall;
 }
 
+var _diagonallySituated = situated && diagonal;
+
 draw_sprite_ext(
 	sprite_index,
 	image_index,
-	x,
-	y,
+	x + down_vector.x * _diagonallySituated,
+	y + down_vector.y * _diagonallySituated,
 	facing * image_xscale,
 	image_yscale,
 	image_angle,
 	image_blend,
 	image_alpha);
 
- draw_sprite_ext(mask_index, 0, x, y, image_xscale, image_yscale, image_angle, image_blend, 0.5);
+ //draw_sprite_ext(mask_index, 0, x, y, image_xscale, image_yscale, image_angle, image_blend, 0.5);
+ 

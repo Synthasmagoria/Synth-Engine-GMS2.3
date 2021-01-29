@@ -1,20 +1,17 @@
 {
   "spriteId": {
-    "name": "spr_PlatformInvisible",
-    "path": "sprites/spr_PlatformInvisible/spr_PlatformInvisible.yy",
+    "name": "spr_Vine",
+    "path": "sprites/spr_Vine/spr_Vine.yy",
   },
   "solid": false,
-  "visible": false,
+  "visible": true,
   "spriteMaskId": null,
   "persistent": false,
-  "parentObjectId": {
-    "name": "obj_Platform",
-    "path": "objects/obj_Platform/obj_Platform.yy",
-  },
+  "parentObjectId": null,
   "physicsObject": false,
   "physicsSensor": false,
   "physicsShape": 1,
-  "physicsGroup": 0,
+  "physicsGroup": 1,
   "physicsDensity": 0.5,
   "physicsRestitution": 0.1,
   "physicsLinearDamping": 0.1,
@@ -27,13 +24,11 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Platforms",
-    "path": "folders/Objects/Misc/Platforms.yy",
+    "name": "Misc",
+    "path": "folders/Objects/Misc.yy",
   },
   "resourceVersion": "1.0",
-  "name": "obj_PlatformInvisible",
-  "tags": [
-    "general_level",
-  ],
+  "name": "obj_Vine",
+  "tags": [],
   "resourceType": "GMObject",
 }

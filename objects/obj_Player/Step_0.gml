@@ -19,10 +19,10 @@ if (keyboard_check_pressed(vk_space))
 _horVelocity += keyboard_check_pressed(ord("D")) - keyboard_check_pressed(ord("A"));
 
 // Check if standing on block
-var _blockCheckDistance = player_gravity_is_diagonal() ? 2 : 1;
+var _checkDistance = diagonal ? 2 : 1;
 var _blockCollision = place_meeting(
-	x + down_vector.x * _blockCheckDistance,
-	y + down_vector.y * _blockCheckDistance,
+	x + down_vector.x * _checkDistance,
+	y + down_vector.y * _checkDistance,
 	obj_Block);
 
 if (_blockCollision)
@@ -61,22 +61,21 @@ else
 	running = false;
 }
 
-/*if (keyboard_check_pressed(ord("D")))
-	facing *= -1;*/
-
-/*if (facing == -1)
-	image_angle = grav_dir - 315 - 180;
-else
-	image_angle = grav_dir - 315;*/
-
-//image_xscale = abs(image_xscale) * facing;
-
 _horVelocity += _bDir * run_speed;
 
 // Vines
-var _vine = instance_place(x + right_vector.x * facing, y + right_vector.y * facing, obj_Vine)
+_checkDistance = diagonal ? 3 : 1;
+var _vine = instance_place(
+	x + right_vector.x * facing * _checkDistance,
+	y + right_vector.y * facing * _checkDistance,
+	obj_Vine);
 
-if (!on_vine && _vine && player_gravity_compatible(_vine))
+if (_vine) {
+	var _fracFactor = frac((_vine.image_angle + 45 * diagonal) / 90);
+	show_debug_message(_fracFactor);
+}
+
+if (!on_vine && _vine && _fracFactor == 0.0)
 {
 	on_vine = true;
 	vine_facing = facing;
@@ -106,12 +105,16 @@ if (_platform)
 {
 	var _platDir = wrap(_platform.image_angle + 270, 0, 359);
 	
+	//_horVelocity += dot_product(right_vector.x, right_vector.y, _platform.hspeed, _platform.vspeed);
+	
 	// Check if platform rotation is compatible with gravity
-	if (_platDir == grav_dir)
+	if (frac((_platDir + grav_dir) / 90) == 0)
 	{
 		var _platTop = new vec2(
 			_platform.x + lengthdir_x(_platform.sprite_width, _platDir - 180) / 2,
 			_platform.y + lengthdir_y(_platform.sprite_height, _platDir - 180) / 2);
+		
+		platform_top = _platTop;
 		
 		var
 		_playerDir = point_direction(_platTop.x, _platTop.y, x, y),
@@ -120,8 +123,6 @@ if (_platform)
 		// Check is player is above platform
 		if (_playerDir > _platAngle && _playerDir < _platAngle + 180)
 		{
-			var _feetDistance = (sprite_get_bbox_bottom(sprite_index) - sprite_get_xoffset(sprite_index)) * image_yscale;
-			
 			grav_spd = 0;
 			
 			if (place_meeting(x, y, _platform))
@@ -173,7 +174,7 @@ if (keyboard_check_pressed(g.button[BUTTON.SHOOT]))
 }
 
 // Block collisions
-if (!player_gravity_is_diagonal())
+if (!diagonal)
 {
 	var _horSpeed = right_vector.mult(_horVelocity);
 
@@ -209,9 +210,9 @@ if (!player_gravity_is_diagonal())
 	_dist = abs(_horVelocity),
 	_step = min(1, _dist);
 	
-	while (!place_meeting(x + right_vector.x * _dir * (_step + 0.5), y + right_vector.y * _dir * (_step + 0.5), obj_Block) && _dist > 0) {
-		x += right_vector.x * _dir;
-		y += right_vector.y * _dir;
+	while (!place_meeting(x + right_vector.x * _dir * (_step + 1), y + right_vector.y * _dir * (_step + 1), obj_Block) && _dist > 0) {
+		x += right_vector.x * _step * _dir;
+		y += right_vector.y * _step * _dir;
 		_dist -= _step;
 		_step = min(1, _dist);
 	}
@@ -221,13 +222,14 @@ if (!player_gravity_is_diagonal())
 	_dist = abs(grav_spd);
 	_step = min(1, _dist);
 	
-	while (!place_meeting(x + down_vector.x * _dir, y + down_vector.y * _dir, obj_Block) && _dist > 0) {
-		x += down_vector.x * _dir;
-		y += down_vector.y * _dir;
+	while (!place_meeting(x + down_vector.x * _dir * (_step + 1), y + down_vector.y * _dir * (_step + 1), obj_Block) && _dist > 0) {
+		x += down_vector.x * _step * _dir;
+		y += down_vector.y * _step * _dir;
 		_dist -= _step;
 		_step = min(1, _dist);
 	}
 	
-	if (_dist > 0)
+	if (_dist > 0) {
 		grav_spd = 0;
+	}
 }

@@ -1,17 +1,20 @@
 {
   "spriteId": {
-    "name": "spr_Platform",
-    "path": "sprites/spr_Platform/spr_Platform.yy",
+    "name": "spr_Vine",
+    "path": "sprites/spr_Vine/spr_Vine.yy",
   },
   "solid": false,
   "visible": true,
   "spriteMaskId": null,
   "persistent": false,
-  "parentObjectId": null,
+  "parentObjectId": {
+    "name": "obj_Vine",
+    "path": "objects/obj_Vine/obj_Vine.yy",
+  },
   "physicsObject": false,
   "physicsSensor": false,
   "physicsShape": 1,
-  "physicsGroup": 0,
+  "physicsGroup": 1,
   "physicsDensity": 0.5,
   "physicsRestitution": 0.1,
   "physicsLinearDamping": 0.1,
@@ -21,18 +24,16 @@
   "physicsKinematic": false,
   "physicsShapePoints": [],
   "eventList": [
-    {"isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,"parent":{"name":"obj_Platform","path":"objects/obj_Platform/obj_Platform.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
+    {"isDnD":false,"eventNum":0,"eventType":8,"collisionObjectId":null,"parent":{"name":"obj_Vine_RotatedSprite","path":"objects/obj_Vine_RotatedSprite/obj_Vine_RotatedSprite.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
   ],
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Platforms",
-    "path": "folders/Objects/Misc/Platforms.yy",
+    "name": "Misc",
+    "path": "folders/Objects/Misc.yy",
   },
   "resourceVersion": "1.0",
-  "name": "obj_Platform",
-  "tags": [
-    "general_level",
-  ],
+  "name": "obj_Vine_RotatedSprite",
+  "tags": [],
   "resourceType": "GMObject",
 }

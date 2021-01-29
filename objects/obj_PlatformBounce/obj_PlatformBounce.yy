@@ -30,7 +30,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Platforms",
-    "path": "folders/Objects/Platforms.yy",
+    "path": "folders/Objects/Misc/Platforms.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_PlatformBounce",
