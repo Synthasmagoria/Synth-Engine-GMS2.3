@@ -105,6 +105,8 @@ function savedata_save() {
 			g.save[i] = g.save_active[i];
 		}
 	}
+	
+	savedata_write();
 }
 
 ///@func		savedata_start_game(spawn_player)

@@ -5,10 +5,7 @@
   },
   "solid": false,
   "visible": true,
-  "spriteMaskId": {
-    "name": "spr_SpikeLeftMask",
-    "path": "sprites/spr_SpikeLeftMask/spr_SpikeLeftMask.yy",
-  },
+  "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {
     "name": "obj_TriggerKiller",

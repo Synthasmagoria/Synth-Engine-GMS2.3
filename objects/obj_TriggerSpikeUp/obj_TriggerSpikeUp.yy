@@ -5,10 +5,7 @@
   },
   "solid": false,
   "visible": true,
-  "spriteMaskId": {
-    "name": "spr_SpikeUpMask",
-    "path": "sprites/spr_SpikeUpMask/spr_SpikeUpMask.yy",
-  },
+  "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {
     "name": "obj_TriggerKiller",

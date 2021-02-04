@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "spr_Block24px",
-    "path": "sprites/spr_Block24px/spr_Block24px.yy",
+    "name": "spr_Tileblocker",
+    "path": "sprites/spr_Tileblocker/spr_Tileblocker.yy",
   },
   "solid": false,
   "visible": false,

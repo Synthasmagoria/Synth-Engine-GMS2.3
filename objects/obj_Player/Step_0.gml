@@ -25,7 +25,7 @@ var _blockCollision = place_meeting(
 	y + down_vector.y * _checkDistance,
 	obj_Block);
 
-if (_blockCollision)
+if (_blockCollision && grav_spd > 0)
 {
 	situated = true;
 	airjump_index = 0;

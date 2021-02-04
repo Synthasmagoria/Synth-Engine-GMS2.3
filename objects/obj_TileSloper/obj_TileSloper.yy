@@ -1,10 +1,10 @@
 {
   "spriteId": {
-    "name": "spr_Block_Rotatable",
-    "path": "sprites/spr_Block_Rotatable/spr_Block_Rotatable.yy",
+    "name": "spr_Tilesloper",
+    "path": "sprites/spr_Tilesloper/spr_Tilesloper.yy",
   },
   "solid": false,
-  "visible": true,
+  "visible": false,
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": null,

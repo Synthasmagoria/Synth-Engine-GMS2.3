@@ -5,10 +5,7 @@
   },
   "solid": false,
   "visible": true,
-  "spriteMaskId": {
-    "name": "spr_SpikeDownMask",
-    "path": "sprites/spr_SpikeDownMask/spr_SpikeDownMask.yy",
-  },
+  "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {
     "name": "obj_TriggerKiller",

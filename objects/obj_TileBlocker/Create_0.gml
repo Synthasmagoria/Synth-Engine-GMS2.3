@@ -1,4 +1,4 @@
 /// @desc Init
 
-layer_name = "Tiles_Blocked";
+layer_name = "Blocks";
 block = obj_Block;
