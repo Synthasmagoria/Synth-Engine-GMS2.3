@@ -1,59 +1,17 @@
-///@desc Control & movement
+///@desc Player control
 
-// Apply gravity
-grav_spd = min(grav_spd + grav, grav_spd_max);
-
-// Buttons
 var
 _bLeft = keyboard_check(g.button[BUTTON.LEFT]),
 _bRight = keyboard_check(g.button[BUTTON.RIGHT]),
-_bDir;
+_dir = _bRight - _bLeft;
 
-var _horVelocity = 0;
+// Run
+velocity.x += run_speed * _dir;
 
-// Change rotation
-if (keyboard_check_pressed(vk_space))
-	player_set_gravity_direction(grav_dir + 45);
-
-// 360 ad
-_horVelocity += keyboard_check_pressed(ord("D")) - keyboard_check_pressed(ord("A"));
-
-// Check if standing on block
-var _checkDistance = diagonal ? 2 : 1;
-var _blockCollision = place_meeting(
-	x + down_vector.x * _checkDistance,
-	y + down_vector.y * _checkDistance,
-	obj_Block);
-
-if (_blockCollision && grav_spd > 0)
+// Facing
+if (_dir != 0)
 {
-	situated = true;
-	airjump_index = 0;
-	grav_spd = 0;
-}
-else
-{
-	situated = false;
-}
-
-var _gravArrow = instance_place(x, y, obj_GravityArrow);
-if (_gravArrow && grav_dir != _gravArrow.image_angle)
-{
-	player_set_gravity_direction(_gravArrow.image_angle);
-	grav_spd = 0;
-	airjump_index = 0;
-}
-
-// Make controlling gravity a bit more intuitive
-if (grav_dir > 0 && grav_dir <= 180)
-	_bDir = _bLeft - _bRight;
-else
-	_bDir = _bRight - _bLeft;
-
-// 
-if (_bDir != 0)
-{
-	facing = _bDir;
+	facing = _dir;
 	running = true;
 }
 else
@@ -61,83 +19,34 @@ else
 	running = false;
 }
 
-_horVelocity += _bDir * run_speed;
+// Gravity
+velocity.y = approach(velocity.y, velocity_y_limit, gravity_pull);
 
-// Vines
-_checkDistance = diagonal ? 3 : 1;
-var _vine = instance_place(
-	x + right_vector.x * facing * _checkDistance,
-	y + right_vector.y * facing * _checkDistance,
-	obj_Vine);
-
-if (_vine) {
-	var _fracFactor = frac((_vine.image_angle + 45 * diagonal) / 90);
-	show_debug_message(_fracFactor);
-}
-
-if (!on_vine && _vine && _fracFactor == 0.0)
+// Situated
+if (place_meeting(x + down_vector.x, y + down_vector.y, obj_Block) && velocity.y >= 0.0)
 {
-	on_vine = true;
-	vine_facing = facing;
-	grav_spd_max = grav_spd_max_vine;
-	grav_spd = max(0, grav_spd);
+	situated = true;
+	airjump_index = 0;
 }
-else if (on_vine && !_vine)
+else
 {
-	if (facing != vine_facing && keyboard_check(g.button[BUTTON.JUMP]))
-	{
-		_horVelocity = _bDir * vine_jumpaway;
-		grav_spd = -jump_speed;
-		audio_play_sound(snd_PlayerVineJump, 0, false);
-	}
-	
-	on_vine = false;
-	grav_spd_max = grav_spd_max_default;
+	situated = false;
 }
 
 // Platforms
-var _platform = instance_place(
-	x + down_vector.x * max(grav_spd, 1),
-	y + down_vector.y * max(grav_spd, 1),
-	obj_Platform);
-
+var _platform = instance_place(x, y, obj_Platform);
 if (_platform)
 {
-	var _platDir = wrap(_platform.image_angle + 270, 0, 359);
-	
-	//_horVelocity += dot_product(right_vector.x, right_vector.y, _platform.hspeed, _platform.vspeed);
-	
-	// Check if platform rotation is compatible with gravity
-	if (frac((_platDir + grav_dir) / 90) == 0)
-	{
-		var _platTop = new vec2(
-			_platform.x + lengthdir_x(_platform.sprite_width, _platDir - 180) / 2,
-			_platform.y + lengthdir_y(_platform.sprite_height, _platDir - 180) / 2);
-		
-		platform_top = _platTop;
-		
-		var
-		_playerDir = point_direction(_platTop.x, _platTop.y, x, y),
-		_platAngle = wrap(_platform.image_angle, 0, 359) % 180;
-		
-		// Check is player is above platform
-		if (_playerDir > _platAngle && _playerDir < _platAngle + 180)
-		{
-			grav_spd = 0;
-			
-			if (place_meeting(x, y, _platform))
-				do grav_spd--; until (!place_meeting(x + down_vector.x * grav_spd, y + down_vector.y * grav_spd, _platform));
-			else
-				do grav_spd++; until (place_meeting(x + down_vector.x * grav_spd, y + down_vector.y * grav_spd, _platform));
-			
-			// Project the platform's movement vector onto the player's down vector
-			grav_spd += dot_product(down_vector.x, down_vector.y, _platform.hspeed, _platform.vspeed);
-			
-			// Refresh airjumps and let the player "stand" on the platform
-			situated = true;
-			airjump_index = 0;
-		}
-	}
+	velocity.x += dot_product(right_vector.x, right_vector.y, _platform.hspeed, _platform.vspeed);
+}
+
+// Change gravity direction
+var _gravityArrow = instance_place(x, y, obj_GravityArrow);
+if (_gravityArrow && gravity_direction != _gravityArrow.image_angle)
+{
+	player_set_gravity_direction(_gravityArrow.image_angle);
+	velocity.y = 0.0;
+	airjump_index = 0;
 }
 
 // Jump
@@ -145,91 +54,67 @@ if (keyboard_check_pressed(g.button[BUTTON.JUMP]))
 {
 	if (situated || _platform)
 	{
-		grav_spd = -jump_speed;
-		airjump_index = 0;
-		audio_play_sound(snd_PlayerJump, 0, false);
+		velocity.y = -jump_strength;
 		situated = false;
+		airjump_index = 0;
 	}
 	else if (airjump_index < airjump_number)
 	{
-		grav_spd = -airjump_speed;
+		velocity.y = -airjump_strength;
 		airjump_index++;
-		audio_play_sound(snd_PlayerAirjump, 0, false);
 	}
 }
 
-if (keyboard_check_released(g.button[BUTTON.JUMP]) && grav_spd < 0.0)
-	grav_spd *= fall_multiplier;
+// Fall
+if (keyboard_check_released(g.button[BUTTON.JUMP]) && velocity.y < 0.0)
+	velocity.y *= velocity_y_fall;
 
-// Shoot
-if (keyboard_check_pressed(g.button[BUTTON.SHOOT]))
+// Block collisions 
+right_velocity.set(velocity.x * right_vector.x, velocity.x * right_vector.y);
+down_velocity.set(velocity.y * down_vector.x, velocity.y * down_vector.y);
+
+if (place_meeting(
+	x + right_velocity.x + down_velocity.x,
+	y + right_velocity.y + down_velocity.y,
+	obj_Block))
 {
-	var _bullet = instance_create_depth(
-		x + 5 * image_xscale * facing,
-		y + -2 * image_yscale,
-		depth + 1,
-		obj_Bullet);
-	_bullet.hspeed = right_vector.x * facing * shot_speed;
-	_bullet.vspeed = right_vector.y * facing * shot_speed;
-}
-
-// Block collisions
-if (!diagonal)
-{
-	var _horSpeed = right_vector.mult(_horVelocity);
-
-	var _verSpeed = down_vector.mult(grav_spd);
-
-	var _totalSpeed = new vec2(
-		_verSpeed.x + _horSpeed.x,
-		_verSpeed.y + _horSpeed.y);
-		
-	if (place_meeting(x + _totalSpeed.x, y + _totalSpeed.y, obj_Block)) {
-		if (place_meeting(x + _horSpeed.x, y + _horSpeed.y, obj_Block)) {
-			move_contact_object(right_vector.mult(sign(_horVelocity)), abs(_horVelocity), obj_Block);
-		} else {
-			x += _horSpeed.x;
-			y += _horSpeed.y;
+	if (place_meeting(x + right_velocity.x, y + right_velocity.y, obj_Block))
+	{
+		var _horDir = sign(velocity.x);
+		while (!place_meeting(x + right_vector.x * _horDir, y + right_vector.y * _horDir, obj_Block))
+		{
+			x += right_vector.x * _horDir;
+			y += right_vector.y * _horDir;
+		}
+	}
+	else
+	{
+		x += right_velocity.x;
+		y += right_velocity.y;
+	}
+	
+	if (place_meeting(x + down_velocity.x, y + down_velocity.y, obj_Block))
+	{
+		var _verDir = sign(velocity.y);
+		while (!place_meeting(x + down_vector.x * _verDir, y + down_vector.y * _verDir, obj_Block))
+		{
+			x += down_vector.x * _verDir;
+			y += down_vector.y * _verDir;
 		}
 		
-		if (place_meeting(x + _verSpeed.x, y + _verSpeed.y, obj_Block)) {
-			move_contact_object(down_vector.mult(sign(grav_spd)), abs(grav_spd), obj_Block);
-			grav_spd = 0;
-		} else {
-			x += _verSpeed.x;
-			y += _verSpeed.y;
-		}
-	} else {
-		x += _totalSpeed.x;
-		y += _totalSpeed.y;
+		velocity.y = 0.0;
 	}
-} else {
-	// Diagonal horizontal collisions
-	var
-	_dir = sign(_horVelocity),
-	_dist = abs(_horVelocity),
-	_step = min(1, _dist);
-	
-	while (!place_meeting(x + right_vector.x * _dir * (_step + 1), y + right_vector.y * _dir * (_step + 1), obj_Block) && _dist > 0) {
-		x += right_vector.x * _step * _dir;
-		y += right_vector.y * _step * _dir;
-		_dist -= _step;
-		_step = min(1, _dist);
-	}
-	
-	// Diagonal vertical collisions
-	_dir = sign(grav_spd);
-	_dist = abs(grav_spd);
-	_step = min(1, _dist);
-	
-	while (!place_meeting(x + down_vector.x * _dir * (_step + 1), y + down_vector.y * _dir * (_step + 1), obj_Block) && _dist > 0) {
-		x += down_vector.x * _step * _dir;
-		y += down_vector.y * _step * _dir;
-		_dist -= _step;
-		_step = min(1, _dist);
-	}
-	
-	if (_dist > 0) {
-		grav_spd = 0;
+	else
+	{
+		x += down_velocity.x;
+		y += down_velocity.y;
 	}
 }
+else
+{
+	x += right_velocity.x + down_velocity.x;
+	y += right_velocity.y + down_velocity.y;
+}
+
+// Reset horizontal speed
+velocity.x = 0;

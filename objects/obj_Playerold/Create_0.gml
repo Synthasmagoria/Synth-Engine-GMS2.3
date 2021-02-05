@@ -12,6 +12,7 @@ vs_gravity = 0.4 * g.fps_adjust_squared;
 vs_jump = -8.1 * g.fps_adjust;
 vs_airjump = -6.6 * g.fps_adjust;
 vs_fall = 0.45;
+vs_gravity_direction = global.save[SAVE.GRAVITY_DIRECTION];
 
 airjump_number = 1;
 airjump_index = 0;

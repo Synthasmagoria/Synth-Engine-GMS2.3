@@ -10,16 +10,15 @@ function player_jump(vs) {
 ///@arg {real} dir	Gravity direction
 ///@desc			Safely sets the gravity direction of the player
 function player_set_gravity_direction(dir) {
-	grav_dir = wrap(dir, 0, 359);
-	image_angle = grav_dir - 270;
-	diagonal = frac(grav_dir / 90) != 0;
+	gravity_direction = wrap(dir, 0, 359);
+	image_angle = gravity_direction - 270;
 	
 	right_vector.set(
-		lengthdir_x(1, grav_dir + 90),
-		lengthdir_y(1, grav_dir + 90));
+		lengthdir_x(1, gravity_direction + 90),
+		lengthdir_y(1, gravity_direction + 90));
 	down_vector.set(
-		lengthdir_x(1, grav_dir),
-		lengthdir_y(1, grav_dir));
+		lengthdir_x(1, gravity_direction),
+		lengthdir_y(1, gravity_direction));
 }
 
 ///@func					player_kill([inst/obj])
@@ -80,7 +79,7 @@ function player_save() {
 	{
 		g.save_active[SAVE.X] = obj_Player.x;
 		g.save_active[SAVE.Y] = obj_Player.y;
-		g.save_active[SAVE.GRAVITY_DIRECTION] = obj_Player.grav_dir;
+		g.save_active[SAVE.GRAVITY_DIRECTION] = obj_Player.gravity_direction;
 		g.save_active[SAVE.FACING] = obj_Player.facing;
 	}
 

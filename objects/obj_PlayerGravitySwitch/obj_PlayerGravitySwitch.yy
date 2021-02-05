@@ -21,7 +21,7 @@
   "physicsKinematic": false,
   "physicsShapePoints": [],
   "eventList": [
-    {"isDnD":false,"eventNum":0,"eventType":4,"collisionObjectId":{"name":"obj_Player_old","path":"objects/obj_Player_old/obj_Player_old.yy",},"parent":{"name":"obj_PlayerGravitySwitch","path":"objects/obj_PlayerGravitySwitch/obj_PlayerGravitySwitch.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
+    {"isDnD":false,"eventNum":0,"eventType":4,"collisionObjectId":{"name":"obj_Player","path":"objects/obj_Player/obj_Player.yy",},"parent":{"name":"obj_PlayerGravitySwitch","path":"objects/obj_PlayerGravitySwitch/obj_PlayerGravitySwitch.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
   ],
   "properties": [],
   "overriddenProperties": [],

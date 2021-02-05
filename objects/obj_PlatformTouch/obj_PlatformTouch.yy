@@ -31,7 +31,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Platforms",
-    "path": "folders/Objects/Misc/Platforms.yy",
+    "path": "folders/Objects/Platforms.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_PlatformTouch",

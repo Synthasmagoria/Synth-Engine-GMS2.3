@@ -88,15 +88,15 @@ if (water) {
 #endregion
 
 #region Gravity
-var gravity_arrow = instance_place(x + hspeed, y + vspeed, obj_GravityArrow);
-if (gravity_arrow) {
-	image_angle = gravity_arrow.image_angle;
-	gravity_direction = gravity_arrow.image_angle;
+if ((vs_gravity_direction == 1 && place_meeting(x, y, obj_GravityArrowUp)) ||
+	(vs_gravity_direction == -1 && place_meeting(x, y, obj_GravityArrowDown)))
+{
+	vs_gravity_direction *= -1;
 }
 #endregion
 
 // Vertical gravity
-vspeed = min(vspeed + vs_gravity, vs_max);
+vspeed = clamp(vspeed + vs_gravity * vs_gravity_direction, -vs_max, vs_max);
 
 // Check for blocks
 situated |= player_situated();
@@ -124,7 +124,12 @@ if (b_fall && (vspeed < 0))
 
 #region Shoot
 if (b_shoot) {
-	player_shoot(facing, hs_bullet, 0, 0);
+	var bullet = instance_create_depth(
+		x + 5 * facing * image_xscale,
+		y - 2 * vs_gravity_direction * image_yscale,
+		depth + 1,
+		obj_Bullet);
+	bullet.hspeed = facing * hs_bullet;
 	audio_play_sound(snd_PlayerShoot, 0, false);
 }
 #endregion
