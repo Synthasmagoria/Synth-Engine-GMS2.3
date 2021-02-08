@@ -34,8 +34,6 @@
   },
   "resourceVersion": "1.0",
   "name": "obj_PlatformBounce",
-  "tags": [
-    "general_level",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

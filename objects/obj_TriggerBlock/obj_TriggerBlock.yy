@@ -36,8 +36,6 @@
   },
   "resourceVersion": "1.0",
   "name": "obj_TriggerBlock",
-  "tags": [
-    "general_level",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

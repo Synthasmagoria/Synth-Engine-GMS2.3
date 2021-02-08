@@ -29,8 +29,6 @@
   },
   "resourceVersion": "1.0",
   "name": "obj_Water",
-  "tags": [
-    "general_level",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

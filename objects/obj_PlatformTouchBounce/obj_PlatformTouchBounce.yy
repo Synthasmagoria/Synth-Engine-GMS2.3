@@ -34,8 +34,6 @@
   },
   "resourceVersion": "1.0",
   "name": "obj_PlatformTouchBounce",
-  "tags": [
-    "general_level",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

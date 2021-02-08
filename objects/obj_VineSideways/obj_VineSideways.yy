@@ -1,15 +1,15 @@
 {
   "spriteId": {
-    "name": "spr_Block_Rotatable",
-    "path": "sprites/spr_Block_Rotatable/spr_Block_Rotatable.yy",
+    "name": "spr_VineSideways",
+    "path": "sprites/spr_VineSideways/spr_VineSideways.yy",
   },
   "solid": false,
   "visible": true,
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {
-    "name": "obj_Block",
-    "path": "objects/obj_Block/obj_Block.yy",
+    "name": "obj_Vine",
+    "path": "objects/obj_Vine/obj_Vine.yy",
   },
   "physicsObject": false,
   "physicsSensor": false,
@@ -27,11 +27,11 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Block",
-    "path": "folders/Objects/Block.yy",
+    "name": "Misc",
+    "path": "folders/Objects/Misc.yy",
   },
   "resourceVersion": "1.0",
-  "name": "obj_Slope",
+  "name": "obj_VineSideways",
   "tags": [],
   "resourceType": "GMObject",
 }

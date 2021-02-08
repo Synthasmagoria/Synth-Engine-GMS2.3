@@ -35,8 +35,6 @@
   },
   "resourceVersion": "1.0",
   "name": "obj_PlatformTouch",
-  "tags": [
-    "general_level",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

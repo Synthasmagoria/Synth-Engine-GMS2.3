@@ -32,8 +32,6 @@
   },
   "resourceVersion": "1.0",
   "name": "obj_Destroyer",
-  "tags": [
-    "general_level",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

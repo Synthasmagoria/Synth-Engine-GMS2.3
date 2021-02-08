@@ -34,8 +34,6 @@
   },
   "resourceVersion": "1.0",
   "name": "obj_TriggerSpikeLeft",
-  "tags": [
-    "general_level",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

@@ -32,8 +32,6 @@
   },
   "resourceVersion": "1.0",
   "name": "obj_BulletBlocker",
-  "tags": [
-    "general_level",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

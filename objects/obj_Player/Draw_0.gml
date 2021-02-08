@@ -7,6 +7,10 @@ if (situated)
 	else
 		sprite_index = spr_PlayerIdle;
 }
+else if (vine_direction != 0)
+{
+	sprite_index = spr_PlayerSlide;
+}
 else
 {
 	if (velocity.y < 0.0)

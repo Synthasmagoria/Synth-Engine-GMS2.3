@@ -31,8 +31,6 @@
   },
   "resourceVersion": "1.0",
   "name": "obj_TriggerCherry",
-  "tags": [
-    "general_level",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

@@ -32,8 +32,6 @@
   },
   "resourceVersion": "1.0",
   "name": "obj_Block24px",
-  "tags": [
-    "general_level",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }
