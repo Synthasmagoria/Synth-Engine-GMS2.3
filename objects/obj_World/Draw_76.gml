@@ -1,4 +1,6 @@
-///@desc Create pause surface
+///@desc Pause surface & Smoothing
+
+gpu_set_texfilter(false);
 
 if (g.game_paused && !surface_exists(pause_surface)) {
 		pause_surface = surface_create(GAME_WIDTH, GAME_HEIGHT);

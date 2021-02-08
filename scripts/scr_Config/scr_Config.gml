@@ -20,7 +20,6 @@ function setting_set(setting_index, value) {
 	
 		case SETTING.SMOOTHING:
 		g.setting[setting_index] = value;
-		gpu_set_tex_filter(value);
 		break;
 	
 		case SETTING.SCALE:

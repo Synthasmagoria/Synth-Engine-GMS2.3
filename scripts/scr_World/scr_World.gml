@@ -2,10 +2,56 @@
 	The world object does simple music control
 */
 
-///@desc				Fades out previous music, returns its index and fades in new music
-///@func				world_crossfade_music(snd, time_ms)
-///@arg {real} snd		New sound to play
-///@arg {real} time_ms	Length of the crossfade in ms
+///@desc				Gets music to be played in a room
+///@func				world_get_room_music(room)
+///@arg 				room
+function world_get_room_music(r) {
+	switch (r) {
+		case rm_Stage01:
+		case rm_NStage:
+			return mus_Engine;
+			break;
+		
+		default:		
+			return -1;
+			break;
+	}
+}
+
+///@desc	Get pitch of the music to be played in a room
+///@func	world_get_room_music_pitch(room)
+///@arg		room
+function world_get_room_music_pitch(r) {
+	switch (r) {
+		case rm_NStage:
+			return 0.5;
+			break;
+		
+		default:
+			return 1.0;
+			break;
+	}
+}
+
+///@desc	Get gain of the music to be played in a room
+///@func	world_get_room_music_gain(room)
+///@arg		room
+function world_get_room_music_gain(r) {
+	switch (r) {
+		case rm_NStage:
+			return 0.5;
+			break;
+			
+		default:
+			return 1.0;
+			break;
+	}
+}
+
+///@desc			Fades out previous music, returns its index and fades in new music
+///@func			world_crossfade_music(snd, time_ms)
+///@arg snd			New sound to play
+///@arg time_ms		Length of the crossfade in ms
 function world_crossfade_music(snd, time_ms) {
 	var mus = world_get_music_index();
 	audio_sound_gain(mus, 0.0, time_ms);

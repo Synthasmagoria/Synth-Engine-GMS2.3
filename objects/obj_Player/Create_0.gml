@@ -2,6 +2,7 @@
 
 run_speed = 3.0 * g.fps_adjust;
 jump_strength = 8.4 * g.fps_adjust;
+shot_speed = 15 * g.fps_adjust;
 
 gravity_pull = 0.4 * g.fps_adjust_squared;
 gravity_direction = g.save_active[SAVE.GRAVITY_DIRECTION];
@@ -14,6 +15,11 @@ facing = g.save[SAVE.FACING];
 situated = false;
 frozen = false;
 running = false;
+
+jump_sound = snd_PlayerJump;
+airjump_sound = snd_PlayerAirjump;
+shot_sound = snd_PlayerShoot;
+vinejump_sound = snd_PlayerVineJump;
 
 // Accumulative speed variables
 velocity = new vec2(0.0, 0.0);
