@@ -8,7 +8,7 @@
 function world_get_room_music(r) {
 	switch (r) {
 		case rm_Stage01:
-		case rm_NStage:
+		case rm_Stage02:
 			return mus_Engine;
 			break;
 		
@@ -23,7 +23,7 @@ function world_get_room_music(r) {
 ///@arg		room
 function world_get_room_music_pitch(r) {
 	switch (r) {
-		case rm_NStage:
+		case rm_Stage02:
 			return 0.5;
 			break;
 		
@@ -38,7 +38,7 @@ function world_get_room_music_pitch(r) {
 ///@arg		room
 function world_get_room_music_gain(r) {
 	switch (r) {
-		case rm_NStage:
+		case rm_Stage02:
 			return 0.5;
 			break;
 			

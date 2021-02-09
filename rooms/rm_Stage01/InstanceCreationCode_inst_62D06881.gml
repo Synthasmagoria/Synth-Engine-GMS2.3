@@ -1,1 +1,1 @@
-warp_room = rm_NStage;
+warp_room = rm_Stage02;
