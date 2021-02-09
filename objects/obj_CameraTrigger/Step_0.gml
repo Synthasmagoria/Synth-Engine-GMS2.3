@@ -12,6 +12,4 @@ if (instance_exists(obj_Player) &&
 	
 	with (obj_CameraTrigger)
 		current = other.index;
-		
-	show_debug_message(string(current));
 }

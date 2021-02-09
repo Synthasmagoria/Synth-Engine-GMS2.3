@@ -6,7 +6,7 @@ _bRight = keyboard_check(global.button[BUTTON.RIGHT]);
 
 // Gravity control intuition
 var _invertControls = 1;
-if (!global.setting[SETTING.CONTROL_ROTATIONAL] && gravity_direction > 0 && gravity_direction < 180)
+if (!global.setting[SETTING.CONTROL_ROTATIONAL] && gravity_direction >= 0 && gravity_direction < 180)
 	_invertControls = -1;
 
 // Run & Facing
@@ -98,12 +98,9 @@ if (_platform)
         	_platform.x + lengthdir_x(_platform.sprite_height / 2, _platDir),
         	_platform.y + lengthdir_y(_platform.sprite_height / 2, _platDir));
     else
-    {
     	_platTop.set(
         	_platform.x + lengthdir_x(_platform.sprite_width / 2, _platDir),
         	_platform.y + lengthdir_y(_platform.sprite_width / 2, _platDir));
-        show_debug_message("it");
-    }
 	
 	// Check if player's origin is above the top of the platform
 	var _abovePlatform = abs(angle_difference(_platDir, point_direction(_platTop.x, _platTop.y, x, y))) < 90;
