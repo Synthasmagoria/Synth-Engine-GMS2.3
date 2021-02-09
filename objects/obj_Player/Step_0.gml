@@ -77,45 +77,50 @@ else
 
 // Platforms
 var _platform = instance_place(
-	x + down_vector.x * max(2, velocity.y),
-	y + down_vector.y * max(2, velocity.y),
+	x + down_vector.x * max(platform_check_distance, velocity.y),
+	y + down_vector.y * max(platform_check_distance, velocity.y),
 	obj_Platform);
 
 if (_platform)
 {
 	velocity.x += dot_product(right_vector.x, right_vector.y, _platform.hspeed, _platform.vspeed);
 	
-    var _platTop = new vec2(
-        _platform.x + lengthdir_x(_platform.sprite_height / 2, _platform.image_angle + 90 + image_angle),
-        _platform.y + lengthdir_y(_platform.sprite_height / 2, _platform.image_angle + 90 + image_angle));
+	var _platDir = _platform.image_angle + 90 + (image_angle - _platform.image_angle);
+	var _platTop = new vec2(0.0, 0.0);
 	
-	var _abovePlatform = abs(angle_difference(_platform.image_angle + 90, point_direction(_platTop.x, _platTop.y, x, y))) < 90;
+	if (abs(angle_difference(image_angle, _platform.image_angle)) != 90)
+    	_platTop.set(
+        	_platform.x + lengthdir_x(_platform.sprite_height / 2, _platDir),
+        	_platform.y + lengthdir_y(_platform.sprite_height / 2, _platDir));
+    else
+    {
+    	_platTop.set(
+        	_platform.x + lengthdir_x(_platform.sprite_width / 2, _platDir),
+        	_platform.y + lengthdir_y(_platform.sprite_width / 2, _platDir));
+        show_debug_message("it");
+    }
+	
+	// Check if player's origin is above the top of the platform
+	var _abovePlatform = abs(angle_difference(_platDir, point_direction(_platTop.x, _platTop.y, x, y))) < 90;
 	
 	if (_abovePlatform)
 	{
-		var _kidBottom = new vec2(
-			x + (bbox_bottom - y) * down_vector.x,
-			y + (bbox_bottom - y) * down_vector.y);
-		
-		var _insidePlatform = !(abs(angle_difference(_platform.image_angle + 90, point_direction(_platTop.x, _platTop.y, _kidBottom.x, _kidBottom.y))) < 90);
-		
 		velocity.y = 0;
 		
-		if (_insidePlatform)
+		// Check if feet are inside platform
+		var _platCol = place_meeting(x, y, _platform);
+		
+		if (_platCol) // Move out and to top of platform if inside
 		{
 			velocity.y--;
 			
 			while (place_meeting(x + velocity.y * down_vector.x, y + velocity.y * down_vector.y, _platform))
-			{
 				velocity.y--;
-			}
 		}
-		else
+		else // Move down onto top of platform is not inside
 		{
 			while (!place_meeting(x + (velocity.y + 1) * down_vector.x, y + (velocity.y + 1) * down_vector.y, _platform))
-			{
 				velocity.y++;
-			}
 		}
 		
 		velocity.y += dot_product(down_vector.x, down_vector.y, _platform.hspeed, _platform.vspeed);
@@ -140,6 +145,16 @@ if (keyboard_check_pressed(g.button[BUTTON.JUMP]))
 {
 	if (situated || _platform || (_water && _water.object_index == obj_Water1))
 	{
+		// Add an additional two pixels when jumping off platform to avoid stuckage on high fps
+		if (_platform && situated && !place_meeting(
+			x - down_vector.x * platform_check_distance,
+			y - down_vector.y * platform_check_distance,
+			obj_Block))
+		{
+			x -= down_vector.x * platform_check_distance;
+			y -= down_vector.y * platform_check_distance;
+		}
+		
 		velocity.y = -jump_strength;
 		situated = false;
 		airjump_index = 0;

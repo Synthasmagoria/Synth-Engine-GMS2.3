@@ -39,6 +39,10 @@ arrow = "<-";
 arrow_space = font_width;
 arrow_width = string_length(arrow) * font_width + arrow_space;
 
+fps_min = 50;
+fps_max = 360;
+fps_change = 10;
+
 #region Menu titles, option names and their corresponding settings/buttons
 
 // Menu titles
@@ -111,18 +115,10 @@ event_user(1);
 setting_music_change = 0.1;
 setting_sound_change = 0.1;
 
-setting_framerate = [50, 60, 75, 90, 100, 120, 144, 150, 200, 240];
-setting_framerate_index = 0;
-setting_framerate_number = array_length_1d(setting_framerate);
-
 setting_scale_max = min(
 	floor(display_get_width() / GAME_WIDTH * 2) / 2,
 	floor(display_get_height() / GAME_HEIGHT * 2) / 2
 );
-
-while (setting_framerate[setting_framerate_index] < g.setting[SETTING.FRAMERATE]) {
-	setting_framerate_index++;
-}
 
 // Button string array
 button = array_create(option_number[menu_sub_buttons], "");

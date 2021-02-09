@@ -115,6 +115,10 @@ if (button_changing) {
 				setting_set(SETTING.SMOOTHING, !g.setting[SETTING.SMOOTHING]);
 				break;
 				
+				case 3: // small adjustments to framerate
+				setting_set(SETTING.FRAMERATE, min(g.setting[SETTING.FRAMERATE] + 1, fps_max));
+				break;
+				
 				case 6: // toggle vsync
 				setting_set(SETTING.VSYNC, !g.setting[SETTING.VSYNC]);
 				break;
@@ -196,8 +200,8 @@ if (button_changing) {
 				break;
 				
 				case 3: // set framerate
-				setting_framerate_index = clamp(setting_framerate_index + buttonRight - buttonLeft, 0, setting_framerate_number - 1);
-				setting_set(SETTING.FRAMERATE, setting_framerate[setting_framerate_index]);
+				var _newFramerate = clamp(floor((g.setting[SETTING.FRAMERATE] + fps_change*(buttonRight - buttonLeft))/fps_change)*fps_change, fps_min, fps_max);
+				setting_set(SETTING.FRAMERATE, _newFramerate);
 				setting[SETTING.FRAMERATE] = string(g.setting[SETTING.FRAMERATE]);
 				break;
 

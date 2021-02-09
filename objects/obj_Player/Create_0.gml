@@ -5,6 +5,9 @@ jump_strength = 8.4 * g.fps_adjust;
 shot_speed = 12 * g.fps_adjust;
 vine_hpush = 12;
 
+// Check distances
+platform_check_distance = 2;
+
 gravity_pull = 0.4 * g.fps_adjust_squared;
 gravity_direction = g.save_active[SAVE.GRAVITY_DIRECTION];
 
