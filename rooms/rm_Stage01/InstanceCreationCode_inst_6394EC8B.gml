@@ -1,2 +1,2 @@
-vspeed = g.fps_adjust * -2;
-hspeed = g.fps_adjust * -2;
+vspeed = global.fps_adjust * -2;
+hspeed = global.fps_adjust * -2;

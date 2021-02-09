@@ -1,2 +1,2 @@
 ///@desc Smoothing
-gpu_set_texfilter(g.setting[SETTING.SMOOTHING]);
+gpu_set_texfilter(global.setting[SETTING.SMOOTHING]);

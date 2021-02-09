@@ -2,6 +2,6 @@
 
 if (!touched) {
 	touched = true;
-	hspeed = hs * g.fps_adjust;
-	vspeed = vs * g.fps_adjust;
+	hspeed = hs * global.fps_adjust;
+	vspeed = vs * global.fps_adjust;
 }

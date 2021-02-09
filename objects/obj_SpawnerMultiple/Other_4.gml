@@ -14,8 +14,8 @@ if (!is_array(vs)) {vs = array_create(object_number, vs);}
 
 // Adjust values for fps setting
 for (var i = 0; i < object_number; i++) {
-	hs[i] *= g.fps_adjust;
-	vs[i] *= g.fps_adjust;
+	hs[i] *= global.fps_adjust;
+	vs[i] *= global.fps_adjust;
 }
 
 // Spawn ahead
@@ -24,7 +24,7 @@ if (ahead > 0) {
 	
 	for (var i = 0; i < object_number; i++) {
 		orientation = point_direction(0, 0, hs[i], vs[i]);
-		distance = point_distance(0, 0, hs[i], vs[i]) * rate / g.fps_adjust;
+		distance = point_distance(0, 0, hs[i], vs[i]) * rate / global.fps_adjust;
 		position = time / rate * distance;
 		
 		while (position < ahead) {

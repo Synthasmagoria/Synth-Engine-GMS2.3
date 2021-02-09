@@ -1,1 +1,1 @@
-hspeed = 4 * g.fps_adjust;
+hspeed = 4 * global.fps_adjust;

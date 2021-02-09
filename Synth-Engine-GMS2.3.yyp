@@ -121,7 +121,6 @@
     {"id":{"name":"spr_PlayerJump","path":"sprites/spr_PlayerJump/spr_PlayerJump.yy",},"order":5,},
     {"id":{"name":"obj_Vine","path":"objects/obj_Vine/obj_Vine.yy",},"order":3,},
     {"id":{"name":"spr_PlayerKiller","path":"sprites/spr_PlayerKiller/spr_PlayerKiller.yy",},"order":1,},
-    {"id":{"name":"mus_Useful","path":"sounds/mus_Useful/mus_Useful.yy",},"order":1,},
     {"id":{"name":"spr_PlayerRun","path":"sprites/spr_PlayerRun/spr_PlayerRun.yy",},"order":7,},
     {"id":{"name":"spr_PlayerSlide","path":"sprites/spr_PlayerSlide/spr_PlayerSlide.yy",},"order":8,},
     {"id":{"name":"spr_PlayerStart","path":"sprites/spr_PlayerStart/spr_PlayerStart.yy",},"order":9,},

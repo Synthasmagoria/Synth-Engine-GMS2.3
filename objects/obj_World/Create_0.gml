@@ -13,9 +13,6 @@ randomize();
 if (!audio_group_is_loaded(audiogroup_sound)) 
 	audio_group_load(audiogroup_sound);
 
-// Short global macro
-#macro g global
-
 // Set config file macros
 #macro CONFIG_FILENAME "config.ini"
 
@@ -24,11 +21,11 @@ if (!audio_group_is_loaded(audiogroup_sound))
 
 // Debug variables (set to false when releasing)
 #macro DEBUG true
-g.debug_nodeath = false;
-g.debug_nodeath_button = vk_insert;
-g.debug_save_button = vk_home;
-g.debug_warp_button = vk_delete;
-g.debug_text = "DEBUG";
+global.debug_nodeath = false;
+global.debug_nodeath_button = vk_insert;
+global.debug_save_button = vk_home;
+global.debug_warp_button = vk_delete;
+global.debug_text = "DEBUG";
 
 // Set game macros	
 #macro GAME_WIDTH 800
@@ -93,63 +90,63 @@ enum SAVE { // Add new savable values here
 // Don't be shy now... you can add custom enums
 
 // Default buttons
-g.button_default = array_create(BUTTON.NUMBER);
-g.button_default[BUTTON.RIGHT] = vk_right;
-g.button_default[BUTTON.UP] = vk_up;
-g.button_default[BUTTON.LEFT] = vk_left;
-g.button_default[BUTTON.DOWN] = vk_down;
-g.button_default[BUTTON.JUMP] = vk_shift;
-g.button_default[BUTTON.SHOOT] = ord("Z");
-g.button_default[BUTTON.RETRY] = ord("R");
-g.button_default[BUTTON.PAUSE] = ord("P");
-g.button_default[BUTTON.SUICIDE] = ord("Q");
+global.button_default = array_create(BUTTON.NUMBER);
+global.button_default[BUTTON.RIGHT] = vk_right;
+global.button_default[BUTTON.UP] = vk_up;
+global.button_default[BUTTON.LEFT] = vk_left;
+global.button_default[BUTTON.DOWN] = vk_down;
+global.button_default[BUTTON.JUMP] = vk_shift;
+global.button_default[BUTTON.SHOOT] = ord("Z");
+global.button_default[BUTTON.RETRY] = ord("R");
+global.button_default[BUTTON.PAUSE] = ord("P");
+global.button_default[BUTTON.SUICIDE] = ord("Q");
 
 // Menu navigation buttons
-g.button_menu = array_create(BUTTON_MENU.NUMBER);
-g.button_menu[BUTTON_MENU.RIGHT] = vk_right;
-g.button_menu[BUTTON_MENU.UP] = vk_up;
-g.button_menu[BUTTON_MENU.LEFT] = vk_left;
-g.button_menu[BUTTON_MENU.DOWN] = vk_down;
-g.button_menu[BUTTON_MENU.ACCEPT] = vk_shift;
-g.button_menu[BUTTON_MENU.DECLINE] = ord("Z");
+global.button_menu = array_create(BUTTON_MENU.NUMBER);
+global.button_menu[BUTTON_MENU.RIGHT] = vk_right;
+global.button_menu[BUTTON_MENU.UP] = vk_up;
+global.button_menu[BUTTON_MENU.LEFT] = vk_left;
+global.button_menu[BUTTON_MENU.DOWN] = vk_down;
+global.button_menu[BUTTON_MENU.ACCEPT] = vk_shift;
+global.button_menu[BUTTON_MENU.DECLINE] = ord("Z");
 
 // World control buttons
-g.button_world = array_create(BUTTON_WORLD.NUMBER);
-g.button_world[BUTTON_WORLD.MENU] = vk_f2;
-g.button_world[BUTTON_WORLD.QUIT] = vk_escape;
-g.button_world[BUTTON_WORLD.FULLSCREEN] = vk_f4;
-g.button_world[BUTTON_WORLD.SCREENSHOT] = vk_f11;
+global.button_world = array_create(BUTTON_WORLD.NUMBER);
+global.button_world[BUTTON_WORLD.MENU] = vk_f2;
+global.button_world[BUTTON_WORLD.QUIT] = vk_escape;
+global.button_world[BUTTON_WORLD.FULLSCREEN] = vk_f4;
+global.button_world[BUTTON_WORLD.SCREENSHOT] = vk_f11;
 
 // Default settings
-g.setting_default = array_create(SETTING.NUMBER);
-g.setting_default[SETTING.FULLSCREEN] = false;
-g.setting_default[SETTING.SMOOTHING] = false;
-g.setting_default[SETTING.SCALE] = 1;
-g.setting_default[SETTING.FRAMERATE] = 60;
-g.setting_default[SETTING.MUSIC] = 1;
-g.setting_default[SETTING.SOUND] = 0.6;
-g.setting_default[SETTING.VSYNC] = true;
+global.setting_default = array_create(SETTING.NUMBER);
+global.setting_default[SETTING.FULLSCREEN] = false;
+global.setting_default[SETTING.SMOOTHING] = false;
+global.setting_default[SETTING.SCALE] = 1;
+global.setting_default[SETTING.FRAMERATE] = 60;
+global.setting_default[SETTING.MUSIC] = 1;
+global.setting_default[SETTING.SOUND] = 0.6;
+global.setting_default[SETTING.VSYNC] = true;
 
 // Game variables
-g.game_playing = false; // variable to check if the game is not in the menu
-g.game_paused = false; // variable to check if the game is paused
+global.game_playing = false; // variable to check if the game is not in the menu
+global.game_paused = false; // variable to check if the game is paused
 window_set_caption("Synth Engine");
 
 // Save values
-g.save = array_create(SAVE.NUMBER);
-g.save_active = array_create(SAVE.NUMBER);
-g.save_is_read = false;
-g.save_index = 0;
-g.save_number = 5;
+global.save = array_create(SAVE.NUMBER);
+global.save_active = array_create(SAVE.NUMBER);
+global.save_is_read = false;
+global.save_index = 0;
+global.save_number = 5;
 
 // Default save values (used when starting a new game)
-g.save_default = array_create(SAVE.NUMBER);
-g.save_default[SAVE.ROOM] = "rm_Stage01";
-g.save_default[SAVE.FACING] = 1;
-g.save_default[SAVE.GRAVITY_DIRECTION] = 270;
+global.save_default = array_create(SAVE.NUMBER);
+global.save_default[SAVE.ROOM] = "rm_Stage01";
+global.save_default[SAVE.FACING] = 1;
+global.save_default[SAVE.GRAVITY_DIRECTION] = 270;
 
-g.save_as_string = array_create(SAVE.NUMBER);
-g.save_as_string[SAVE.ROOM] = true;
+global.save_as_string = array_create(SAVE.NUMBER);
+global.save_as_string[SAVE.ROOM] = true;
 
 // Write default buttons & settings to config file if it doesn't exist
 if (!file_exists(CONFIG_FILENAME)) {
@@ -157,49 +154,49 @@ if (!file_exists(CONFIG_FILENAME)) {
 	ini_open(CONFIG_FILENAME);
 	
 	for (var i = 0; i < BUTTON.NUMBER; i++)
-		ini_write_real(CONFIG_SECTION_BUTTONS, i, g.button_default[i]);
+		ini_write_real(CONFIG_SECTION_BUTTONS, i, global.button_default[i]);
 		
 	for (var i = 0; i < SETTING.NUMBER; i++)
-		ini_write_real(CONFIG_SECTION_SETTINGS, i, g.setting_default[i]);
+		ini_write_real(CONFIG_SECTION_SETTINGS, i, global.setting_default[i]);
 	
 	ini_close();
 }
 
 // Read buttons & settings from config
-g.button = array_create(BUTTON.NUMBER);
-g.setting = array_create(SETTING.NUMBER);
+global.button = array_create(BUTTON.NUMBER);
+global.setting = array_create(SETTING.NUMBER);
 
 ini_open(CONFIG_FILENAME);
 
 for (var i = 0; i < BUTTON.NUMBER; i++)
-	g.button[i] = ini_read_real(CONFIG_SECTION_BUTTONS, i, 0);
+	global.button[i] = ini_read_real(CONFIG_SECTION_BUTTONS, i, 0);
 
 for (var i = 0; i < SETTING.NUMBER; i++)
-	g.setting[i] = ini_read_real(CONFIG_SECTION_SETTINGS, i, 0);
+	global.setting[i] = ini_read_real(CONFIG_SECTION_SETTINGS, i, 0);
 	
 ini_close();
 
 // FPS macros
 #macro FPS_BASE 50
-#macro FPS_MULTIPLIER_CALCULATION FPS_BASE / g.setting[SETTING.FRAMERATE]
+#macro FPS_MULTIPLIER_CALCULATION FPS_BASE / global.setting[SETTING.FRAMERATE]
 #macro FPS_MULTIPLIER_CALCULATION_SQUARED power(FPS_MULTIPLIER_CALCULATION, 2)
 
 // Player variables
-g.player_depth = -1;
-g.player_blood_depth = -101;
-g.player_blood_part = part_type_create();
-g.player_blood_part_life = 150;
-g.player_blood_part_speed = 5;
-g.player_blood_part_gravity = 0.125;
-part_type_sprite(g.player_blood_part, spr_Blood, false, false, true);
-part_type_direction(g.player_blood_part, 0, 360, 0, 0);
+global.player_depth = -1;
+global.player_blood_depth = -101;
+global.player_blood_part = part_type_create();
+global.player_blood_part_life = 150;
+global.player_blood_part_speed = 5;
+global.player_blood_part_gravity = 0.125;
+part_type_sprite(global.player_blood_part, spr_Blood, false, false, true);
+part_type_direction(global.player_blood_part, 0, 360, 0, 0);
 
-g.player_blood_part_sys = part_system_create();
-part_system_depth(g.player_blood_part_sys, -101);
+global.player_blood_part_sys = part_system_create();
+part_system_depth(global.player_blood_part_sys, -101);
 
 // Set settings according to file or defaults
 for (var i = 0; i < SETTING.NUMBER; i++)
-	setting_set(i, g.setting[i]);
+	setting_set(i, global.setting[i]);
 
 // Reset variables
 resetting_room = -1;

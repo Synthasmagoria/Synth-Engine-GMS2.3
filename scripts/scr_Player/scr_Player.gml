@@ -25,15 +25,15 @@ function player_set_gravity_direction(dir) {
 ///@desc					Creates a gameover scenario
 ///@arg {real} inst/obj		The instance or object to kill
 function player_kill(inst_obj) {
-	if (!g.debug_nodeath) {
-		g.save_active[SAVE.DEATH]++;
+	if (!global.debug_nodeath) {
+		global.save_active[SAVE.DEATH]++;
 		savedata_save(SAVE.DEATH, SAVE.TIME);
 		
 		if (!instance_exists(obj_Gameover))
 			instance_create_depth(0, 0, depth, obj_Gameover);
 		
 		with (inst_obj) {
-			instance_create_depth(x, y, g.player_blood_depth, obj_BloodEmitter);
+			instance_create_depth(x, y, global.player_blood_depth, obj_BloodEmitter);
 			instance_destroy();
 		}
 	}
@@ -45,7 +45,7 @@ function player_respawn() {
 	instance_destroy(obj_Gameover);
 	instance_destroy(obj_BloodEmitter);
 	instance_destroy(obj_Player);
-	return player_spawn(g.save_active[SAVE.X], g.save_active[SAVE.Y]);
+	return player_spawn(global.save_active[SAVE.X], global.save_active[SAVE.Y]);
 }
 
 ///@func			player_spawn(x, y)
@@ -56,7 +56,7 @@ function player_spawn(xx, yy) {
 	return instance_create_depth(
 		xx,
 		yy,
-		g.player_depth,
+		global.player_depth,
 		obj_Player);
 }
 
@@ -70,23 +70,23 @@ function player_save() {
 
 	if (argument_count >= 3)
 	{
-		g.save_active[SAVE.X] = argument[0];
-		g.save_active[SAVE.Y] = argument[1];
-		g.save_active[SAVE.GRAVITY_DIRECTION] = argument[2];
-		g.save_active[SAVE.FACING] = 1;
+		global.save_active[SAVE.X] = argument[0];
+		global.save_active[SAVE.Y] = argument[1];
+		global.save_active[SAVE.GRAVITY_DIRECTION] = argument[2];
+		global.save_active[SAVE.FACING] = 1;
 	}
 	else
 	{
-		g.save_active[SAVE.X] = obj_Player.x;
-		g.save_active[SAVE.Y] = obj_Player.y;
-		g.save_active[SAVE.GRAVITY_DIRECTION] = obj_Player.gravity_direction;
-		g.save_active[SAVE.FACING] = obj_Player.facing;
+		global.save_active[SAVE.X] = obj_Player.x;
+		global.save_active[SAVE.Y] = obj_Player.y;
+		global.save_active[SAVE.GRAVITY_DIRECTION] = obj_Player.gravity_direction;
+		global.save_active[SAVE.FACING] = obj_Player.facing;
 	}
 
 	if (argument_count >= 4)
-		g.save_active[SAVE.ROOM] = room_get_name(argument[2]);
+		global.save_active[SAVE.ROOM] = room_get_name(argument[2]);
 	else
-		g.save_active[SAVE.ROOM] = room_get_name(room);
+		global.save_active[SAVE.ROOM] = room_get_name(room);
 
 	savedata_save();
 }

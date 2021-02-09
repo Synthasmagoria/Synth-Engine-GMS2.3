@@ -6,7 +6,7 @@
 ///@func flag_check(index)
 ///@arg {real} index
 function flag_check(index) {
-	return int_read_bit(g.save_active[SAVE.FLAG], index)
+	return int_read_bit(global.save_active[SAVE.FLAG], index)
 }
 
 ///@desc Sets a flag
@@ -14,7 +14,7 @@ function flag_check(index) {
 ///@arg {real} index
 ///@arg {bool} bool
 function flag_set(index, val) {
-	g.save_active[SAVE.FLAG] = int_set_bit(g.save_active[SAVE.FLAG], index, val);
+	global.save_active[SAVE.FLAG] = int_set_bit(global.save_active[SAVE.FLAG], index, val);
 }
 
 ///@desc Creates a spawner with the specified parameters

@@ -3,9 +3,9 @@
 adjusted = true;
 
 // Adjust values for fps setting
-rate /= g.fps_adjust;
-hs *= g.fps_adjust;
-vs *= g.fps_adjust;
+rate /= global.fps_adjust;
+hs *= global.fps_adjust;
+vs *= global.fps_adjust;
 
 // Set offset
 time = rate * offset;

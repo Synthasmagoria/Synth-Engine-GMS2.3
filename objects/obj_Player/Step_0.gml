@@ -1,12 +1,14 @@
 ///@desc Player control
 
+show_debug_message(gravity_direction);
+
 var
-_bLeft = keyboard_check(g.button[BUTTON.LEFT]),
-_bRight = keyboard_check(g.button[BUTTON.RIGHT]);
+_bLeft = keyboard_check(global.button[BUTTON.LEFT]),
+_bRight = keyboard_check(global.button[BUTTON.RIGHT]);
 
 // Gravity control intuition
 var _invertControls = 1;
-if (!g.setting[SETTING.CONTROL_ROTATIONAL] && gravity_direction > 0 && gravity_direction < 180)
+if (!global.setting[SETTING.CONTROL_ROTATIONAL] && gravity_direction > 0 && gravity_direction < 180)
 	_invertControls = -1;
 
 // Run & Facing
@@ -54,7 +56,7 @@ if (_vine)
 }
 else if (vine_direction != 0 && !_vine)
 {
-	if (keyboard_check(g.button[BUTTON.JUMP]) && facing != vine_direction)
+	if (keyboard_check(global.button[BUTTON.JUMP]) && facing != vine_direction)
 	{
 		velocity.x = vine_hpush * facing;
 		velocity.y = -jump_strength;
@@ -146,7 +148,7 @@ if (_gravityArrow && gravity_direction != _gravityArrow.image_angle)
 }
 
 // Jump
-if (keyboard_check_pressed(g.button[BUTTON.JUMP]))
+if (keyboard_check_pressed(global.button[BUTTON.JUMP]))
 {
 	if (situated || _platform || (_water && _water.object_index == obj_Water1))
 	{
@@ -174,11 +176,11 @@ if (keyboard_check_pressed(g.button[BUTTON.JUMP]))
 }
 
 // Fall
-if (keyboard_check_released(g.button[BUTTON.JUMP]) && velocity.y < 0.0)
+if (keyboard_check_released(global.button[BUTTON.JUMP]) && velocity.y < 0.0)
 	velocity.y *= velocity_y_fall;
 
 // Shoot
-if (keyboard_check_pressed(g.button[BUTTON.SHOOT]))
+if (keyboard_check_pressed(global.button[BUTTON.SHOOT]))
 {
 	var _bullet = instance_create_depth(
 		x + 5 * facing * image_xscale,
@@ -242,7 +244,7 @@ else
 velocity.x = 0;
 
 // Death
-if (place_meeting(x, y, obj_Killer) || keyboard_check_pressed(g.button[BUTTON.SUICIDE])) {
+if (place_meeting(x, y, obj_Killer) || keyboard_check_pressed(global.button[BUTTON.SUICIDE])) {
 	player_kill(id);
 	audio_play_sound(death_sound, 0, false);
 }

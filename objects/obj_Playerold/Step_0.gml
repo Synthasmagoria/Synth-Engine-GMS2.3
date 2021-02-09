@@ -1,12 +1,12 @@
 ///@desc Player control
 
 var
-b_left = keyboard_check(g.button[BUTTON.LEFT]) * !frozen,
-b_right = keyboard_check(g.button[BUTTON.RIGHT]) * !frozen,
-b_jump = keyboard_check_pressed(g.button[BUTTON.JUMP]) * !frozen,
-b_jump_hold = keyboard_check(g.button[BUTTON.JUMP]) * !frozen,
-b_fall = keyboard_check_released(g.button[BUTTON.JUMP]) * !frozen,
-b_shoot = keyboard_check_pressed(g.button[BUTTON.SHOOT]) * !frozen; 
+b_left = keyboard_check(global.button[BUTTON.LEFT]) * !frozen,
+b_right = keyboard_check(global.button[BUTTON.RIGHT]) * !frozen,
+b_jump = keyboard_check_pressed(global.button[BUTTON.JUMP]) * !frozen,
+b_jump_hold = keyboard_check(global.button[BUTTON.JUMP]) * !frozen,
+b_fall = keyboard_check_released(global.button[BUTTON.JUMP]) * !frozen,
+b_shoot = keyboard_check_pressed(global.button[BUTTON.SHOOT]) * !frozen; 
 
 // Reset values
 hspeed = 0;
@@ -154,7 +154,7 @@ if (place_meeting(x + hspeed, y + vspeed, obj_Block)) {
 #endregion
 
 #region Death
-if (place_meeting(x + hspeed, y + vspeed, obj_Killer) || keyboard_check_pressed(g.button[BUTTON.SUICIDE])) {
+if (place_meeting(x + hspeed, y + vspeed, obj_Killer) || keyboard_check_pressed(global.button[BUTTON.SUICIDE])) {
 	player_kill(self);
 	audio_play_sound(snd_PlayerDeath, 0, false);
 }

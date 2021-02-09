@@ -2,13 +2,13 @@
 	tldr; Functions that do save-related stuff go here
 	
 	There are two global arrays that are directly related to save data
-	g.save & g.save_current
+	global.save & global.save_current
 	
-	g.save_current holds values that are used when saving the game
-		* values from g.save_current are moved to g.save when calling savedata_save
+	global.save_current holds values that are used when saving the game
+		* values from global.save_current are moved to global.save when calling savedata_save
 	
-	g.save holds values that are used when loading the game
-		* values from g.save are moved to g.save_current when calling savedata_load
+	global.save holds values that are used when loading the game
+		* values from global.save are moved to global.save_current when calling savedata_load
 	
 	THE SAVE IS ONLY WRITTEN TO A FILE WHEN CALLING savedata_write
 	This means: if the crashes unexpectedly, the current save data will not be written.
@@ -23,7 +23,7 @@
 function savedata_load() {
 
 	/*
-		This function moves values in 'g.save_active' to values from 'g.save'.
+		This function moves values in 'global.save_active' to values from 'global.save'.
 		You choose whether to copy the whole array or only parts of it.
 		To specify which parts of the array to copy use the global SAVE enum.
 		Thereafter the game state will be set according to these values (savedata_start_game).
@@ -32,11 +32,11 @@ function savedata_load() {
 
 	if (argument_count > 0) {
 		for (var i = 0; i < argument_count; i++) {
-			g.save_active[argument[i]] = g.save[argument[i]];
+			global.save_active[argument[i]] = global.save[argument[i]];
 		}
 	} else {
 		for (var i = 0; i < SAVE.NUMBER; i++) {
-			g.save_active[i] = g.save[i];
+			global.save_active[i] = global.save[i];
 		}
 	}
 
@@ -44,12 +44,12 @@ function savedata_load() {
 }
 
 ///@func		savedata_new_game()
-///@desc		Sets g.save and g.save_active to default values
+///@desc		Sets global.save and global.save_active to default values
 function savedata_new_game() {
 
 	for (var i = 0; i < SAVE.NUMBER; i++) {
-		g.save[i] = g.save_default[i];
-		g.save_active[i] = g.save_default[i];
+		global.save[i] = global.save_default[i];
+		global.save_active[i] = global.save_default[i];
 	}
 	
 	savedata_start_game(false);
@@ -65,10 +65,10 @@ function savedata_read() {
 		var f = file_text_open_read(savename);
 	
 		for (var i = 0; i < SAVE.NUMBER; i++) {
-			if (!g.save_as_string[i]) {
-				g.save[i] = file_text_read_real(f);
+			if (!global.save_as_string[i]) {
+				global.save[i] = file_text_read_real(f);
 			} else {
-				g.save[i] = file_text_read_string(f);
+				global.save[i] = file_text_read_string(f);
 			}
 			
 			file_text_readln(f);
@@ -76,7 +76,7 @@ function savedata_read() {
 	
 		file_text_close(f);
 		
-		g.save_is_read = true;
+		global.save_is_read = true;
 	
 		return true; // Read from file
 	} else {
@@ -85,24 +85,24 @@ function savedata_read() {
 }
 
 ///@func		savedata_save([index], [...])
-///@desc		Moves values from g.save_current to g.save
+///@desc		Moves values from global.save_current to global.save
 ///@arg {real}	[index]
 ///@arg {real}	[...]
 function savedata_save() {
 
 	/*
-		This script sets values in 'g.save' to values from 'g.save_active'.
+		This script sets values in 'global.save' to values from 'global.save_active'.
 		You choose whether to copy the whole array or only parts of it.
 		To specify which parts of the array to copy use the global SAVE enum.
 	*/
 
 	if (argument_count > 0) {
 		for (var i = 0; i < argument_count; i++) {
-			g.save[argument[i]] = g.save_active[argument[i]];
+			global.save[argument[i]] = global.save_active[argument[i]];
 		}
 	} else {
 		for (var i = 0; i < SAVE.NUMBER; i++) {
-			g.save[i] = g.save_active[i];
+			global.save[i] = global.save_active[i];
 		}
 	}
 	
@@ -110,12 +110,12 @@ function savedata_save() {
 }
 
 ///@func		savedata_start_game(spawn_player)
-///@desc		Sets the game state based on the values in 'g.save_active'
+///@desc		Sets the game state based on the values in 'global.save_active'
 ///@arg {bool}	spawn_player
 function savedata_start_game(spawn_player) {
 
 	/*
-		This function sets the game state based on values stored in 'g.save_active'.
+		This function sets the game state based on values stored in 'global.save_active'.
 		You may change this script to fit your needs as you add more saved values.
 		Used in scripts 'savedata_new_game' and 'savedata_load'.
 	*/
@@ -123,27 +123,27 @@ function savedata_start_game(spawn_player) {
 	if (spawn_player)
 		player_respawn();
 
-	var r = asset_get_index(g.save_active[SAVE.ROOM]);
+	var r = asset_get_index(global.save_active[SAVE.ROOM]);
 
 	if (room == r)
 		room_restart();
 	else
 		room_goto(r);
 
-	g.game_playing = true;
+	global.game_playing = true;
 }
 
 ///@func			savedata_write()
-///@desc			Writes save values in g.save to file of the set index
+///@desc			Writes save values in global.save to file of the set index
 function savedata_write() {
 
 	var f = file_text_open_write(savedata_get_savename());
 
 	for (var i = 0; i < SAVE.NUMBER; i++) {
-		if (!g.save_as_string[i])
-			file_text_write_real(f, g.save[i]);
+		if (!global.save_as_string[i])
+			file_text_write_real(f, global.save[i]);
 		else
-			file_text_write_string(f, g.save[i]);
+			file_text_write_string(f, global.save[i]);
 		
 		file_text_writeln(f);
 	}
@@ -154,7 +154,7 @@ function savedata_write() {
 ///@func		savedata_get_savename()
 ///@desc		Gets the name of a save file
 function savedata_get_savename() {
-	return string(g.save_index);	
+	return string(global.save_index);	
 }
 
 ///@func		savedata_exists()
@@ -166,21 +166,21 @@ function savedata_exists() {
 ///@func		savedata_is_read()
 ///@desc		Checks if the data of the save index has been read
 function savedata_is_read() {
-	return g.save_is_read;	
+	return global.save_is_read;	
 }
 
 ///@func		savedata_set_index(save_index)
 ///@desc		Sets a save index to be used
 ///@arg {real}	save_index
 function savedata_set_index(save_index) {
-	if (g.save_index != save_index) {
-		g.save_is_read = false;
-		g.save_index = save_index;
+	if (global.save_index != save_index) {
+		global.save_is_read = false;
+		global.save_index = save_index;
 	}
 }
 
 ///@func savedata_get_index()
 ///@desc Gets the currently used save index
 function savedata_get_index() {
-	return g.save_index;	
+	return global.save_index;	
 }

@@ -6,73 +6,73 @@
 function setting_set(setting_index, value) {
 	switch (setting_index) {
 		case SETTING.FULLSCREEN:
-		g.setting[setting_index] = value;
-		window_set_fullscreen(g.setting[setting_index]);
+		global.setting[setting_index] = value;
+		window_set_fullscreen(global.setting[setting_index]);
 	
 		if (value) {
 			window_set_size(GAME_WIDTH, GAME_HEIGHT);
 			window_set_position(display_get_width() / 2 - GAME_WIDTH / 2, display_get_height() / 2 - GAME_HEIGHT / 2);
 		} else {
-			var w = GAME_WIDTH * g.setting[SETTING.SCALE], h = GAME_HEIGHT * g.setting[SETTING.SCALE];
+			var w = GAME_WIDTH * global.setting[SETTING.SCALE], h = GAME_HEIGHT * global.setting[SETTING.SCALE];
 			window_set_position(display_get_width() / 2 - w / 2, display_get_height() / 2 - h / 2);
 		}
 		break;
 	
 		case SETTING.SMOOTHING:
-		g.setting[setting_index] = value;
+		global.setting[setting_index] = value;
 		break;
 	
 		case SETTING.SCALE:
-		g.setting[setting_index] = value;
+		global.setting[setting_index] = value;
 		var w = GAME_WIDTH * value, h = GAME_HEIGHT * value;
 		window_set_position(display_get_width() / 2 - w / 2, display_get_height() / 2 - h / 2);
 		window_set_size(w, h);
 		break;
 	
 		case SETTING.FRAMERATE:
-		g.setting[setting_index] = value;
-		g.fps_adjust = FPS_MULTIPLIER_CALCULATION;
-		g.fps_adjust_squared = FPS_MULTIPLIER_CALCULATION_SQUARED;
-		game_set_speed(g.setting[setting_index], gamespeed_fps);
+		global.setting[setting_index] = value;
+		global.fps_adjust = FPS_MULTIPLIER_CALCULATION;
+		global.fps_adjust_squared = FPS_MULTIPLIER_CALCULATION_SQUARED;
+		game_set_speed(global.setting[setting_index], gamespeed_fps);
 		
 		#region Set blood particle variables
 		part_type_life(
-			g.player_blood_part,
-			g.player_blood_part_life / g.fps_adjust,
-			g.player_blood_part_life / g.fps_adjust);
+			global.player_blood_part,
+			global.player_blood_part_life / global.fps_adjust,
+			global.player_blood_part_life / global.fps_adjust);
 		part_type_speed(
-			g.player_blood_part,
+			global.player_blood_part,
 			0,
-			g.player_blood_part_speed  * g.fps_adjust,
+			global.player_blood_part_speed  * global.fps_adjust,
 			0,
 			0);
 		part_type_gravity(
-			g.player_blood_part,
-			g.player_blood_part_gravity * g.fps_adjust_squared,
+			global.player_blood_part,
+			global.player_blood_part_gravity * global.fps_adjust_squared,
 			270);
 		#endregion
 		break;
 	
 		case SETTING.MUSIC:
-		g.setting[setting_index] = clamp(value, 0, 1);
-		audio_group_set_gain(audiogroup_default, g.setting[setting_index], 0);
+		global.setting[setting_index] = clamp(value, 0, 1);
+		audio_group_set_gain(audiogroup_default, global.setting[setting_index], 0);
 		break;
 	
 		case SETTING.SOUND:
-		g.setting[setting_index] = clamp(value, 0, 1);
-		audio_group_set_gain(audiogroup_sound, g.setting[setting_index], 0);
+		global.setting[setting_index] = clamp(value, 0, 1);
+		audio_group_set_gain(audiogroup_sound, global.setting[setting_index], 0);
 		break;
 	
 		case SETTING.VSYNC:
-		g.setting[setting_index] = value ? true : false;
-		if (g.setting[setting_index])
+		global.setting[setting_index] = value ? true : false;
+		if (global.setting[setting_index])
 			display_set_timing_method(tm_countvsyncs);
 		else
 			display_set_timing_method(tm_sleep);
 		break;
 	
 		case SETTING.CONTROL_ROTATIONAL:
-		g.setting[setting_index] = value ? true : false;
+		global.setting[setting_index] = value ? true : false;
 		break;
 	
 		default: // exit the script is non-existant setting value is passed
@@ -81,7 +81,7 @@ function setting_set(setting_index, value) {
 	}
 
 	ini_open(CONFIG_FILENAME);
-	ini_write_real(CONFIG_SECTION_SETTINGS, setting_index, g.setting[setting_index]);
+	ini_write_real(CONFIG_SECTION_SETTINGS, setting_index, global.setting[setting_index]);
 	ini_close();
 }
 
@@ -91,7 +91,7 @@ function setting_set(setting_index, value) {
 
 function setting_set_default() {
 	for (var i = 0; i < SETTING.NUMBER; i++)
-		setting_set(i, g.setting_default[i]);
+		setting_set(i, global.setting_default[i]);
 }
 
 
@@ -104,7 +104,7 @@ function button_set(index, button) {
 
 	// Check if mapping to a world-button
 	for (var i = 0; i < BUTTON_WORLD.NUMBER; i++) {
-		if (button == g.button_world[i]) {
+		if (button == global.button_world[i]) {
 			exit;
 		}
 	}
@@ -113,16 +113,16 @@ function button_set(index, button) {
 	ini_open(CONFIG_FILENAME);
 
 	for (var i = 0; i < BUTTON.NUMBER; i++) {
-		if (button == g.button[i]) {
-			g.button[i] = g.button[index];
-			ini_write_real(CONFIG_SECTION_BUTTONS, i, g.button[i]);
+		if (button == global.button[i]) {
+			global.button[i] = global.button[index];
+			ini_write_real(CONFIG_SECTION_BUTTONS, i, global.button[i]);
 			break;
 		}
 	}
 
 	// Map button
-	g.button[index] = button;
-	ini_write_real(CONFIG_SECTION_BUTTONS, index, g.button[index]);
+	global.button[index] = button;
+	ini_write_real(CONFIG_SECTION_BUTTONS, index, global.button[index]);
 
 	ini_close();
 }
@@ -135,8 +135,8 @@ function button_set_default() {
 	ini_open(CONFIG_FILENAME);
 
 	for (var i = 0; i < BUTTON.NUMBER; i++) {
-		g.button[i] = g.button_default[i];
-		ini_write_real(CONFIG_SECTION_BUTTONS, i, g.button[i]);
+		global.button[i] = global.button_default[i];
+		ini_write_real(CONFIG_SECTION_BUTTONS, i, global.button[i]);
 	}
 
 	ini_close();	

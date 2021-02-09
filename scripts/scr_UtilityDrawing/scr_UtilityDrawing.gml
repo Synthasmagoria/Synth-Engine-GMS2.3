@@ -88,20 +88,20 @@ function draw_sprite_ext_skew(sprite, subimg, _x, _y, scalex, scaley, rot, alpha
 	    var rx = lx * rcos - ly * rsin;
 	    var ry = lx * rsin + ly * rcos;
 	    // transform and store corner coordinates:
-	    g._draw_sprite_ext_skew_x[c] = _x + (rx + ry * skew_kx) * skew_sx;
-	    g._draw_sprite_ext_skew_y[c] = _y + (ry + rx * skew_ky) * skew_sy;
+	    global._draw_sprite_ext_skew_x[c] = _x + (rx + ry * skew_kx) * skew_sx;
+	    global._draw_sprite_ext_skew_y[c] = _y + (ry + rx * skew_ky) * skew_sy;
 	}
 
 	// draw the sprite quad:
 	draw_sprite_pos(sprite, subimg,
-	    g._draw_sprite_ext_skew_x[0],
-	    g._draw_sprite_ext_skew_y[0],
-	    g._draw_sprite_ext_skew_x[1],
-	    g._draw_sprite_ext_skew_y[1],
-	    g._draw_sprite_ext_skew_x[3],
-	    g._draw_sprite_ext_skew_y[3],
-	    g._draw_sprite_ext_skew_x[2],
-	    g._draw_sprite_ext_skew_y[2],
+	    global._draw_sprite_ext_skew_x[0],
+	    global._draw_sprite_ext_skew_y[0],
+	    global._draw_sprite_ext_skew_x[1],
+	    global._draw_sprite_ext_skew_y[1],
+	    global._draw_sprite_ext_skew_x[3],
+	    global._draw_sprite_ext_skew_y[3],
+	    global._draw_sprite_ext_skew_x[2],
+	    global._draw_sprite_ext_skew_y[2],
 	    alpha
 	);
 }
