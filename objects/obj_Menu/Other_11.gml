@@ -6,3 +6,4 @@ setting[3] = string(g.setting[SETTING.FRAMERATE]);
 setting[4] = string(g.setting[SETTING.MUSIC]);
 setting[5] = string(g.setting[SETTING.SOUND]);
 setting[6] = g.setting[SETTING.VSYNC] ? "on" : "off";
+setting[7] = g.setting[SETTING.CONTROL_ROTATIONAL] ? "rotational" : "standard";

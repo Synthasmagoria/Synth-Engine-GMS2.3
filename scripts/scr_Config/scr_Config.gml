@@ -71,6 +71,10 @@ function setting_set(setting_index, value) {
 			display_set_timing_method(tm_sleep);
 		break;
 	
+		case SETTING.CONTROL_ROTATIONAL:
+		g.setting[setting_index] = value ? true : false;
+		break;
+	
 		default: // exit the script is non-existant setting value is passed
 		exit;
 		break;

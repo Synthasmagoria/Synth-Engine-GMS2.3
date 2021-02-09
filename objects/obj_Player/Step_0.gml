@@ -4,17 +4,22 @@ var
 _bLeft = keyboard_check(g.button[BUTTON.LEFT]),
 _bRight = keyboard_check(g.button[BUTTON.RIGHT]);
 
-// Run & Facing (mimicks the old-school way)
+// Gravity control intuition
+var _invertControls = 1;
+if (!g.setting[SETTING.CONTROL_ROTATIONAL] && gravity_direction > 0 && gravity_direction < 180)
+	_invertControls = -1;
+
+// Run & Facing
 if (_bLeft)
 {
-	facing = -1;
-	velocity.x -= run_speed;
+	facing = -1 * _invertControls;
+	velocity.x -= run_speed * _invertControls;
 	running = true;
 }
 else if (_bRight)
 {
-	facing = 1;
-	velocity.x += run_speed;
+	facing = 1 * _invertControls;
+	velocity.x += run_speed * _invertControls;
 	running = true;
 }
 else

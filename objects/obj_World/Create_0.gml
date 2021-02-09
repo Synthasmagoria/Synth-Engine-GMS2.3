@@ -74,6 +74,7 @@ enum SETTING { // Add settings here and specify in setting_set
 	MUSIC,
 	SOUND,
 	VSYNC,
+	CONTROL_ROTATIONAL,
 	NUMBER
 }
 
