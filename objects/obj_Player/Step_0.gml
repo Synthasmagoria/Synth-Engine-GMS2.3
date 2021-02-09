@@ -1,7 +1,5 @@
 ///@desc Player control
 
-show_debug_message(gravity_direction);
-
 var
 _bLeft = keyboard_check(global.button[BUTTON.LEFT]),
 _bRight = keyboard_check(global.button[BUTTON.RIGHT]);
