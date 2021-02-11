@@ -1,7 +1,7 @@
 ///@desc Initialize
 
 run_speed = 3.0 * global.fps_adjust;
-jump_strength = 8.35 * global.fps_adjust;
+jump_strength = 8.1 * global.fps_adjust;
 shot_speed = 12 * global.fps_adjust;
 vine_hpush = 12;
 
@@ -11,7 +11,7 @@ platform_check_distance = 2;
 gravity_pull = 0.4 * global.fps_adjust_squared;
 gravity_direction = global.save_active[SAVE.GRAVITY_DIRECTION];
 
-airjump_strength = 7.0 * global.fps_adjust;
+airjump_strength = 6.6 * global.fps_adjust;
 airjump_index = 0;
 airjump_number = 1;
 
