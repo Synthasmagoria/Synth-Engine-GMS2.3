@@ -69,3 +69,11 @@ v100:
 - Changed the way the player's maximum speed is handled
 - Secondary jumps now referred to as 'airjumps'
 - Water1 now refreshes airjumps (oops)
+
+v110:
+- Added omnidirection gravity and vector speed stuff in obj_Player
+- Room music pitch and gain scripts
+- Gravity control setting
+- Old school left/right control for walking
+- Vines
+- Removed old tiles
