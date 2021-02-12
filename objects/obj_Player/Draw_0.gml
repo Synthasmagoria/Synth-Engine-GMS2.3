@@ -13,7 +13,7 @@ else if (vine_direction != 0)
 }
 else
 {
-	if (velocity.y < 0.0)
+	if (vspeed * vertical_direction < 0.0)
 		sprite_index = spr_PlayerJump;
 	else
 		sprite_index = spr_PlayerFall;

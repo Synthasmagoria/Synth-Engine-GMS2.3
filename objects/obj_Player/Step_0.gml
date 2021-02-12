@@ -2,47 +2,45 @@
 
 var
 _bLeft = keyboard_check(global.button[BUTTON.LEFT]),
-_bRight = keyboard_check(global.button[BUTTON.RIGHT]);
+_bRight = keyboard_check(global.button[BUTTON.RIGHT]),
+_rotControl = (global.setting[SETTING.CONTROL_ROTATIONAL] && vertical_direction == -1) ? -1 : 1;
 
-// Gravity control intuition
-var _invertControls = 1;
-if (!global.setting[SETTING.CONTROL_ROTATIONAL] && gravity_direction >= 0 && gravity_direction < 180)
-	_invertControls = -1;
-
-// Run & Facing
+#region Run & Facing
 if (_bLeft)
 {
-	facing = -1 * _invertControls;
-	velocity.x -= run_speed * _invertControls;
+	facing = -1 * _rotControl;
+	hspeed -= run_speed * _rotControl;
 	running = true;
 }
 else if (_bRight)
 {
-	facing = 1 * _invertControls;
-	velocity.x += run_speed * _invertControls;
+	facing = 1 * _rotControl;
+	hspeed += run_speed * _rotControl;
 	running = true;
 }
 else
 {
 	running = false;
 }
+#endregion
 
 // Set normal fall speed limit
 velocity_y_limit = velocity_y_limit_normal;
 
-// Water
+#region Water
 var _water = instance_place(x, y, obj_Water)
 if (_water)
 {
 	velocity_y_limit = velocity_y_limit_water;
-	velocity.y = min(velocity.y, velocity_y_limit_water);
+	vspeed = min(vspeed, velocity_y_limit_water);
 	
 	if (_water.object_index == obj_Water1)
 		airjump_index = 0;
 }
+#endregion
 
-// Vines
-var _vine = place_meeting(x + right_vector.x * facing, y + right_vector.y * facing, obj_Vine);
+#region Vines
+var _vine = place_meeting(x + facing, y + facing, obj_Vine);
 sliding = false;
 
 if (_vine)
@@ -50,95 +48,76 @@ if (_vine)
 	sliding = true;
 	vine_direction = facing;
 	velocity_y_limit = velocity_y_limit_vine;
-	velocity.y = velocity_y_limit_vine;
+	vspeed = velocity_y_limit_vine;
 }
 else if (vine_direction != 0 && !_vine)
 {
 	if (keyboard_check(global.button[BUTTON.JUMP]) && facing != vine_direction)
 	{
-		velocity.x = vine_hpush * facing;
-		velocity.y = -jump_strength;
+		hspeed = vine_hpush * facing;
+		vspeed = -jump_strength * vertical_direction;
 		situated = false;
 		audio_play_sound(vinejump_sound, 0, false);
 	}
 	
 	vine_direction = 0;
 }
+#endregion
 
 // Gravity
-velocity.y = approach(velocity.y, velocity_y_limit, gravity_pull);
+vspeed = approach(vspeed, velocity_y_limit * vertical_direction, gravity_pull);
 
 // Situated
-if (place_meeting(x + down_vector.x, y + down_vector.y, obj_Block) && velocity.y >= 0.0)
-{
-	situated = true;
-	airjump_index = 0;
-	
-}
-else
-{
-	situated = false;
-}
+situated = place_meeting(x, y + vertical_direction, obj_Block) && vspeed * vertical_direction >= 0.0;
+airjump_index *= !situated;
 
-// Platforms
+#region Platforms
 var _platform = instance_place(
-	x + down_vector.x * max(platform_check_distance, velocity.y),
-	y + down_vector.y * max(platform_check_distance, velocity.y),
-	obj_Platform);
+	x, y + vertical_direction * (max(platform_check_distance, vspeed * vertical_direction)), obj_Platform);
 
 if (_platform)
 {
-	velocity.x += dot_product(right_vector.x, right_vector.y, _platform.hspeed, _platform.vspeed);
+	hspeed += _platform.hspeed;
 	
-	var _platDir = _platform.image_angle + 90 + (image_angle - _platform.image_angle);
-	var _platTop = new vec2(0.0, 0.0);
-	
+	var _platTop;
 	if (abs(angle_difference(image_angle, _platform.image_angle)) != 90)
-    	_platTop.set(
-        	_platform.x + lengthdir_x(_platform.sprite_height / 2, _platDir),
-        	_platform.y + lengthdir_y(_platform.sprite_height / 2, _platDir));
-    else
-    	_platTop.set(
-        	_platform.x + lengthdir_x(_platform.sprite_width / 2, _platDir),
-        	_platform.y + lengthdir_y(_platform.sprite_width / 2, _platDir));
+		_platTop = _platform.y + (_platform.sprite_height / 2 * -vertical_direction);
+	else
+		_platTop = _platform.y + (_platform.sprite_height / 2 * -vertical_direction);
 	
-	// Check if player's origin is above the top of the platform
-	var _abovePlatform = abs(angle_difference(_platDir, point_direction(_platTop.x, _platTop.y, x, y))) < 90;
+	var
+	_platDir = _platform.image_angle + 90 + ((vertical_direction == 1 ? 0 : 180) - _platform.image_angle),
+	_abovePlatform = abs(angle_difference(_platDir, point_direction(_platform.x, _platTop, x, y))) < 90;
 	
 	if (_abovePlatform)
 	{
-		velocity.y = 0;
+		vspeed = 0;
 		
-		// Check if feet are inside platform
-		var _platCol = place_meeting(x, y, _platform);
+		if (place_meeting(x, y, obj_Platform))
+			do {vspeed -= vertical_direction;} until (!place_meeting(x, y + vspeed, _platform));
+		else
+			while (!place_meeting(x, y + vspeed + vertical_direction, _platform)) {vspeed += vertical_direction;}
 		
-		if (_platCol) // Move out and to top of platform if inside
-		{
-			velocity.y--;
-			
-			while (place_meeting(x + velocity.y * down_vector.x, y + velocity.y * down_vector.y, _platform))
-				velocity.y--;
-		}
-		else // Move down onto top of platform is not inside
-		{
-			while (!place_meeting(x + (velocity.y + 1) * down_vector.x, y + (velocity.y + 1) * down_vector.y, _platform))
-				velocity.y++;
-		}
-		
-		velocity.y += dot_product(down_vector.x, down_vector.y, _platform.hspeed, _platform.vspeed);
+		vspeed += _platform.vspeed;
 		situated = true;
 		airjump_index = 0;
 	}
-	
-	delete _platTop;
 }
+#endregion
 
 // Change gravity direction
-var _gravityArrow = instance_place(x, y, obj_GravityArrow);
-if (_gravityArrow && gravity_direction != _gravityArrow.image_angle)
+if (vertical_direction == 1 && place_meeting(x, y, obj_GravityArrowUp))
 {
-	player_set_gravity_direction(_gravityArrow.image_angle);
-	velocity.y = 0.0;
+	vertical_direction = -1;
+	image_yscale = abs(image_yscale) * -1;
+	vspeed = 0.0;
+	airjump_index = 0;
+}
+else if (vertical_direction == -1 && place_meeting(x, y, obj_GravityArrowDown))
+{
+	vertical_direction = 1;
+	image_yscale = abs(image_yscale);
+	vspeed = 0.0;
 	airjump_index = 0;
 }
 
@@ -148,31 +127,25 @@ if (keyboard_check_pressed(global.button[BUTTON.JUMP]))
 	if (situated || _platform || (_water && _water.object_index == obj_Water1))
 	{
 		// Add an additional two pixels when jumping off platform to avoid stuckage on high fps
-		if (_platform && situated && !place_meeting(
-			x - down_vector.x * platform_check_distance,
-			y - down_vector.y * platform_check_distance,
-			obj_Block))
-		{
-			x -= down_vector.x * platform_check_distance;
-			y -= down_vector.y * platform_check_distance;
-		}
+		if (_platform && situated && !place_meeting(x, y - vertical_direction * platform_check_distance, obj_Block))
+			y -= vertical_direction * platform_check_distance;
 		
-		velocity.y = -jump_strength;
+		vspeed = -jump_strength * vertical_direction;
 		situated = false;
 		airjump_index = 0;
 		audio_play_sound(jump_sound, 0, false);
 	}
 	else if (airjump_index < airjump_number || (_water && _water.object_index == obj_Water2))
 	{
-		velocity.y = -airjump_strength;
+		vspeed = -airjump_strength * vertical_direction;
 		airjump_index++;
 		audio_play_sound(airjump_sound, 0, false);
 	}
 }
 
 // Fall
-if (keyboard_check_released(global.button[BUTTON.JUMP]) && velocity.y < 0.0)
-	velocity.y *= velocity_y_fall;
+if (keyboard_check_released(global.button[BUTTON.JUMP]) && vspeed * vertical_direction < 0.0)
+	vspeed *= velocity_y_fall;
 
 // Shoot
 if (keyboard_check_pressed(global.button[BUTTON.SHOOT]))
@@ -188,55 +161,33 @@ if (keyboard_check_pressed(global.button[BUTTON.SHOOT]))
 }
 
 #region Block collisions & movement
-right_velocity.set(velocity.x * right_vector.x, velocity.x * right_vector.y);
-down_velocity.set(velocity.y * down_vector.x, velocity.y * down_vector.y);
-
-if (place_meeting(
-	x + right_velocity.x + down_velocity.x,
-	y + right_velocity.y + down_velocity.y,
-	obj_Block))
+if (place_meeting(x + hspeed, y + vspeed, obj_Block))
 {
-	if (place_meeting(x + right_velocity.x, y + right_velocity.y, obj_Block))
+	if (place_meeting(x + hspeed, y, obj_Block))
 	{
-		var _horDir = sign(velocity.x);
-		while (!place_meeting(x + right_vector.x * _horDir, y + right_vector.y * _horDir, obj_Block))
-		{
-			x += right_vector.x * _horDir;
-			y += right_vector.y * _horDir;
-		}
+		var _dir = sign(hspeed);
+		while (!place_meeting(x + _dir, y, obj_Block)) x += _dir;
 	}
 	else
 	{
-		x += right_velocity.x;
-		y += right_velocity.y;
+		x += hspeed;
 	}
 	
-	if (place_meeting(x + down_velocity.x, y + down_velocity.y, obj_Block))
+	if (place_meeting(x, y + vspeed, obj_Block))
 	{
-		var _verDir = sign(velocity.y);
-		while (!place_meeting(x + down_vector.x * _verDir, y + down_vector.y * _verDir, obj_Block))
-		{
-			x += down_vector.x * _verDir;
-			y += down_vector.y * _verDir;
-		}
-		
-		velocity.y = 0.0;
-	}
-	else
-	{
-		x += down_velocity.x;
-		y += down_velocity.y;
+		var _dir = sign(vspeed);
+		while (!place_meeting(x, y + _dir, obj_Block)) y += _dir;
+		vspeed = 0;
 	}
 }
 else
 {
-	x += right_velocity.x + down_velocity.x;
-	y += right_velocity.y + down_velocity.y;
+	x += hspeed;
 }
 #endregion
 
 // Reset horizontal speed
-velocity.x = 0;
+hspeed = 0;
 
 // Death
 if (place_meeting(x, y, obj_Killer) || keyboard_check_pressed(global.button[BUTTON.SUICIDE])) {

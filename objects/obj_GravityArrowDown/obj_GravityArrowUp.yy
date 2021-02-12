@@ -1,16 +1,10 @@
 {
-  "spriteId": {
-    "name": "spr_VineSideways",
-    "path": "sprites/spr_VineSideways/spr_VineSideways.yy",
-  },
+  "spriteId": null,
   "solid": false,
   "visible": true,
   "spriteMaskId": null,
   "persistent": false,
-  "parentObjectId": {
-    "name": "obj_Vine",
-    "path": "objects/obj_Vine/obj_Vine.yy",
-  },
+  "parentObjectId": null,
   "physicsObject": false,
   "physicsSensor": false,
   "physicsShape": 1,
@@ -31,7 +25,7 @@
     "path": "folders/Objects/Misc.yy",
   },
   "resourceVersion": "1.0",
-  "name": "obj_VineSideways",
+  "name": "obj_GravityArrowUp",
   "tags": [],
   "resourceType": "GMObject",
 }

@@ -1,26 +1,3 @@
-///@func				player_jump(vspd, snd)
-///@arg {real} vspd		Vertical speed of the jump
-///@desc				Sets the vspeed and plays a sound
-function player_jump(vs) {
-	vspeed = vs;
-	situated = false;
-}
-
-///@func			player_set_gravity_direction(dir)
-///@arg {real} dir	Gravity direction
-///@desc			Safely sets the gravity direction of the player
-function player_set_gravity_direction(dir) {
-	gravity_direction = wrap(dir, 0, 359);
-	image_angle = gravity_direction - 270;
-	
-	right_vector.set(
-		lengthdir_x(1, gravity_direction + 90),
-		lengthdir_y(1, gravity_direction + 90));
-	down_vector.set(
-		lengthdir_x(1, gravity_direction),
-		lengthdir_y(1, gravity_direction));
-}
-
 ///@func					player_kill([inst/obj])
 ///@desc					Creates a gameover scenario
 ///@arg {real} inst/obj		The instance or object to kill
@@ -89,10 +66,4 @@ function player_save() {
 		global.save_active[SAVE.ROOM] = room_get_name(room);
 
 	savedata_save();
-}
-
-///@func player_situated()
-///@desc Checks if situated (depends on vspeed & gravity)
-function player_situated() {
-	return place_meeting(x, y + 1, obj_Block) && vspeed >= 0;
 }

@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "spr_Vine",
-    "path": "sprites/spr_Vine/spr_Vine.yy",
+    "name": "spr_ArrowUp",
+    "path": "sprites/spr_ArrowUp/spr_ArrowUp.yy",
   },
   "solid": false,
   "visible": true,
@@ -28,7 +28,7 @@
     "path": "folders/Objects/Misc.yy",
   },
   "resourceVersion": "1.0",
-  "name": "obj_Vine",
+  "name": "obj_GravityArrowUp",
   "tags": [],
   "resourceType": "GMObject",
 }

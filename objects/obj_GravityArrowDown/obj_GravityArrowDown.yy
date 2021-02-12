@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "spr_Arrow",
-    "path": "sprites/spr_Arrow/spr_Arrow.yy",
+    "name": "spr_ArrowDown",
+    "path": "sprites/spr_ArrowDown/spr_ArrowDown.yy",
   },
   "solid": false,
   "visible": true,
@@ -20,10 +20,7 @@
   "physicsStartAwake": true,
   "physicsKinematic": false,
   "physicsShapePoints": [],
-  "eventList": [
-    {"isDnD":false,"eventNum":0,"eventType":3,"collisionObjectId":null,"parent":{"name":"obj_GravityArrow","path":"objects/obj_GravityArrow/obj_GravityArrow.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
-    {"isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,"parent":{"name":"obj_GravityArrow","path":"objects/obj_GravityArrow/obj_GravityArrow.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
-  ],
+  "eventList": [],
   "properties": [],
   "overriddenProperties": [],
   "parent": {
@@ -31,7 +28,7 @@
     "path": "folders/Objects/Misc.yy",
   },
   "resourceVersion": "1.0",
-  "name": "obj_GravityArrow",
+  "name": "obj_GravityArrowDown",
   "tags": [],
   "resourceType": "GMObject",
 }

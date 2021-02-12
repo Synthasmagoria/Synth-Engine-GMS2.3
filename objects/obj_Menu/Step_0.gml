@@ -123,7 +123,7 @@ if (button_changing) {
 				setting_set(SETTING.VSYNC, !global.setting[SETTING.VSYNC]);
 				break;
 				
-				case 7: // change gravity control
+				case 7:
 				setting_set(SETTING.CONTROL_ROTATIONAL, !global.setting[SETTING.CONTROL_ROTATIONAL]);
 				break;
 				

@@ -88,7 +88,6 @@ function setting_set(setting_index, value) {
 
 ///@func	setting_set_default()
 ///@desc	Sets all settings to default and writes them to the configuration file
-
 function setting_set_default() {
 	for (var i = 0; i < SETTING.NUMBER; i++)
 		setting_set(i, global.setting_default[i]);
