@@ -47,7 +47,7 @@ fps_change = 10;
 
 // Menu titles
 menu = array_create(menu_number, "");
-menu[menu_sub_main] = "Synth engine omnigrav";
+menu[menu_sub_main] = "Replace this menu";
 menu[menu_sub_save] = "Select Save";
 menu[menu_sub_start] = "Game";
 menu[menu_sub_overwrite] = "Overwrite save?";
