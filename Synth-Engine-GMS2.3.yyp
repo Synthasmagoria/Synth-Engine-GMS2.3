@@ -96,7 +96,6 @@
     {"id":{"name":"spr_MaskBlue","path":"sprites/spr_MaskBlue/spr_MaskBlue.yy",},"order":0,},
     {"id":{"name":"spr_MaskCherry","path":"sprites/spr_MaskCherry/spr_MaskCherry.yy",},"order":1,},
     {"id":{"name":"spr_MaskDarkBlue","path":"sprites/spr_MaskDarkBlue/spr_MaskDarkBlue.yy",},"order":2,},
-    {"id":{"name":"obj_Playerold","path":"objects/obj_Playerold/obj_Playerold.yy",},"order":8,},
     {"id":{"name":"spr_MaskGreen","path":"sprites/spr_MaskGreen/spr_MaskGreen.yy",},"order":3,},
     {"id":{"name":"spr_MaskLime","path":"sprites/spr_MaskLime/spr_MaskLime.yy",},"order":4,},
     {"id":{"name":"spr_MaskMagenta","path":"sprites/spr_MaskMagenta/spr_MaskMagenta.yy",},"order":5,},
