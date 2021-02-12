@@ -63,3 +63,12 @@ if (menu_index == menu_sub_settings) {
 }
 
 draw_set_color(c_white);
+
+// Draw helping text
+draw_set_halign(fa_right);
+draw_text(
+	room_width - menu_padding,
+	menu_padding,
+	"[" + button_to_string(global.button_menu[BUTTON_MENU.ACCEPT]) + "]: Accept / Adjust, " + 
+	"[" + button_to_string(global.button_menu[BUTTON_MENU.DECLINE]) + "]: Decline");
+draw_set_halign(fa_left);

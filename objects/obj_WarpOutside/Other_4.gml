@@ -16,5 +16,8 @@ if (persistent)
 	
 	obj_Player.y += warp_yoffset;
 		
-	instance_destroy();
+	if (room != room_origin)
+		instance_destroy();
+	else
+		persistent = false;
 }
