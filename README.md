@@ -1,6 +1,8 @@
 # Synth-Engine-GMS2.3
-Assets that can be used to create fangames in GMS2.3
-v100
+Before you download!
+
+If you're here for the 360 gravity then download the engine from the 'omnigrav' branch
+The version on the main branch doesn't have 360 gravity (but familiar player code)
 
 Pre 2.3 version (old assets): https://github.com/Synthasmagoria/Synth-Engine-GMS2
 
