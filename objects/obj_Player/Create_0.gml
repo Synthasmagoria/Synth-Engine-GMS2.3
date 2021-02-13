@@ -37,3 +37,5 @@ airjump_sound = snd_PlayerAirjump;
 shot_sound = snd_PlayerShoot;
 vinejump_sound = snd_PlayerVineJump;
 death_sound = snd_PlayerDeath;
+
+player_set_gravity(global.save_active[SAVE.GRAVITY_DIRECTION]);

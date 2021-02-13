@@ -16,6 +16,31 @@ function player_kill(inst_obj) {
 	}
 }
 
+///
+function player_set_gravity(vert_dir) {
+	vert_dir = sign(vert_dir);
+	
+	if (vert_dir != 0)
+	{
+		if (vert_dir == -1 && vertical_direction == 1) {
+			y -= 3;
+			vspeed = 0;
+			player_refresh_airjumps();
+		} else if (vert_dir == 1 && vertical_direction == -1) {
+			y += 3;
+			vspeed = 0;
+			player_refresh_airjumps();
+		}
+		
+		vertical_direction = vert_dir;
+		image_yscale = abs(image_yscale) * vert_dir;
+	}
+}
+
+function player_refresh_airjumps() {
+	obj_Player.airjump_index = 0;
+}
+
 ///@desc	Respawns the player at the last saved position
 ///@func	player_respawn()
 function player_respawn() {
@@ -56,7 +81,7 @@ function player_save() {
 	{
 		global.save_active[SAVE.X] = obj_Player.x;
 		global.save_active[SAVE.Y] = obj_Player.y;
-		global.save_active[SAVE.GRAVITY_DIRECTION] = obj_Player.gravity_direction;
+		global.save_active[SAVE.GRAVITY_DIRECTION] = obj_Player.vertical_direction;
 		global.save_active[SAVE.FACING] = obj_Player.facing;
 	}
 
