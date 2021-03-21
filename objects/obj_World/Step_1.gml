@@ -83,4 +83,4 @@ if (keyboard_check_pressed(global.button_world[BUTTON_WORLD.FULLSCREEN])) {
 
 // Screenshot
 if (keyboard_check_pressed(global.button_world[BUTTON_WORLD.SCREENSHOT]))
-	screen_save(date_datetime_string(date_current_datetime()));
+	screen_save(string_lettersdigits(date_datetime_string(date_current_datetime())) + ".png");
