@@ -35,6 +35,8 @@
   },
   "resourceVersion": "1.0",
   "name": "obj_WarpInvisible",
-  "tags": [],
+  "tags": [
+    "General Gameplay",
+  ],
   "resourceType": "GMObject",
 }

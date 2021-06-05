@@ -34,6 +34,8 @@
   },
   "resourceVersion": "1.0",
   "name": "obj_Camera_Snap",
-  "tags": [],
+  "tags": [
+    "General Gameplay",
+  ],
   "resourceType": "GMObject",
 }

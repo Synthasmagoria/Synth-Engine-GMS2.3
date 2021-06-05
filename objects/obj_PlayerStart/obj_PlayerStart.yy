@@ -32,6 +32,8 @@
   },
   "resourceVersion": "1.0",
   "name": "obj_PlayerStart",
-  "tags": [],
+  "tags": [
+    "General Gameplay",
+  ],
   "resourceType": "GMObject",
 }

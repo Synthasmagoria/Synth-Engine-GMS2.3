@@ -34,6 +34,8 @@
   },
   "resourceVersion": "1.0",
   "name": "obj_Camera_Follow",
-  "tags": [],
+  "tags": [
+    "General Gameplay",
+  ],
   "resourceType": "GMObject",
 }

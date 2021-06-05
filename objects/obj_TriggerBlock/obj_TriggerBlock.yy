@@ -36,6 +36,8 @@
   },
   "resourceVersion": "1.0",
   "name": "obj_TriggerBlock",
-  "tags": [],
+  "tags": [
+    "General Gameplay",
+  ],
   "resourceType": "GMObject",
 }

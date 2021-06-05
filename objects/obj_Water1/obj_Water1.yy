@@ -32,6 +32,8 @@
   },
   "resourceVersion": "1.0",
   "name": "obj_Water1",
-  "tags": [],
+  "tags": [
+    "General Gameplay",
+  ],
   "resourceType": "GMObject",
 }

@@ -29,6 +29,8 @@
   },
   "resourceVersion": "1.0",
   "name": "obj_Killer",
-  "tags": [],
+  "tags": [
+    "General Gameplay",
+  ],
   "resourceType": "GMObject",
 }

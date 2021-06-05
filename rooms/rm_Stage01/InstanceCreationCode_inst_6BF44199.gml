@@ -1,1 +1,1 @@
-vspeed = global.fps_adjust * -4;
+vs = -4;

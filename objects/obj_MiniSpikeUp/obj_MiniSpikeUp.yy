@@ -1,10 +1,16 @@
 {
-  "spriteId": null,
+  "spriteId": {
+    "name": "spr_MiniSpikeLeft",
+    "path": "sprites/spr_MiniSpikeLeft/spr_MiniSpikeLeft.yy",
+  },
   "solid": false,
   "visible": true,
   "spriteMaskId": null,
   "persistent": false,
-  "parentObjectId": null,
+  "parentObjectId": {
+    "name": "obj_Killer",
+    "path": "objects/obj_Killer/obj_Killer.yy",
+  },
   "physicsObject": false,
   "physicsSensor": false,
   "physicsShape": 1,
@@ -26,6 +32,8 @@
   },
   "resourceVersion": "1.0",
   "name": "obj_MiniSpikeUp",
-  "tags": [],
+  "tags": [
+    "General Gameplay",
+  ],
   "resourceType": "GMObject",
 }

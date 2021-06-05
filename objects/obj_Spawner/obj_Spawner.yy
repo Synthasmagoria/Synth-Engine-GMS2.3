@@ -30,11 +30,13 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Spawner",
-    "path": "folders/Objects/Spawner.yy",
+    "name": "Misc",
+    "path": "folders/Objects/Misc.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_Spawner",
-  "tags": [],
+  "tags": [
+    "General Gameplay",
+  ],
   "resourceType": "GMObject",
 }

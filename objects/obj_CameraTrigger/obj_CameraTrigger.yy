@@ -33,6 +33,8 @@
   },
   "resourceVersion": "1.0",
   "name": "obj_CameraTrigger",
-  "tags": [],
+  "tags": [
+    "General Gameplay",
+  ],
   "resourceType": "GMObject",
 }

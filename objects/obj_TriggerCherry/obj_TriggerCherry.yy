@@ -31,6 +31,8 @@
   },
   "resourceVersion": "1.0",
   "name": "obj_TriggerCherry",
-  "tags": [],
+  "tags": [
+    "General Gameplay",
+  ],
   "resourceType": "GMObject",
 }

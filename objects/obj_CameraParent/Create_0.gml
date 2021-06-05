@@ -23,3 +23,7 @@ activate = function() {
 // Room variables that cameras need to work
 view_enabled = true;
 view_set_visible(0, true);
+
+// Activate camera automatically if only one in the room
+if (instance_number(obj_CameraParent) == 1)
+	activate()
