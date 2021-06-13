@@ -1,12 +1,21 @@
 # Synth-Engine-GMS2.3
-Before you download!
 
-If you're here for the 360 gravity then download the engine from the 'omnigrav' branch
-The version on the main branch doesn't have 360 gravity (but familiar player code)
+The main branch holds version v120
+There is a brach for v110 in case you want to go back
+Pre 2.3 version (old assets and code, v097): https://github.com/Synthasmagoria/Synth-Engine-GMS2
 
-Pre 2.3 version (old assets): https://github.com/Synthasmagoria/Synth-Engine-GMS2
+ -- Saving something new in v120 --
+All saved values are kept in the object oSaveData
+It holds an array of keys that you can freely add and remove entries from
+Once you've added a key to the array you can get and set it through the functions:
+savedata_get(_active) and savedata_set(_active)
+Or directly through referencing the object
+oSaveData.save[?<key>] and oSaveData.save_active[?<key>]
+	
+All functions that interface with object oSaveData can be found in scrSaveData
 
- -- Saving something new --
+
+ -- Saving something new in v110 --
 All saved values in this engine are based on enums defined in the create event of obj_World.
 To add more saved values you can add entries to the end of the enums before the 'NUMBER' entry.
 
@@ -28,9 +37,9 @@ Index the arrays that are linked to saved values with the enum entry.
 e.g.
 global.save_as_string[SAVE.USERNAME] = true;
 
-Now you just need to define the behavior of the newly added button in
-whatever object will use it. And don't forget to make it remappable in
-your custom menu ;)
+Now you just need to define the behavior of the newly added variable in
+whatever object will use it.
+			     
 To get a better understanding of how this works you can take a look at the
 script called scr_SavedataFunctions
 
@@ -79,3 +88,15 @@ v110:
 - Old school left/right control for walking
 - Vines
 - Removed old tiles
+
+v120:
+- Separated audio from world
+- Separated save variables from world
+- Added custom weapons
+- Removed event_user in favor of local functions
+- vec2 struct has decent functionality now
+- Lots more utility functions
+- Added item and item display
+- Changed to JSON saving
+- Renamed some player variables and added frozen and stopped states
+- A lot more
