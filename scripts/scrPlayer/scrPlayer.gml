@@ -16,19 +16,6 @@ function player_kill(inst_obj) {
 	}
 }
 
-///@func player_set_weapon(new_weapon)
-///@arg {index} new_weapon
-function player_set_weapon(new_weapon) {
-	with oPlayer {
-		if weapon_instance != -1 && instance_exists(weapon_instance)
-			instance_destroy(weapon_instance)
-		if new_weapon != -1 {
-			weapon = new_weapon
-			weapon_instance = instance_create_depth(x, y, depth + 1, weapon)
-		}
-	}
-}
-
 /*
 	You may use this script to change player skin if you've added multiple player sprites
 	Creds to vv for this one

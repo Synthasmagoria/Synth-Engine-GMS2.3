@@ -211,6 +211,5 @@ function savedata_save_player() {
 	savedata_set_active("room", room_get_name(room))
 	savedata_set_active("gravity_direction", oPlayer.vertical_direction)
 	savedata_set_active("facing", oPlayer.facing)
-	savedata_set_active("weapon", oPlayer.weapon == -1 ? "" : object_get_name(oPlayer.weapon))
 	savedata_save()
 }

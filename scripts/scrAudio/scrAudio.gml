@@ -2,10 +2,9 @@
 	Functions used by and used for controlling oBGM
 */
 
-///@func	sfx_play_sound(snd, priority)
+///@func	sfx_play_sound(snd)
 ///@desc	plays a garbage collected sound effect from the audio manager
 ///@arg {index} snd
-///@arg {real} priority
 function sfx_play_sound(snd) {
 	var _id = audio_play_sound(snd, 0, false)
 	oAudio.sfx_add(_id)

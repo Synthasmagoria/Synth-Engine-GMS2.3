@@ -10,8 +10,7 @@ if !frozen {
 	button_jump_held =	keyboard_check(global.button[BUTTON.JUMP])
 	button_fall =		keyboard_check_released(global.button[BUTTON.JUMP])
 	button_suicide =	keyboard_check_pressed(global.button[BUTTON.SUICIDE])
-	button_fire =		keyboard_check(global.button[BUTTON.SHOOT])
-	button_release =	keyboard_check_released(global.button[BUTTON.SHOOT])
+	button_fire =		keyboard_check_pressed(global.button[BUTTON.SHOOT])
 }
 
 // Queued speed
@@ -187,6 +186,17 @@ else
 // Reset horizontal speed
 hspeed = 0
 
+if (button_fire) {
+	var _bullet = instance_create_depth(
+		x + 5 * facing * image_xscale,
+		y - 2 * image_yscale,
+		depth + 1,
+		oBullet);
+	_bullet.direction = image_angle;
+	_bullet.speed = shot_speed * facing;
+	audio_play_sound(shot_sound, 0, false);
+}
+
 // Death
 if (place_meeting(x, y, oKiller) || button_suicide) {
 	player_kill(id)
@@ -215,30 +225,5 @@ if (animate)
 			sprite_index = sprite_fall
 	}
 }
-
-#region Weapon
-if (weapon_instance != -1 && instance_exists(weapon_instance))
-{
-	if (sprite_index != sprite_slide)
-	{
-		weapon_instance.visible = true
-		weapon_instance.x = x + hand.x * image_xscale * facing
-		weapon_instance.y = y + hand.y * image_yscale + vspeed - (sign(image_yscale) == -1)
-		weapon_instance.image_xscale = image_xscale * facing
-		weapon_instance.image_yscale = image_yscale
-		
-		weapon_instance.y += (sprite_index == sprite_idle && floor(image_index) == 1) * image_yscale
-		
-		if button_release
-			weapon_instance.release()
-		if button_fire
-			player_queue_speed(weapon_instance.fire() * weapon_instance.knockback * -facing * image_xscale, 0)
-	}
-	else
-	{
-		weapon_instance.visible = false
-	}
-}
-#endregion
 
 } // if (stopped)

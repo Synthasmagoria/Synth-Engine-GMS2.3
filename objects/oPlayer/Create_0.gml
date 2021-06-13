@@ -11,16 +11,12 @@ sprite_slide = sPlayerSlide
 run_speed = 3.0 * global.fps_adjust
 jump_strength = 8.1 * global.fps_adjust
 vine_hpush = 12
+shot_speed = 15 * global.fps_adjust
 
 // Airjumps
 airjump_strength = 6.6 * global.fps_adjust
 airjump_index = 0
 airjump_number = 1
-
-// Weapon variables
-hand = new vec2(3, 0)
-weapon = -1
-weapon_instance = -1
 
 // Misc control
 platform_check_distance = 2
@@ -53,10 +49,10 @@ jump_sound = sndPlayerJump
 airjump_sound = sndPlayerAirjump
 vinejump_sound = sndPlayerVinejump
 death_sound = sndPlayerDeath
+shot_sound = sndPlayerShoot
 
 // Button variables
 button_fire = false
-button_release = false
 button_jump = false
 button_fall = false
 button_left = false
@@ -66,7 +62,6 @@ button_jump_held = false
 
 remove_input = function() {
 	button_fire = false
-	button_release = false
 	button_jump = false
 	button_fall = false
 	button_left = false
@@ -76,10 +71,3 @@ remove_input = function() {
 }
 
 player_set_gravity(savedata_get_active("gravity_direction"))
-
-var _weapon;
-if savedata_get_active("weapon") == ""
-	_weapon = -1
-else
-	_weapon = asset_get_index(savedata_get_active("weapon"))
-player_set_weapon(_weapon)
