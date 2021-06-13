@@ -31,14 +31,14 @@ function player_set_weapon(new_weapon) {
 
 /*
 	You may use this script to change player skin if you've added multiple player sprites
-	Creds to vivi for giving me this
+	Creds to vivi for this one
 */
 ///@func player_set_skin(skin)
 ///@desc Sets the sprites used for a player
 ///@arg {string} skin
 function player_set_skin(a) {
 	with oPlayer {
-		if a == 0 or a == "" or a == -1 {
+		if a == undefined or a == "" or a == -1 {
 		    sprite_idle = sPlayerIdle
 		    sprite_run = sPlayerRun
 		    sprite_slide = sPlayerSlide
