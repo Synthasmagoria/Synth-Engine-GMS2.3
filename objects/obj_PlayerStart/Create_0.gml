@@ -1,3 +1,0 @@
-///@desc Init
-
-save = false;
