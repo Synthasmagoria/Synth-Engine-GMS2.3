@@ -1,1 +1,0 @@
-image_alpha = min(1, image_alpha + fade_speed)

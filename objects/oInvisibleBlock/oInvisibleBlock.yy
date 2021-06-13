@@ -30,8 +30,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Misc",
-    "path": "folders/Objects/Misc.yy",
+    "name": "Block",
+    "path": "folders/Objects/Block.yy",
   },
   "resourceVersion": "1.0",
   "name": "oInvisibleBlock",
