@@ -29,6 +29,10 @@ function player_set_weapon(new_weapon) {
 	}
 }
 
+/*
+	You may use this script to change player skin if you've added multiple player sprites
+	Creds to vivi for giving me this
+*/
 ///@func player_set_skin(skin)
 ///@desc Sets the sprites used for a player
 ///@arg {string} skin
