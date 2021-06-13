@@ -1,6 +1,7 @@
 # Synth-Engine-GMS2.3
 
 The main branch holds version v120
+If you want the weapons system go to v120-weapons branch
 There is a brach for v110 in case you want to go back
 Pre 2.3 version (old assets and code, v097): https://github.com/Synthasmagoria/Synth-Engine-GMS2
 
