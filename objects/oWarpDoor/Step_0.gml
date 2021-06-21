@@ -4,5 +4,5 @@
 do_collision()
 
 // Warp if conditions are met
-if (warp_touching && keyboard_check_pressed(global.button[BUTTON.UP]))
+if (warp_touching && input_check_pressed("up"))
 	door_warp()

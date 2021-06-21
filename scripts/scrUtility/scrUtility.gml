@@ -252,3 +252,14 @@ function warp() {
 	// Warp
 	room_goto(argument[0])
 }
+
+///@func array_get_max_string_width(arr)
+///@desc Gets the maximum string width from an array of strings (array has to consist of strings only)
+function array_get_max_string_width(arr) {
+	var _maxw = 0, _w
+	for (var i = array_length(arr) - 1; i >= 0; i--) {
+		_w = string_width(arr[i])
+		_maxw = _w > _maxw ? _w : _maxw
+	}
+	return _maxw
+}

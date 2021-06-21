@@ -3,7 +3,7 @@
 if (DEBUG) {
 	draw_set_color(c_red)
 	draw_set_font(0)
-	draw_text(4, GAME_HEIGHT - string_height("W") - 4, global.debug_text)
+	draw_text(4, GAME_HEIGHT - string_height("W") - 4, debug_text)
 	draw_set_color(c_white)
 }
 

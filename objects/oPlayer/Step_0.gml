@@ -4,13 +4,13 @@ if !stopped
 {
 
 if !frozen {
-	button_left =		keyboard_check(global.button[BUTTON.LEFT])
-	button_right =		keyboard_check(global.button[BUTTON.RIGHT])
-	button_jump =		keyboard_check_pressed(global.button[BUTTON.JUMP])
-	button_jump_held =	keyboard_check(global.button[BUTTON.JUMP])
-	button_fall =		keyboard_check_released(global.button[BUTTON.JUMP])
-	button_suicide =	keyboard_check_pressed(global.button[BUTTON.SUICIDE])
-	button_fire =		keyboard_check_pressed(global.button[BUTTON.SHOOT])
+	button_left =		input_check("left")
+	button_right =		input_check("right")
+	button_jump =		input_check_pressed("jump")
+	button_jump_held =	input_check("jump")
+	button_fall =		input_check_released("jump")
+	button_suicide =	input_check_pressed("suicide")
+	button_fire =		input_check_pressed("shoot")
 }
 
 // Queued speed

@@ -67,12 +67,7 @@ function player_set_gravity(vert_dir) {
 	
 	if (vert_dir != 0)
 	{
-		if (vert_dir == -1 && vertical_direction == 1) {
-			y -= 3
-			vspeed = 0
-			player_refresh_airjumps()
-		} else if (vert_dir == 1 && vertical_direction == -1) {
-			y += 3
+		if (vert_dir != vertical_direction) {
 			vspeed = 0
 			player_refresh_airjumps()
 		}

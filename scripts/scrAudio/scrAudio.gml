@@ -1,14 +1,31 @@
-/*
-	Functions used by and used for controlling oBGM
-*/
-
-///@func	sfx_play_sound(snd)
-///@desc	plays a garbage collected sound effect from the audio manager
-///@arg {index} snd
+///@func	sfx_play_sound(snd, priority)
+///@arg {sound} snd
 function sfx_play_sound(snd) {
 	var _id = audio_play_sound(snd, 0, false)
-	oAudio.sfx_add(_id)
+	sfx_add(_id)
 	return _id
+}
+
+///@func	sfx_add(snd_id)
+///@arg {sound} snd_id
+function sfx_add(snd_id) {
+	with global.audio {
+		var _pos = sfx_time + audio_sound_length(snd_id)
+		ds_list_add(sfx_pos, _pos)
+		ds_list_sort(sfx_pos, true)
+		_pos = ds_list_find_index(sfx_pos, _pos)
+		ds_list_insert(sfx_id, _pos, snd_id)
+	}
+}
+
+///@func sfx_stop_all()
+function sfx_stop_all() {
+	with global.audio {
+		for (var i = ds_list_size(sfx_id) - 1; i >= 0; i--)
+			audio_stop_sound(sfx_id[|i])
+		ds_list_clear(sfx_id)
+		ds_list_clear(sfx_pos)
+	}
 }
 
 ///@desc			Fades out previous music, returns its id and fades in new music
@@ -29,29 +46,36 @@ function bgm_crossfade(snd, time_ms) {
 ///@desc Gets the currently playing music
 ///@func bgm_get_music()
 function bgm_get_music() {
-	return oAudio.music
+	return global.audio.music
 }
 
 ///@desc Gets the index of the currently playing music
 ///@func bgm_get_music_id()
 function bgm_get_music_id() {
-	return oAudio.music_id
+	return global.audio.music_id
 }
 
 ///@desc Stops the music played by the world object
 ///@func bgm_stop_music()
 function bgm_stop_music() {
-	if (audio_is_playing(oAudio.music_id))
-		audio_stop_sound(oAudio.music_id)
-	oAudio.music_id = -1
-	oAudio.music = -1
+	if (audio_is_playing(global.audio.music_id)) {
+		audio_sound_pitch(global.audio.music_id, 1) // reset pitch before stopping sound to mitigate a bug in runtime v2.3.2.476
+		audio_stop_sound(global.audio.music_id)
+	}
+	global.audio.music_id = noone
+	global.audio.music = -1
 }
 
 ///@desc Sets the music played by the world object (doesn't stop the currently playing music)
 ///@func bgm_set_music(snd)
 ///@arg snd
 function bgm_set_music(snd) {
-	oAudio.music = snd
-	oAudio.music_id = audio_play_sound(snd, 0, true)
-	return oAudio.music_id
+	global.audio.music = snd
+	global.audio.music_id = audio_play_sound(snd, 0, true)
+	return global.audio.music_id
+}
+
+///@func bgm_set_pitch(pitch)
+function bgm_set_pitch(pitch) {
+	audio_sound_pitch(global.audio.music_id, pitch)
 }

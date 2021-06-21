@@ -1,3 +1,4 @@
+
 // Handle effects queue
 sfx_time += f2sec(1)
 if ds_list_size(sfx_id) > 0 && sfx_pos[|0] < sfx_time {

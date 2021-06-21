@@ -16,5 +16,3 @@ for (var i = array_length(save_key) - 1; i >= 0; i--)
 save_default[?"room"] = "rEngine"
 save_default[?"facing"] = 1
 save_default[?"gravity_direction"] = 1
-
-savedata_set_defaults()
