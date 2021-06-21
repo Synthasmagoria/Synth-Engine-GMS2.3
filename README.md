@@ -12,7 +12,7 @@ Once you've added a key to the array you can get and set it through the function
 savedata_get(_active) and savedata_set(_active)
 Or directly through referencing the object
 oSaveData.save[?<key>] and oSaveData.save_active[?<key>]
-	
+
 All functions that interface with object oSaveData can be found in scrSaveData
 
 
@@ -40,7 +40,7 @@ global.save_as_string[SAVE.USERNAME] = true;
 
 Now you just need to define the behavior of the newly added variable in
 whatever object will use it.
-			     
+
 To get a better understanding of how this works you can take a look at the
 script called scr_SavedataFunctions
 
@@ -101,3 +101,10 @@ v120:
 - Changed to JSON saving
 - Renamed some player variables and added frozen and stopped states
 - A lot more
+
+v130:
+- Input handler
+- Controller/Gamepad support
+- Improved default menu
+- Setable input lag
+- Input functions to check for input from gamepads and keyboards simultaneously
