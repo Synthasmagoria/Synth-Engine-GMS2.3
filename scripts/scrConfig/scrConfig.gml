@@ -30,8 +30,8 @@ function config_setting_set(setting_index, value) {
 	
 		case SETTING.FRAMERATE:
 		global.setting[setting_index] = value
-		global.fps_adjust = FPS_MULTIPLIER_CALCULATION
-		global.fps_adjust_squared = FPS_MULTIPLIER_CALCULATION_SQUARED
+		global.fps_adjust = FPS_BASE / global.setting[SETTING.FRAMERATE]
+		global.fps_adjust_squared = sqr(global.fps_adjust)
 		game_set_speed(global.setting[setting_index], gamespeed_fps)
 		
 		#region Set blood particle variables

@@ -6,13 +6,6 @@ if (instance_number(object_index) > 1) {
 	exit
 }
 
-// Initialize the globals
-//globals_initialize()
-
-//globals_set_defaults()
-
-global.gamepad_slot = 0
-
 // Reset variables
 resetting_room = ""
 
@@ -27,6 +20,9 @@ global.game_playing = false // variable that says when the game is not in the me
 global.game_paused = false // variable that says if the game is paused
 global.game_running = false // variable that says when the game is not in the menu
 window_set_caption("Synth Engine")
+
+global.gamepad_slot = 0
+global.debug_nodeath = false
 
 // Player variables
 global.player_depth = -1
@@ -68,8 +64,8 @@ global.setting_default[SETTING.FULLSCREEN] = false
 global.setting_default[SETTING.SMOOTHING] = false
 global.setting_default[SETTING.SCALE] = 1
 global.setting_default[SETTING.FRAMERATE] = 60
-global.setting_default[SETTING.MUSIC] = 1
-global.setting_default[SETTING.SOUND] = 0.6
+global.setting_default[SETTING.MUSIC] = 1.0
+global.setting_default[SETTING.SOUND] = 0.8
 global.setting_default[SETTING.VSYNC] = true
 
 if (!config_section_exists(CONFIG_SECTION_SETTINGS)) {

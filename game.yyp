@@ -171,6 +171,7 @@
     {"id":{"name":"oSequenceTemplate","path":"objects/oSequenceTemplate/oSequenceTemplate.yy",},"order":0,},
     {"id":{"name":"oInput","path":"objects/oInput/oInput.yy",},"order":4,},
     {"id":{"name":"scrInput","path":"scripts/scrInput/scrInput.yy",},"order":11,},
+    {"id":{"name":"scrMacros","path":"scripts/scrMacros/scrMacros.yy",},"order":12,},
   ],
   "Options": [
     {"name":"Linux","path":"options/linux/options_linux.yy",},
@@ -221,6 +222,8 @@
     {"folderPath":"folders/Sprites/Water.yy","order":8,"resourceVersion":"1.0","name":"Water","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Tile Sets.yy","order":8,"resourceVersion":"1.0","name":"Tile Sets","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Sounds/Sound Effects/Player.yy","order":1,"resourceVersion":"1.0","name":"Player","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Objects/Weapons.yy","order":9,"resourceVersion":"1.0","name":"Weapons","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Sprites/Weapon.yy","order":9,"resourceVersion":"1.0","name":"Weapon","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Templates.yy","order":7,"resourceVersion":"1.0","name":"Templates","tags":[],"resourceType":"GMFolder",},
   ],
   "AudioGroups": [
