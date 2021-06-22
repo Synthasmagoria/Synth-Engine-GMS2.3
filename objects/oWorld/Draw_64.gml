@@ -8,7 +8,7 @@ if (DEBUG) {
 }
 
 if (global.game_paused) {
-	draw_surface_ext(pause_surface, 0, 0, 1, 1, 0, c_white, 1)
+	draw_surface(pause_surface, 0, 0)
 } else if (!global.game_paused && surface_exists(pause_surface)) {
 	surface_free(pause_surface)	
 }

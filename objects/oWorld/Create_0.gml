@@ -15,6 +15,19 @@ pause_dim = 0.75
 
 debug_text = "DEBUG"
 
+// Set config file macros
+#macro CONFIG_FILENAME "config.ini"
+#macro CONFIG_SECTION_KEYBOARD "Keyboard"
+#macro CONFIG_SECTION_GAMEPAD "Gamepad"
+#macro CONFIG_SECTION_SETTINGS "Settings"
+
+// Various
+#macro DEBUG true
+#macro GAME_WIDTH 800
+#macro GAME_HEIGHT 608
+#macro FPS_BASE 50
+#macro MENU_ROOM rMenu
+
 // Game variables
 global.game_playing = false // variable that says when the game is not in the menu and not in a cutscene
 global.game_paused = false // variable that says if the game is paused
@@ -89,4 +102,4 @@ for (var i = 0; i < SETTING.NUMBER; i++)
 #endregion
 
 // Done initializing
-room_goto_next()
+room_goto(MENU_ROOM)

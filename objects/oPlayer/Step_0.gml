@@ -113,7 +113,7 @@ if (_platform)
 	var
 	_platDir = _platform.image_angle + 90 + ((vertical_direction == 1 ? 0 : 180) - _platform.image_angle),
 	_abovePlatform = abs(angle_difference(_platDir, point_direction(_platform.x, _platTop, x, y))) < 90,
-	_platStandingY =  _platTop - (sprite_get_bbox_bottom(mask_index) - sprite_get_yoffset(mask_index) + 1) * abs(image_yscale) * vertical_direction
+	_platStandingY =  _platTop - (sprite_get_bbox_bottom(mask_index) - sprite_get_yoffset(mask_index) + 1) * get_yscale()
 	
 	if (_abovePlatform && !place_meeting(x, _platStandingY, oBlock))
 	{
@@ -188,8 +188,8 @@ hspeed = 0
 
 if (button_fire) {
 	var _bullet = instance_create_depth(
-		x + 5 * facing * image_xscale,
-		y - 2 * image_yscale,
+		x + 5 * get_xscale(),
+		y - 2 * get_yscale(),
 		depth + 1,
 		oBullet);
 	_bullet.direction = image_angle;

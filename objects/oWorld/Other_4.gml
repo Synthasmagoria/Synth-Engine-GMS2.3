@@ -1,4 +1,4 @@
-///@desc Room music
+///@desc Room and particles
 
 // Reset reset variables
 resetting_room = ""

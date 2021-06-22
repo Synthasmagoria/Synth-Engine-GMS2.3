@@ -28,6 +28,7 @@ running = false
 animate = true
 vine_direction = false
 vertical_direction = 1
+upsidedown_draw_yoffset = -2
 
 // Speed variables
 hspeed = 0
@@ -71,3 +72,11 @@ remove_input = function() {
 }
 
 player_set_gravity(savedata_get_active("gravity_direction"))
+
+get_yscale = function() {
+	return abs(image_yscale) * vertical_direction
+}
+
+get_xscale = function() {
+	return abs(image_xscale) * facing
+}

@@ -73,7 +73,6 @@ function player_set_gravity(vert_dir) {
 		}
 		
 		vertical_direction = vert_dir
-		image_yscale = abs(image_yscale) * vert_dir
 	}
 }
 

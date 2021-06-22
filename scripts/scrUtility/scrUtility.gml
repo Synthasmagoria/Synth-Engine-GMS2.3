@@ -183,20 +183,6 @@ function instance_set_height(inst, h) {
 	inst.image_yscale = h / sprite_get_height(inst.sprite_index)
 }
 
-///@desc				Sets the width of an instance
-///@func				set_width(w)
-///@arg {real} w		New width
-function set_width(w) {
-	image_xscale = w / sprite_get_width(sprite_index)
-}
-
-///@desc				Sets the height of an instance
-///@func				set_height(h)
-///@arg {real} h		New height
-function set_height(h) {
-	image_yscale = h / sprite_get_height(sprite_index)
-}
-
 ///@desc Warps the player
 ///@func warp(room, inst, [xoff], [yoff], [keep=true], [destroy=false], [abs=false])
 ///@arg {real} room				Room to warp to

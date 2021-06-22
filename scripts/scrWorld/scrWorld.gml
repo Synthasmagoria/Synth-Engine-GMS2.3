@@ -35,5 +35,5 @@ function world_restart_game() {
 	if (part_type_exists(global.player_blood_part))
 		part_type_destroy(global.player_blood_part)
 	
-	room_goto(rMenu)
+	room_goto(MENU_ROOM)
 }

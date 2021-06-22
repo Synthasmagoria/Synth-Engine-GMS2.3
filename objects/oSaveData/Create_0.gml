@@ -13,6 +13,6 @@ save_suffix = ""
 save_default = ds_map_create()
 for (var i = array_length(save_key) - 1; i >= 0; i--)
     save_default[?save_key[i]] = 0
-save_default[?"room"] = "rEngine"
+save_default[?"room"] = "rTest01"
 save_default[?"facing"] = 1
 save_default[?"gravity_direction"] = 1

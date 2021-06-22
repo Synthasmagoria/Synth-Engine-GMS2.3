@@ -8,10 +8,8 @@
 ///@arg 				room
 function bgm_get_room_music(r) {
 	switch (r) {
-		case rBlank:
-			return -2 // don't change currently playing
-			break
-		case rEngine:
+		case rTest01:
+		case rTest02:
 			return musEngine
 			break
 		default:
@@ -25,6 +23,9 @@ function bgm_get_room_music(r) {
 ///@arg		room
 function bgm_get_room_music_pitch(r) {
 	switch (r) {
+		case rTest02:
+			return 0.8
+			break
 		default:
 			return 1.0
 			break
@@ -36,6 +37,9 @@ function bgm_get_room_music_pitch(r) {
 ///@arg		room
 function bgm_get_room_music_gain(r) {
 	switch (r) {
+		case rTest02:
+			return 0.8
+			break
 		default:
 			return 1.0
 			break
