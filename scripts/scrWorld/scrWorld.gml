@@ -11,8 +11,8 @@ function world_get_resetting_room() {
 }
 
 ///@func world_restart_game()
+///@desc Save death, time & free memory
 function world_restart_game() {
-	///@desc Save death, time & free memory
 	if (global.game_running) {
 		savedata_save("time")
 		savedata_save("death")
