@@ -20,6 +20,9 @@ As the name implies has the weapons system. You may bring it over to v130 if you
 This version uses some outdated file i/o methods that may force you to write your own saving system if you
 want to save anything slightly complicated
 
+## v110:
+Don't
+
 ## v097 and older:
 This version of the engine works for GMS2 2.2 and earlier
 Uses very outdated methods for mostly everything
