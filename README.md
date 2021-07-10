@@ -24,6 +24,7 @@ v097 and older:
 	This version of the engine works for GMS2 2.2 and earlier
 	Uses very outdated methods for mostly everything
 	But I used this to make Platform God and HTec, so it's not completely unusable
+	https://github.com/Synthasmagoria/Synth-Engine-GMS2
 
 ## Notes on the world object: ##
 Instead of having a single world object taking care of music, saving, settings, etc.
@@ -44,3 +45,5 @@ oSaveData + scrSavedata
 oInput + scrInput
 
 If you want to change saving behavior, then modify oSaveData & scrSavedata
+If you want to modify the way sound and music works then go into oAudio, scrAudio and scrRoomMusic
+Hopefully this makes sense.
