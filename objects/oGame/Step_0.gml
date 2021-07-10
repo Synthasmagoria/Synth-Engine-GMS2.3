@@ -29,6 +29,14 @@ if (DEBUG && global.game_playing) {
 		if (room_exists(r))
 			room_goto(r)
 	}
+	
+	if (input_check_pressed("debug_next_room")) {
+		if room != room_last
+			room_goto_next()
+	} else if (input_check_pressed("debug_prev_room")) {
+		if room != room_first
+			room_goto_previous()
+	}
 }
 
 // Game control
