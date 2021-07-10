@@ -73,8 +73,8 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Player",
-    "path": "folders/Sprites/Player.yy",
+    "name": "Weapon",
+    "path": "folders/Sprites/Weapon.yy",
   },
   "resourceVersion": "1.0",
   "name": "sBullet",

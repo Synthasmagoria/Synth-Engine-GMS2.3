@@ -31,6 +31,21 @@
 	the current save data will not be written. So do this at your own risk.
 */	
 
+///@func savedata_struct()
+function savedata_struct() constructor {
+	x = 0
+	y = 0
+	r = "rTest"
+	death = 0
+	time = 0
+	item = 0
+	gravity_direction = 0
+	seed = random_get_seed()
+	facing = 1
+	skin = ""
+	weapon = "oGun"
+}
+
 ///@func		savedata_load([index], ...)
 ///@desc		Loads a game state from a file
 ///@arg {real}	[index]
@@ -44,15 +59,15 @@ function savedata_load() {
 		Thereafter the game state will be set according to these values (savedata_start_game).
 	*/
 
-	ds_map_copy(global.savedata.save_active, global.savedata.save)
+	global.savedata.save_active = deep_copy(global.savedata.save)
 
 	savedata_start_game(true)
 }
 
 ///@func savedata_set_defaults()
 function savedata_set_defaults() {
-	ds_map_copy(global.savedata.save, global.savedata.save_default)
-	ds_map_copy(global.savedata.save_active, global.savedata.save_default)
+	global.savedata.save = deep_copy(global.savedata.save_default)
+	global.savedata.save_active = deep_copy(global.savedata.save_default)
 	
 	savedata_set_both("seed", random_get_seed())
 }
@@ -73,17 +88,17 @@ function savedata_read() {
 	var savename = savedata_get_savename()
 
 	if (file_exists(savename)) {
-		var f = file_text_open_read(savename)
-		
-		var m = json_decode(file_text_read_string(f))
+		var
+		f = file_text_open_read(savename),
+		struct = json_parse(file_text_read_string(f))
 		
 		for (var i = array_length(global.savedata.save_key) - 1; i >= 0; i--)
-			if m[?global.savedata.save_key[i]] == undefined
-				m[?global.savedata.save_key[i]] = global.savedata.save_default[?global.savedata.save_key[i]]
+			if struct[$global.savedata.save_key[i]] == undefined
+				global.savedata.save[$global.savedata.save_key[i]] = global.savedata.save_default[$global.savedata.save_key[i]]
+			else
+				global.savedata.save[$global.savedata.save_key[i]] = struct[$global.savedata.save_key[i]]
 		
-		ds_map_copy(global.savedata.save, m)
-		
-		ds_map_destroy(m)
+		delete struct
 		
 		file_text_close(f)
 		
@@ -109,9 +124,23 @@ function savedata_save() {
 		for (i = 0; i < argument_count; i++)
 			savedata_set(argument[i], savedata_get_active(argument[i]))
 	else
-		ds_map_copy(global.savedata.save, global.savedata.save_active)
+		global.savedata.save = deep_copy(global.savedata.save_active)
+	
+	
 	
 	savedata_write()
+}
+
+///@func savedata_set_slot(slot)
+///@desc Sets the save slot
+function savedata_set_slot(slot) {
+	global.savedata.save_index = slot
+}
+
+///@func savedata_get_slot()
+///@desc Sets the save slot
+function savedata_get_slot() {
+	return global.savedata.save_index
 }
 
 ///@func		savedata_start_game(spawn_player)
@@ -128,7 +157,7 @@ function savedata_start_game(spawn_player) {
 	if (spawn_player)
 		player_respawn()
 
-	var r = asset_get_index(savedata_get_active("room"))
+	var r = asset_get_index(savedata_get_active("r"))
 
 	if (room == r)
 		room_restart()
@@ -136,7 +165,6 @@ function savedata_start_game(spawn_player) {
 		room_goto(r)
 
 	global.game_playing = true
-	global.game_running = true
 }
 
 ///@func		savedata_write()
@@ -145,7 +173,7 @@ function savedata_write() {
 
 	var f = file_text_open_write(savedata_get_savename())
 
-	file_text_write_string(f, json_encode(global.savedata.save))
+	file_text_write_string(f, json_stringify(global.savedata.save))
 
 	file_text_close(f)
 }
@@ -187,27 +215,27 @@ function savedata_get_index() {
 ///@func savedata_get(key)
 ///@arg {string} key
 function savedata_get(key) {
-	return global.savedata.save[?key]
+	return global.savedata.save[$key]
 }
 
 ///@func savedata_set(key, value)
 ///@arg {string} key
 ///@arg value
 function savedata_set(key, val) {
-	global.savedata.save[?key] = val
+	global.savedata.save[$key] = val
 }
 
 ///@func savedata_get_active(key)
 ///@arg {string} key
 function savedata_get_active(key) {
-	return global.savedata.save_active[?key]
+	return global.savedata.save_active[$key]
 }
 
 ///@func savedata_set_active(key, value)
 ///@arg {string} key
 ///@arg value
 function savedata_set_active(key, val) {
-	global.savedata.save_active[?key] = val
+	global.savedata.save_active[$key] = val
 }
 
 ///@func savedata_set_both(key, val)
@@ -223,8 +251,9 @@ function savedata_set_both(key, val) {
 function savedata_save_player() {
 	savedata_set_active("x", oPlayer.x)
 	savedata_set_active("y", oPlayer.y)
-	savedata_set_active("room", room_get_name(room))
-	savedata_set_active("gravity_direction", oPlayer.vertical_direction)
+	savedata_set_active("r", room_get_name(room))
+	savedata_set_active("gravity_direction", oPlayer.gravity_direction)
 	savedata_set_active("facing", oPlayer.facing)
+	savedata_set_active("weapon", object_get_name(oPlayer.weapon_object))
 	savedata_save()
 }

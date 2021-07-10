@@ -1,19 +1,17 @@
-/*
-	These functions are called by oAudio to figure out what to play, where to play it, and how to play it
-	You can change these switch statements to set the song playing in a room, its pitch and gain
-*/
-
 ///@desc				Gets music to be played in a room
 ///@func				bgm_get_room_music(room)
 ///@arg 				room
 function bgm_get_room_music(r) {
 	switch (r) {
-		case rTest01:
-		case rTest02:
+		case rTest:
+		case rTest2:
 			return musEngine
 			break
-		default:
-			return -1 // don't play any music
+		case rBlank:
+			return -2
+			break
+		default:	
+			return -1
 			break
 	}
 }
@@ -23,7 +21,7 @@ function bgm_get_room_music(r) {
 ///@arg		room
 function bgm_get_room_music_pitch(r) {
 	switch (r) {
-		case rTest02:
+		case rTest2:
 			return 0.8
 			break
 		default:
@@ -37,7 +35,7 @@ function bgm_get_room_music_pitch(r) {
 ///@arg		room
 function bgm_get_room_music_gain(r) {
 	switch (r) {
-		case rTest02:
+		case rTest2:
 			return 0.8
 			break
 		default:

@@ -127,8 +127,8 @@
   "canGenerateBitmap": true,
   "maintainGms1Font": false,
   "parent": {
-    "name": "Fonts",
-    "path": "folders/Fonts.yy",
+    "name": "Synth-Engine-GMS2 v140",
+    "path": "Synth-Engine-GMS2 v140.yyp",
   },
   "resourceVersion": "1.0",
   "name": "fDefault",

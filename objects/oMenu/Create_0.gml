@@ -21,7 +21,7 @@ option_number[MENU_SUB_MAIN] = 5
 option_number[MENU_SUB_SAVE] = oSaveData.save_number
 option_number[MENU_SUB_START] = 2
 option_number[MENU_SUB_OVERWRITE] = 2
-option_number[MENU_SUB_SETTINGS] = SETTING.NUMBER + 1
+option_number[MENU_SUB_SETTINGS] = setting_get_number()
 option_number[MENU_SUB_KEYBOARD] = 15
 option_number[MENU_SUB_GAMEPAD] = 12
 
@@ -92,7 +92,7 @@ option[MENU_SUB_SETTINGS][4] = "Music:"
 option[MENU_SUB_SETTINGS][5] = "Sound:"
 option[MENU_SUB_SETTINGS][6] = "Vsync:"
 option[MENU_SUB_SETTINGS][7] = "Gravity control:"
-option[MENU_SUB_SETTINGS][8] = "Input delay:"
+option[MENU_SUB_SETTINGS][8] = "Input Delay:"
 option[MENU_SUB_SETTINGS][9] = "Set defaults"
 
 option_color[MENU_SUB_KEYBOARD][11] = c_gray

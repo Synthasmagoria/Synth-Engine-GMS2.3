@@ -36,8 +36,6 @@
   },
   "resourceVersion": "1.0",
   "name": "oTriggerBlock",
-  "tags": [
-    "design",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

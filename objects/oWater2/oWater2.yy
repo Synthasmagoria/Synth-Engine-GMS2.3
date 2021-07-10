@@ -32,8 +32,6 @@
   },
   "resourceVersion": "1.0",
   "name": "oWater2",
-  "tags": [
-    "design",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

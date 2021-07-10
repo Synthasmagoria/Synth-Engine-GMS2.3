@@ -34,8 +34,6 @@
   },
   "resourceVersion": "1.0",
   "name": "oTriggerSpikeDown",
-  "tags": [
-    "design",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

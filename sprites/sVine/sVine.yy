@@ -69,8 +69,8 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Misc",
-    "path": "folders/Sprites/Misc.yy",
+    "name": "Vines",
+    "path": "folders/Sprites/Misc/Vines.yy",
   },
   "resourceVersion": "1.0",
   "name": "sVine",

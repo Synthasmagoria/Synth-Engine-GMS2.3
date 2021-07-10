@@ -32,8 +32,6 @@
   },
   "resourceVersion": "1.0",
   "name": "oTileblocker",
-  "tags": [
-    "design",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

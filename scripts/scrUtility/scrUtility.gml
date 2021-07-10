@@ -3,16 +3,132 @@
 	objects to work
 */
 
-///@func f2sec(f)
-///@arg frames
-function f2sec(f) {
-	return f / global.setting[SETTING.FRAMERATE]	
+///@func sprite_origin_to_right(spr_ind)
+function sprite_origin_to_right(spr_ind) {
+	return sprite_get_bbox_left(spr_ind) - sprite_get_xoffset(spr_ind)
 }
 
-///@func set2f(sec)
-///@arg seconds
+///@func sprite_origin_to_left(spr_ind)
+function sprite_origin_to_left(spr_ind) {
+	return sprite_get_bbox_left(spr_ind) - sprite_get_xoffset(spr_ind)
+}
+
+///@func sprite_origin_to_top(spr_ind)
+function sprite_origin_to_top(spr_ind) {
+	return sprite_get_bbox_top(spr_ind) - sprite_get_yoffset(spr_ind)
+}
+
+///@func sprite_origin_to_bottom(spr_ind)
+function sprite_origin_to_bottom(spr_ind) {
+	return sprite_get_bbox_bottom(spr_ind) - sprite_get_yoffset(spr_ind)
+}
+
+///@func instance_struct(id)
+///@desc Returns a struct containing all the variables of the instance
+///@arg {id} id
+function instance_struct(_id) {
+	var
+	_names = variable_instance_get_names(_id),
+	_struct = {}
+	
+	for (var i = variable_instance_names_count(_id) - 1; i >= 0; i--)
+		_struct[$_names[i]] = deep_copy(variable_instance_get(_id, _names[i]))
+	
+	return _struct
+}
+
+/// @function   	deep_copy(ref)
+/// @param {T} ref	Thing to deep copy
+/// @returns {T}	New array, or new struct, or new instance of the class, anything else (real / string / etc.) will be returned as-is
+/// @description	Returns a deep recursive copy of the provided array / struct / constructed struct (stolen from https://github.com/KeeVeeGames)
+function deep_copy(ref) {
+    var ref_new;
+    
+    if (is_array(ref)) {
+        ref_new = array_create(array_length(ref));
+        
+        var length = array_length(ref_new);
+        
+        for (var i = 0; i < length; i++) {
+            ref_new[i] = deep_copy(ref[i]);
+        }
+        
+        return ref_new;
+    }
+    else if (is_struct(ref)) {
+        var base = instanceof(ref);
+        
+        switch (base) {
+            case "struct":
+            case "weakref":
+                ref_new = {};
+                break;
+                
+            default:
+                var constr = method(undefined, asset_get_index(base));
+                ref_new = new constr();
+        }
+        
+        var names = variable_struct_get_names(ref);
+        var length = variable_struct_names_count(ref);
+        
+        for (var i = 0; i < length; i++) {
+            var name = names[i];
+            
+            variable_struct_set(ref_new, name, deep_copy(variable_struct_get(ref, name)));
+        }
+        
+        return ref_new;
+    } else {
+        return ref;
+    }
+}
+
+// GMEdit hint
+/// @hint deep_copy(ref:T)->T Returns a deep recursive copy of the provided array / struct / constructed struct
+
+///@func instance_get_center(id)
+///@arg {index} id
+function instance_get_center(_id) {
+	return new vec2(
+		_id.bbox_left + (_id.bbox_right - _id.bbox_left) / 2,
+		_id.bbox_top + (_id.bbox_bottom - _id.bbox_top) / 2)
+}
+
+///@func f2sec(f)
+///@arg {real} frames
+function f2sec(f) {
+	return f / global.settings[$"framerate"]	
+}
+
+///@func sec2f(sec)
+///@arg {real} seconds
 function sec2f(sec) {
-	return sec * global.setting[SETTING.FRAMERATE]
+	return sec * global.settings[$"framerate"]
+}
+
+///@func fps_adjust(val)
+///@arg {real} val
+function fps_adjust(val) {
+	return val * global.fps_adjust
+}
+
+///@func fps_inv_adjust(val)
+///@arg {real} val
+function fps_inv_adjust(val) {
+	return val / global.fps_adjust
+}
+
+///@func fps_adjust_2(val)
+///@arg {real} val
+function fps_adjust_2(val) {
+	return val * global.fps_adjust_squared
+}
+
+///@func fps_inv_adjust_2(val)
+///@arg {real} val
+function fps_inv_adjust_2(val) {
+	return val / global.fps_adjust_squared
 }
 
 ///@func camera_get_view(camera)
@@ -44,23 +160,6 @@ function block_create(xx, yy, w, h) {
 function move_contact_object(normal, distance, object) {
 	var step = min(distance, 1)
 	while (!place_meeting(x + normal.x * step, y + normal.y * step, object) && distance > 0)
-	{
-		distance -= step
-		x += normal.x * step
-		y += normal.y * step
-		step = min(distance, 1)
-	}
-	return max(distance, 0)
-}
-
-///@func move_contact_free(normal, distance, object)
-///@arg {real} normal
-///@arg {real} distance
-///@arg {real} object
-///@desc Moves out of an object in a direction and returns remaining distance
-function move_contact_free(normal, distance, object) {
-	var step = min(distance, 1)
-	while (place_meeting(x, y, object) && distance > 0)
 	{
 		distance -= step
 		x += normal.x * step
@@ -239,6 +338,37 @@ function warp() {
 	room_goto(argument[0])
 }
 
+///@func gamepad_button_get_any()
+function gamepad_button_get_any() {
+	var length = 16;
+	var list = array_create(length)
+	
+	list[0] = gp_face1;
+	list[1] = gp_face2;
+	list[2] = gp_face3;
+	list[3] = gp_face4;
+	list[4] = gp_padu;
+	list[5] = gp_padd;
+	list[6] = gp_padl;
+	list[7] = gp_padr;
+	list[8] = gp_stickr;
+	list[9] = gp_stickl; 
+	list[10] = gp_select;
+	list[11] = gp_start;
+	list[12] = gp_shoulderr;
+	list[13] = gp_shoulderrb;
+	list[14] = gp_shoulderl;
+	list[15] = gp_shoulderlb;
+	
+	for (var i = 0; i < length; i++)
+	{
+	    if (gamepad_button_check_pressed(global.gamepad_slot, list[i]))
+	        return list[i];
+	}
+	
+	return -1;
+}
+
 ///@func array_get_max_string_width(arr)
 ///@desc Gets the maximum string width from an array of strings (array has to consist of strings only)
 function array_get_max_string_width(arr) {
@@ -248,4 +378,10 @@ function array_get_max_string_width(arr) {
 		_maxw = _w > _maxw ? _w : _maxw
 	}
 	return _maxw
+}
+
+///@func tilemap_get_from_layer(layer_name)
+///@desc
+function tilemap_get_from_layer(layer_name) {
+	return layer_tilemap_get_id(layer_get_id(tilemap_layer_name))
 }

@@ -1,6 +1,7 @@
 ///@desc Setup for room
 
-adjust()
+if (!adjusted)
+	event_user(0)
 
 if (ahead > 0)
-	prespawn()
+	event_user(1)

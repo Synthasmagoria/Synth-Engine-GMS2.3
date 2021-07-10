@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "sSpikeDown",
-    "path": "sprites/sSpikeDown/sSpikeDown.yy",
+    "name": "sMiniSpikeDown",
+    "path": "sprites/sMiniSpikeDown/sMiniSpikeDown.yy",
   },
   "solid": false,
   "visible": true,
@@ -32,8 +32,6 @@
   },
   "resourceVersion": "1.0",
   "name": "oMiniSpikeDown",
-  "tags": [
-    "design",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

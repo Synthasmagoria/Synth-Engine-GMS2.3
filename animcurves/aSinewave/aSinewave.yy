@@ -9,8 +9,8 @@
       ],"resourceVersion":"1.0","name":"curve1","tags":[],"resourceType":"GMAnimCurveChannel",},
   ],
   "parent": {
-    "name": "Misc",
-    "path": "folders/Objects/Misc.yy",
+    "name": "Synth-Engine-GMS2 v140",
+    "path": "Synth-Engine-GMS2 v140.yyp",
   },
   "resourceVersion": "1.2",
   "name": "aSinewave",

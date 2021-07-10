@@ -17,10 +17,10 @@ if (button_changing != -1) {
 		var buttonWidth
 		buttonWidth = string_length(keyboard[option_index]) * font_width
 		keyboard_width_max = keyboard_width_max < buttonWidth ? buttonWidth : keyboard_width_max
-	} else if (button_changing == INPUT_DEVICE.GAMEPAD && gamepad_button_get_any_pressed()) {
+	} else if (button_changing == INPUT_DEVICE.GAMEPAD && gamepad_button_get_any()) {
 		button_changing = -1
 		
-		input_mapping_change(gamepad_mapping[option_index], gamepad_button_get_any_pressed(), INPUT_DEVICE.GAMEPAD)
+		input_mapping_change(gamepad_mapping[option_index], gamepad_button_get_any(), INPUT_DEVICE.GAMEPAD)
 		get_gamepad_button_strings()
 		
 		var buttonWidth
@@ -126,27 +126,30 @@ if (button_changing != -1) {
 			case MENU_SUB_SETTINGS:
 			switch (option_index) {
 				case 0: // toggle fullscreen
-				config_setting_set(SETTING.FULLSCREEN, !global.setting[SETTING.FULLSCREEN])
+				setting_set("fullscreen", !setting_get("fullscreen"))
 				break
 				
 				case 1: // toggle smoothing
-				config_setting_set(SETTING.SMOOTHING, !global.setting[SETTING.SMOOTHING])
+				setting_set("smoothing", !setting_get("smoothing"))
 				break
 				
 				case 3: // small adjustments to framerate
-				config_setting_set(SETTING.FRAMERATE, min(global.setting[SETTING.FRAMERATE] + 1, fps_max))
+				setting_set("framerate", min(setting_get("framerate") + 1, fps_max))
 				break
 				
 				case 6: // toggle vsync
-				config_setting_set(SETTING.VSYNC, !global.setting[SETTING.VSYNC])
+				setting_set("vsync", !setting_get("vsync"))
 				break
 				
 				case 7: // gravity rotation preference
-				config_setting_set(SETTING.CONTROL_ROTATIONAL, !global.setting[SETTING.CONTROL_ROTATIONAL])
+				if setting_get("gravity_control") == GRAVITY_CONTROL.ROTATIONAL
+					setting_set("gravity_control", GRAVITY_CONTROL.STANDARD)
+				else
+					setting_set("gravity_control", GRAVITY_CONTROL.ROTATIONAL)
 				break
 				
-				case 8: // restore default settings
-				config_setting_set_default()
+				case 9: // restore default settings
+				setting_set_defaults()
 				break
 			}
 			
@@ -221,6 +224,7 @@ if (button_changing != -1) {
 			
 			case MENU_SUB_SETTINGS: // return to main menu from settings
 			menu_index = MENU_SUB_MAIN
+			setting_write_all()
 			option_index = 1
 			break
 			
@@ -246,29 +250,29 @@ if (button_changing != -1) {
 		if (menu_index == MENU_SUB_SETTINGS) {
 			switch (option_index) {
 				case 2: // set scale
-				config_setting_set(SETTING.SCALE, clamp(global.setting[SETTING.SCALE] + (buttonRight - buttonLeft) / 2, 1, setting_scale_max))
-				setting[SETTING.SCALE] = string(global.setting[SETTING.SCALE]) + "x"
+				setting_set("scale", clamp(setting_get("scale") + (buttonRight - buttonLeft) / 2, 1, setting_scale_max))
+				setting[2] = string(setting_get("scale")) + "x"
 				break
 				
 				case 3: // set framerate
-				var _newFramerate = clamp(floor((global.setting[SETTING.FRAMERATE] + fps_change*(buttonRight - buttonLeft))/fps_change)*fps_change, fps_min, fps_max)
-				config_setting_set(SETTING.FRAMERATE, _newFramerate)
-				setting[SETTING.FRAMERATE] = string(global.setting[SETTING.FRAMERATE])
+				var _newFramerate = clamp(floor((setting_get("framerate") + fps_change*(buttonRight - buttonLeft))/fps_change)*fps_change, fps_min, fps_max)
+				setting_set("framerate", _newFramerate)
+				setting[3] = string(setting_get("framerate"))
 				break
 
 				case 4: // set music volume
-				config_setting_set(SETTING.MUSIC, global.setting[SETTING.MUSIC] + setting_music_change * (buttonRight - buttonLeft))
-				setting[SETTING.MUSIC] = string(global.setting[SETTING.MUSIC])
+				setting_set("music_volume", setting_get("music_volume") + setting_music_change * (buttonRight - buttonLeft))
+				setting[4] = string(setting_get("music_volume"))
 				break
 				
 				case 5: // set sound effect volume
-				config_setting_set(SETTING.SOUND, global.setting[SETTING.SOUND] + setting_sound_change * (buttonRight - buttonLeft))
-				setting[SETTING.SOUND] = string(global.setting[SETTING.SOUND])
+				setting_set("effect_volume", setting_get("effect_volume") + setting_sound_change * (buttonRight - buttonLeft))
+				setting[5] = string(setting_get("effect_volume"))
 				break
 				
-				case 8: // set input delay severity
-				config_setting_set(SETTING.INPUT_DELAY, clamp(global.setting[SETTING.INPUT_DELAY] + buttonRight - buttonLeft, input_delay_min, input_delay_max))
-				setting[SETTING.INPUT_DELAY] = string(global.setting[SETTING.INPUT_DELAY])
+				case 8:
+				setting_set("input_delay", clamp(setting_get("input_delay") + buttonRight - buttonLeft, input_delay_min, input_delay_max))
+				setting[8] = string(setting_get("input_delay"))
 				break
 			}
 		} else if (menu_index == MENU_SUB_GAMEPAD) {

@@ -34,8 +34,6 @@
   },
   "resourceVersion": "1.0",
   "name": "oPlayerStartSave",
-  "tags": [
-    "design",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

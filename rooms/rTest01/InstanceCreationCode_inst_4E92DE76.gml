@@ -1,1 +1,0 @@
-hs = 1 * global.fps_adjust

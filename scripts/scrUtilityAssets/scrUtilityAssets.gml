@@ -2,6 +2,28 @@
 	Asset dependent utility functions
 */
 
+///@desc Checks if a section in the config exists
+///@func config_section_exists(section)
+///@arg {string} section
+function config_section_exists(section) {
+	var val
+	ini_open(CONFIG_FILENAME)
+	val = ini_section_exists(section)
+	ini_close()
+	return val
+}
+
+///@desc Draws an arrow indicating that an interaction can be made
+///@func draw_interaction_arrow()
+function draw_interaction_arrow() {
+draw_sprite_ext_outline(
+	sInteractionArrow,
+	(get_timer() / 100000) % sprite_get_number(sInteractionArrow),
+	oPlayer.x - camera_get_view_x(view_camera[0]),
+	oPlayer.y - 24 - camera_get_view_y(view_camera[0]),
+	1, 1, 0, c_white, 1, 1, c_black);
+}
+
 ///@desc Creates a spawner with the specified parameters
 ///@func spawner_create(x, y, obj, xoff, yoff, spd, rate, ahead, [ahead_off], [ahead_len])
 ///@arg {real} x
@@ -28,8 +50,8 @@ function spawner_create(xx, yy, obj, hs, vs, xoff, yoff, rate, off, ahead) {
 		spawner.offset = off
 		spawner.ahead = ahead
 		
-		adjust()
-		prespawn()
+		event_user(0)
+		event_user(1)
 	}
 
 	return spawner

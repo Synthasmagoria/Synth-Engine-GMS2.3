@@ -1,3 +1,18 @@
+///@func player_yvelocity_limits()
+function player_yvelocity_limits() constructor {
+	normal = fps_adjust(9.0)
+	water = fps_adjust(2.4) 
+	vine = fps_adjust(2.4)
+}
+
+function player_set_defaults() {
+	with oPlayer {
+		var _varnames = variable_struct_get_names(defaults)
+		for (var i = variable_struct_names_count(defaults) - 1; i >= 0; i--)
+			variable_instance_set(id, _varnames[i], deep_copy(defaults[$_varnames]))
+	}
+}
+
 ///@func					player_kill([inst/obj])
 ///@desc					Creates a gameover scenario
 ///@arg {real} inst/obj		The instance or object to kill
@@ -16,16 +31,31 @@ function player_kill(inst_obj) {
 	}
 }
 
-/*
-	You may use this script to change player skin if you've added multiple player sprites
-	Creds to vv for this one
-*/
+///@func player_set_weapon(wobj)
+///@arg {object} weapon_object
+function player_set_weapon(wobj) {
+	with oPlayer {
+		if wobj != weapon_object {
+			if instance_exists(weapon)
+				instance_destroy(weapon)
+			
+			weapon = noone
+			weapon_object = wobj
+			
+			if wobj != -1 && wobj != undefined {
+				weapon = instance_create_depth(x + hand.x, y + hand.y, depth - 1, wobj)
+				weapon.set_image_angle(image_angle)
+			}
+		}
+	}
+}
+
 ///@func player_set_skin(skin)
 ///@desc Sets the sprites used for a player
 ///@arg {string} skin
 function player_set_skin(a) {
 	with oPlayer {
-		if a == undefined or a == "" or a == -1 {
+		if a == 0 or a == "" or a == -1 {
 		    sprite_idle = sPlayerIdle
 		    sprite_run = sPlayerRun
 		    sprite_slide = sPlayerSlide
@@ -61,21 +91,69 @@ function player_set_frozen(val) {
 	}
 }
 
-///
+///@func player_set_gravity_direction(dir)
+function player_set_gravity_direction(dir) {
+	with oPlayer {
+		dir = wrap(dir, 0, 359)
+		
+		if gravity_direction != dir {
+		
+			gravity_direction = dir
+		
+			if gravity_direction_is_rotation
+				image_angle = dir
+		
+			if gravity_is_diagonal() {
+				vine_check_distance = 2
+				situated_check_distance = 2
+			} else {
+				vine_check_distance = 1
+				situated_check_distance = 1
+			}
+			
+			var _rad = degtorad(dir)
+			rotation_matrix.set(cos(_rad), sin(_rad), -sin(_rad), cos(_rad))
+			
+			right.set(1, 0)
+			down.set(0, 1)
+			mult_mat2_vec2(rotation_matrix, right, right)
+			mult_mat2_vec2(rotation_matrix, down, down)
+			mult_mat2_vec2(rotation_matrix, defaults.hand, hand)
+			
+			if instance_exists(weapon) {
+				weapon.set_image_angle(image_angle)
+			}
+			
+			velocity.y = 0
+			
+			player_refresh_airjumps()
+		}
+	}
+}
+
+///@func player_set_gravity(vert_dir)
+///@ag vert_dir
 function player_set_gravity(vert_dir) {
 	vert_dir = sign(vert_dir)
 	
 	if (vert_dir != 0)
 	{
-		if (vert_dir != vertical_direction) {
+		if (vert_dir == -1 && vertical_direction == 1) {
+			y -= 3
+			vspeed = 0
+			player_refresh_airjumps()
+		} else if (vert_dir == 1 && vertical_direction == -1) {
+			y += 3
 			vspeed = 0
 			player_refresh_airjumps()
 		}
 		
 		vertical_direction = vert_dir
+		image_yscale = abs(image_yscale) * vert_dir
 	}
 }
 
+///@func player_refresh_airjumps()
 function player_refresh_airjumps() {
 	oPlayer.airjump_index = 0
 }

@@ -32,8 +32,6 @@
   },
   "resourceVersion": "1.0",
   "name": "oSpikeRight",
-  "tags": [
-    "design",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

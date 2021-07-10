@@ -35,8 +35,6 @@
   },
   "resourceVersion": "1.0",
   "name": "oWarp",
-  "tags": [
-    "design",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

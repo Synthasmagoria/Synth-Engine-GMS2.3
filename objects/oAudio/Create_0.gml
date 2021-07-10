@@ -11,6 +11,8 @@
 if (!audio_group_is_loaded(audiogroup_sound)) 
 	audio_group_load(audiogroup_sound)
 
+global.audio = id
+
 music = -1
 music_id = noone
 

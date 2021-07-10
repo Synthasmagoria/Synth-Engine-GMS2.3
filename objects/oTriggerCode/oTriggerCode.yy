@@ -32,8 +32,6 @@
   },
   "resourceVersion": "1.0",
   "name": "oTriggerCode",
-  "tags": [
-    "design",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

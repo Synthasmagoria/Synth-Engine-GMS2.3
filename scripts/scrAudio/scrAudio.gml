@@ -1,3 +1,7 @@
+/*
+	Functions used by and used for controlling oAudio
+*/
+
 ///@func	sfx_play_sound(snd, priority)
 ///@arg {sound} snd
 function sfx_play_sound(snd) {

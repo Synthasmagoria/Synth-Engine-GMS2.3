@@ -36,8 +36,6 @@
   },
   "resourceVersion": "1.0",
   "name": "oWarpOutside",
-  "tags": [
-    "design",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

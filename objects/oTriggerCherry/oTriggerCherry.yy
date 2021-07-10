@@ -31,8 +31,6 @@
   },
   "resourceVersion": "1.0",
   "name": "oTriggerCherry",
-  "tags": [
-    "design",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

@@ -1,0 +1,1 @@
+player_set_gravity_direction(other.image_angle)

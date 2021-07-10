@@ -1,0 +1,1 @@
+hspeed = 2 * global.fps_adjust

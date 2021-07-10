@@ -29,8 +29,6 @@
   },
   "resourceVersion": "1.0",
   "name": "oVine",
-  "tags": [
-    "design",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

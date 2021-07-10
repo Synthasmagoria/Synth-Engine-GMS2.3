@@ -35,8 +35,6 @@
   },
   "resourceVersion": "1.0",
   "name": "oWarpInvisible",
-  "tags": [
-    "design",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

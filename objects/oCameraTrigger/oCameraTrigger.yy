@@ -33,8 +33,6 @@
   },
   "resourceVersion": "1.0",
   "name": "oCameraTrigger",
-  "tags": [
-    "design",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

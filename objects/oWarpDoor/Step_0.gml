@@ -1,8 +1,8 @@
 ///@desc Warp
 
 // Check if touching
-do_collision()
+event_user(0)
 
 // Warp if conditions are met
 if (warp_touching && input_check_pressed("up"))
-	door_warp()
+	event_user(1)

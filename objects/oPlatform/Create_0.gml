@@ -1,6 +1,5 @@
-///@desc Set sprite
+///@desc Set sprite & round angle
 
 sprite_index = sPlatform
-
-// overwritten in certain children that need to react when the player touches them
-touch = function() {}
+image_angle = round(wrap(image_angle, 0, 359) / 45) * 45
+direction = image_angle

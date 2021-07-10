@@ -2,4 +2,4 @@
 
 visible = false
 
-sound = sndBlockChange
+sound = sndDing

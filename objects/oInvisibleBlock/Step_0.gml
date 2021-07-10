@@ -1,13 +1,6 @@
 ///@desc
 
-if collision_rectangle(
-	bbox_left - 2,
-	bbox_top - 1,
-	bbox_right + 1,
-	bbox_bottom + 1,
-	oPlayer,
-	false,
-	false) && !visible {
+if collision_rectangle(x - 2, y - 2, x + sprite_width + 2, y + sprite_height + 2, oPlayer, false, false) && !visible {
 	visible = true
 	sfx_play_sound(sound)
 }

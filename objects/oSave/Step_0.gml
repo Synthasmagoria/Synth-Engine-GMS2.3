@@ -2,9 +2,8 @@
 
 animation_counter = max(animation_counter - 1, 0)
 
-if (instance_exists(oPlayer) &&
-	(place_meeting(x, y, oBullet) ||
-	(place_meeting(x, y, oPlayer) && input_check_pressed("shoot")))) {
+if instance_exists(oPlayer) &&
+	(place_meeting(x, y, oWeaponProjectile) || (place_meeting(x, y, oPlayer) && input_check_pressed("shoot"))) {
 	
 	animation_counter = animation_length
 	

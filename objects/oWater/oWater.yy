@@ -29,8 +29,6 @@
   },
   "resourceVersion": "1.0",
   "name": "oWater",
-  "tags": [
-    "design",
-  ],
+  "tags": [],
   "resourceType": "GMObject",
 }

@@ -1,3 +1,6 @@
+
+global.gamepad_slot = 0
+
 enum INPUT_DEVICE {
     KEYBOARD,
     GAMEPAD,
@@ -141,7 +144,7 @@ function input_mappings_save(device) {
             _section = CONFIG_SECTION_GAMEPAD
             _keys = global.input.key_gamepad
             _map = global.input.gamepad_mapping
-            ini_write_real(CONFIG_SECTION_GAMEPAD, "gamepad slot", global.gamepad_slot)
+            ini_write_real(CONFIG_SECTION_SETTINGS, "gamepad_slot", global.gamepad_slot)
             break
         default:
         	ini_close()
@@ -176,7 +179,7 @@ function input_mappings_load(device) {
             _keys = global.input.key_gamepad
             _map = global.input.gamepad_mapping
             _default_map = global.input.gamepad_mapping_default
-            global.gamepad_slot = ini_read_real(CONFIG_SECTION_GAMEPAD, "gamepad slot", 0)
+            global.gamepad_slot = ini_read_real(CONFIG_SECTION_SETTINGS, "gamepad_slot", 0)
             break
         default:
         	ini_close()
@@ -226,39 +229,6 @@ function input_get_keyboard_mapping(key) {
 ///@func input_get_gamepad_mapping(key)
 function input_get_gamepad_mapping(key) {
     return global.input.gamepad_mapping[?key]
-}
-
-///@func gamepad_button_get_any()
-function gamepad_button_get_any_pressed() {
-	var length = 16;
-	var list = array_create(length)
-	
-	list[0] = gp_face1;
-	list[1] = gp_face2;
-	list[2] = gp_face3;
-	list[3] = gp_face4;
-	list[4] = gp_padu;
-	list[5] = gp_padd;
-	list[6] = gp_padl;
-	list[7] = gp_padr;
-	list[8] = gp_stickr;
-	list[9] = gp_stickl; 
-	list[10] = gp_select;
-	list[11] = gp_start;
-	list[12] = gp_shoulderr;
-	list[13] = gp_shoulderrb;
-	list[14] = gp_shoulderl;
-	list[15] = gp_shoulderlb;
-	list[16] = gp_axislh;
-	list[17] = gp_axislv;
-	list[18] = gp_axisrh;
-	list[19] = gp_axisrv;
-	
-	for (var i = 0; i < length; i++)
-	    if (gamepad_button_check_pressed(global.gamepad_slot, list[i]))
-	        return list[i];
-	
-	return -1;
 }
 
 ///@func gamepad_button_to_string(button)

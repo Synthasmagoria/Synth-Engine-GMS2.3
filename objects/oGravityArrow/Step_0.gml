@@ -1,0 +1,1 @@
+image_blend = make_color_hsv(map(wrap(image_angle, 0, 359), 0, 359, 0, 255), 160, 255)
