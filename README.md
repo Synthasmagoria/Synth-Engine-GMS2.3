@@ -1,5 +1,9 @@
 # Synth-Engine-GMS2.3
 Assets that can be used to create fangames in GMS2.3
+Contact me on discord if anything is bugged etc.
+
+Discord: Synthasmagoria#6751
+Twitter: https://twitter.com/SynthasA
 
 # Notes on engine versions:
 tldr;
