@@ -105,6 +105,7 @@
     {"id":{"name":"sCamera","path":"sprites/sCamera/sCamera.yy",},"order":3,},
     {"id":{"name":"oSpikeRight","path":"objects/oSpikeRight/oSpikeRight.yy",},"order":17,},
     {"id":{"name":"sApple","path":"sprites/sApple/sApple.yy",},"order":0,},
+    {"id":{"name":"sJumpRefresher","path":"sprites/sJumpRefresher/sJumpRefresher.yy",},"order":13,},
     {"id":{"name":"oGun","path":"objects/oGun/oGun.yy",},"order":1,},
     {"id":{"name":"sSpikeLeft","path":"sprites/sSpikeLeft/sSpikeLeft.yy",},"order":10,},
     {"id":{"name":"sDestroyer","path":"sprites/sDestroyer/sDestroyer.yy",},"order":6,},
@@ -178,6 +179,7 @@
     {"id":{"name":"scrSetting","path":"scripts/scrSetting/scrSetting.yy",},"order":14,},
     {"id":{"name":"oSlopeLD","path":"objects/oSlopeLD/oSlopeLD.yy",},"order":4,},
     {"id":{"name":"scrCollision","path":"scripts/scrCollision/scrCollision.yy",},"order":15,},
+    {"id":{"name":"oJumpRefresher","path":"objects/oJumpRefresher/oJumpRefresher.yy",},"order":9,},
   ],
   "Options": [
     {"name":"Linux","path":"options/linux/options_linux.yy",},
