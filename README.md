@@ -33,6 +33,17 @@ Uses very outdated methods for mostly everything
 But I used this to make Platform God and HTec, so it's not completely unusable
 https://github.com/Synthasmagoria/Synth-Engine-GMS2
 
+# Open source projects that were made with this engine
+Platform God (v096) https://github.com/Synthasmagoria/I-Wanna-Pray-to-the-Platform-God
+Htec (v097) link will be added when it's out
+
+# How to work with variable framerate:
+There are two global variables
+global.fps_adjust (fps_calculation in old version):
+Multiply or divide this variable with the variables that need to change at different framerates
+There's also global.fps_adjust_squared for variables that are responsible for
+exponential change over time - such as gravity
+
 # Notes on the world object:
 Instead of having a single world object taking care of music, saving, settings, etc.
 it has been split into multiple different objects and scripts:
