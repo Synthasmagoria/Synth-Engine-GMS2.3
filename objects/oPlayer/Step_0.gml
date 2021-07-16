@@ -120,9 +120,6 @@ var _platform = instance_place(
 	y + down.y * max(platform_check_distance, velocity.y),
 	oPlatform)
 
-if keyboard_check_pressed(vk_space)
-	player_set_gravity_direction(gravity_direction + 45)
-
 if (_platform)
 {
 	velocity.x += dot_product(right.x, right.y, _platform.hspeed, _platform.vspeed)
