@@ -47,8 +47,8 @@ function player_queue_speed(hs, vs) {
 
 function player_set_stopped(val) {
 	with oPlayer {
-		hspeed = 0
-		vspeed = 0
+		velocity.x = 0
+		velocity.y = 0
 		stopped = val
 		remove_input()
 	}
@@ -68,7 +68,7 @@ function player_set_gravity(vert_dir) {
 	if (vert_dir != 0)
 	{
 		if (vert_dir != vertical_direction) {
-			vspeed = 0
+			velocity.y = 0
 			player_refresh_airjumps()
 		}
 		

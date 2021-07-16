@@ -1,5 +1,8 @@
 ///@desc Player control
 
+// Reset horizontal speed
+velocity.x = 0
+
 if !stopped
 {
 
@@ -14,8 +17,8 @@ if !frozen {
 }
 
 // Queued speed
-hspeed += queued_speed.x
-vspeed += queued_speed.y
+velocity.x += queued_speed.x
+velocity.y += queued_speed.y
 queued_speed.set(0, 0)
 
 #region Run & Facing
@@ -24,13 +27,13 @@ var _rotControl = (global.setting[SETTING.CONTROL_ROTATIONAL] && vertical_direct
 if (button_left)
 {
 	facing = -1 * _rotControl
-	hspeed -= run_speed * _rotControl
+	velocity.x -= run_speed * _rotControl
 	running = true
 }
 else if (button_right)
 {
 	facing = 1 * _rotControl
-	hspeed += run_speed * _rotControl
+	velocity.x += run_speed * _rotControl
 	running = true
 }
 else
@@ -47,7 +50,7 @@ var _water = instance_place(x, y, oWater)
 if (_water)
 {
 	vspeed_limit = vspeed_limit_water
-	vspeed = min(vspeed * vertical_direction, vspeed_limit_water) * vertical_direction
+	velocity.y = min(velocity.y * vertical_direction, vspeed_limit_water) * vertical_direction
 	
 	if (_water.object_index == oWater1)
 		player_refresh_airjumps()
@@ -63,14 +66,14 @@ if (_vine)
 	sliding = true
 	vine_direction = facing
 	vspeed_limit = vspeed_limit_vine
-	vspeed = vspeed_limit_vine * vertical_direction
+	velocity.y = vspeed_limit_vine * vertical_direction
 }
 else if (vine_direction != 0 && !_vine)
 {
 	if (button_jump_held && facing != vine_direction)
 	{
-		hspeed = vine_hpush * facing
-		vspeed = -jump_strength * vertical_direction
+		velocity.x = vine_hpush * facing
+		velocity.y = -jump_strength * vertical_direction
 		situated = false
 		sfx_play_sound(vinejump_sound)
 	}
@@ -80,10 +83,10 @@ else if (vine_direction != 0 && !_vine)
 #endregion
 
 // Gravity
-vspeed = approach(vspeed, vspeed_limit * vertical_direction, gravity_pull)
+velocity.y = approach(velocity.y, vspeed_limit * vertical_direction, gravity_pull)
 
 // Situated
-if (place_meeting(x, y + vertical_direction, oBlock) && vspeed * vertical_direction >= 0.0)
+if (place_meeting(x, y + vertical_direction, oBlock) && velocity.y * vertical_direction >= 0.0)
 {
 	situated = true
 	player_refresh_airjumps()
@@ -95,11 +98,11 @@ else
 
 #region Platforms
 var _platform = instance_place(
-	x, y + vertical_direction * (max(platform_check_distance, vspeed * vertical_direction)), oPlatform)
+	x, y + vertical_direction * (max(platform_check_distance, velocity.y * vertical_direction)), oPlatform)
 
 if (_platform)
 {
-	hspeed += _platform.hspeed
+	velocity.x += _platform.hspeed
 	
 	with (_platform)
 		touch()
@@ -118,7 +121,7 @@ if (_platform)
 	if (_abovePlatform && !place_meeting(x, _platStandingY, oBlock))
 	{
 		y = _platStandingY
-		vspeed = _platform.vspeed
+		velocity.y = _platform.vspeed
 		situated = true
 		player_refresh_airjumps()
 	}
@@ -140,51 +143,42 @@ if (button_jump)
 		if (_platform && situated && !place_meeting(x, y - vertical_direction * platform_check_distance, oBlock))
 			y -= vertical_direction * platform_check_distance
 		
-		vspeed = -jump_strength * vertical_direction
+		velocity.y = -jump_strength * vertical_direction
 		situated = false
 		player_refresh_airjumps()
 		sfx_play_sound(jump_sound)
 	}
 	else if (airjump_index < airjump_number || (_water && _water.object_index == oWater2))
 	{
-		vspeed = -airjump_strength * vertical_direction
+		velocity.y = -airjump_strength * vertical_direction
 		airjump_index++
 		sfx_play_sound(airjump_sound)
 	}
 }
 
 // Fall
-if (button_fall && vspeed * vertical_direction < 0.0)
-	vspeed *= fall_multiplier
+if (button_fall && velocity.y * vertical_direction < 0.0)
+	velocity.y *= fall_multiplier
 
 #region Block collisions & movement
-if (place_meeting(x + hspeed, y + vspeed, oBlock))
-{
-	if (place_meeting(x + hspeed, y, oBlock))
-	{
-		var _dir = sign(hspeed)
-		while (!place_meeting(x + _dir, y, oBlock)) x += _dir
-	}
-	else
-	{
-		x += hspeed
+if place_meeting(x + velocity.x, y + velocity.y, oBlock) {
+	if place_meeting(x + velocity.x, y, oBlock) {
+		block_align(new vec2(sign(velocity.x), 0))
+	} else {
+		x += velocity.x
 	}
 	
-	if (place_meeting(x, y + vspeed, oBlock))
-	{
-		var _dir = sign(vspeed)
-		while (!place_meeting(x, y + _dir, oBlock)) y += _dir
-		vspeed = 0
+	if place_meeting(x, y + velocity.y, oBlock) {
+		block_align(new vec2(0, sign(velocity.y)))
+		velocity.y = 0
+	} else {
+		y += velocity.y
 	}
-}
-else
-{
-	x += hspeed
+} else {
+	x += velocity.x
+	y += velocity.y
 }
 #endregion
-
-// Reset horizontal speed
-hspeed = 0
 
 if (button_fire) {
 	var _bullet = instance_create_depth(
@@ -219,7 +213,7 @@ if (animate)
 	}
 	else
 	{
-		if (vspeed * vertical_direction < 0.0)
+		if (velocity.y * vertical_direction < 0.0)
 			sprite_index = sprite_jump
 		else
 			sprite_index = sprite_fall

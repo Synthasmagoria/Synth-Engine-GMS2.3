@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "sSpikeDown",
-    "path": "sprites/sSpikeDown/sSpikeDown.yy",
+    "name": "sMiniSpikeDown",
+    "path": "sprites/sMiniSpikeDown/sMiniSpikeDown.yy",
   },
   "solid": false,
   "visible": true,

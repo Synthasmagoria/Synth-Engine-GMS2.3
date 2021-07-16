@@ -31,8 +31,7 @@ vertical_direction = 1
 upsidedown_draw_yoffset = -2
 
 // Speed variables
-hspeed = 0
-vspeed = 0
+velocity = new vec2(0, 0)
 queued_speed = new vec2(0, 0)
 
 // Accumulative speed variables

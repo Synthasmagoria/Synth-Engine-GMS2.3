@@ -70,13 +70,6 @@ function rect2d(_x, _y, _w, _h) constructor {
 	}
 }
 
-function transform2d() constructor {
-	switch (argument_count) {
-		case 0:
-			
-	}
-}
-
 /*///@func vec3_col(r, g, b)
 ///@arg r
 ///@arg g
