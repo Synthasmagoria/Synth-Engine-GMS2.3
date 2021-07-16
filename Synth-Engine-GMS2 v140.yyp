@@ -59,6 +59,7 @@
     {"id":{"name":"rBlank","path":"rooms/rBlank/rBlank.yy",},"order":0,},
     {"id":{"name":"oTriggerKiller","path":"objects/oTriggerKiller/oTriggerKiller.yy",},"order":3,},
     {"id":{"name":"oTriggerSpikeDown","path":"objects/oTriggerSpikeDown/oTriggerSpikeDown.yy",},"order":4,},
+    {"id":{"name":"rTemplate","path":"rooms/rTemplate/rTemplate.yy",},"order":7,},
     {"id":{"name":"oTriggerSpikeLeft","path":"objects/oTriggerSpikeLeft/oTriggerSpikeLeft.yy",},"order":5,},
     {"id":{"name":"oTriggerSpikeRight","path":"objects/oTriggerSpikeRight/oTriggerSpikeRight.yy",},"order":6,},
     {"id":{"name":"sndItem","path":"sounds/sndItem/sndItem.yy",},"order":3,},
@@ -201,6 +202,7 @@
     {"roomId":{"name":"rTest","path":"rooms/rTest/rTest.yy",},},
     {"roomId":{"name":"rTest2","path":"rooms/rTest2/rTest2.yy",},},
     {"roomId":{"name":"rTest3","path":"rooms/rTest3/rTest3.yy",},},
+    {"roomId":{"name":"rTemplate","path":"rooms/rTemplate/rTemplate.yy",},},
   ],
   "Folders": [
     {"folderPath":"folders/Objects.yy","order":1,"resourceVersion":"1.0","name":"Objects","tags":[],"resourceType":"GMFolder",},
@@ -245,7 +247,7 @@
   ],
   "IncludedFiles": [],
   "MetaData": {
-    "IDEVersion": "2.3.2.560",
+    "IDEVersion": "2.3.3.570",
   },
   "resourceVersion": "1.4",
   "name": "Synth-Engine-GMS2 v140",

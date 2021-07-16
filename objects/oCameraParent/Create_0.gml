@@ -2,7 +2,7 @@
 
 // Variables
 size = new vec2(GAME_WIDTH, GAME_HEIGHT)
-area = new rect2d(0, 0, room_width - size.x, room_height - size.y)
+area = {x : 0, y : 0, w : room_width - size.x, h : room_height - size.y}
 target = oPlayer
 active = false
 index = 0

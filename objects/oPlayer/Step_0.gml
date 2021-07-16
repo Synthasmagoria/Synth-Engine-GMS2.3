@@ -141,7 +141,7 @@ if (_platform)
 	
 	if dot_product(_platUp.x, _platUp.y, x - _platTop.x, y - _platTop.y) <= 0 {
 		var _up = down.scale(-1)
-		var _relTop = _up.scale(_platTop.sub(get_feet()).dot(_up))
+		var _relTop = _up.scale(_platTop.sub(get_feet()).dot(_up) + 1)
 		var _collision = place_meeting(x + _relTop.x, y + _relTop.y, oBlock)
 		
 		x += _relTop.x * (!_collision)
