@@ -80,7 +80,7 @@ else if (vine_direction != 0 && !_vine)
 	if (button_jump_hold && facing != vine_direction)
 	{
 		velocity.x = vine_hpush * facing
-		velocity.y = -jump_strength
+		velocity.y = -vine_jump_strength
 		situated = false
 		sfx_play_sound(vinejump_sound)
 	}

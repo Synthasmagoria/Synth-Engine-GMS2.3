@@ -3,7 +3,8 @@
 // Settable variables
 run_speed = 3.0 * global.fps_adjust
 jump_strength = 8.1 * global.fps_adjust
-vine_hpush = 12
+vine_hpush = 15
+vine_jump_strength = 9 * global.fps_adjust
 airjump_strength = 6.6 * global.fps_adjust
 airjump_index = 0
 airjump_number = 1
