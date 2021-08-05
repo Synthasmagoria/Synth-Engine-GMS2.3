@@ -28,16 +28,16 @@ if global.settings[$"gravity_control"] == GRAVITY_CONTROL.STANDARD &&
 	_rotControl = 1
 }
 
-if (button_left)
-{
-	facing = -1 * _rotControl
-	velocity.x -= run_speed * _rotControl
-	running = true
-}
-else if (button_right)
+if (button_right)
 {
 	facing = 1 * _rotControl
 	velocity.x += run_speed * _rotControl
+	running = true
+}
+else if (button_left)
+{
+	facing = -1 * _rotControl
+	velocity.x -= run_speed * _rotControl
 	running = true
 }
 else
