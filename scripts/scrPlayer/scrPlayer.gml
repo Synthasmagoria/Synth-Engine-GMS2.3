@@ -71,10 +71,6 @@ function player_set_skin(a) {
 	}
 }
 
-function player_queue_speed(hs, vs) {
-	with oPlayer {queued_speed.set(queued_speed.x + hs, queued_speed.y + vs)}
-}
-
 function player_set_stopped(val) {
 	with oPlayer {
 		hspeed = 0

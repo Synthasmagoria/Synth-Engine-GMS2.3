@@ -4,7 +4,7 @@
 run_speed = 3.0 * global.fps_adjust
 jump_strength = 8.1 * global.fps_adjust
 vine_hpush = 15
-vine_jump_strength = 9 * global.fps_adjust
+vine_jump_strength = 8.5 * global.fps_adjust
 airjump_strength = 6.6 * global.fps_adjust
 airjump_index = 0
 airjump_number = 1
@@ -25,8 +25,8 @@ frozen = false
 stopped = false
 running = false
 animate = true
-vine_direction = false
 on_slope = false
+vine_direction = 0
 
 // Collision variables
 platform_check_distance = 1				// Added distance when checking for platforms
@@ -45,7 +45,6 @@ rotation_matrix = new mat2(1, 0, 0, 1)
 hvelocity = new vec2(0, 0)
 vvelocity = new vec2(0, 0)
 velocity = new vec2(0,0)
-queued_speed = new vec2(0,0)
 yvelocity_max = yvelocity_limit.normal
 
 // Sound variables
@@ -68,7 +67,9 @@ button_jump = false
 button_jump_hold = false
 button_fall = false
 button_left = false
+button_left_pressed = false
 button_right = false
+button_right_pressed = false
 button_suicide = false
 #endregion
 
@@ -80,7 +81,9 @@ remove_input = function() {
 	button_jump_hold = false
 	button_fall = false
 	button_left = false
+	button_left_pressed = false
 	button_right = false
+	button_right_pressed = false
 	button_suicide = false
 }
 
