@@ -252,7 +252,7 @@ if (instance_exists(weapon)) {
 	if (!_on_vine) {
 		var _weapon_yoffset = 
 			(sprite_index == sprite_idle && floor(image_index) == 1) * image_yscale +
-			sprite_index == sprite_fall
+			(sprite_index == sprite_fall)
 		
 		weapon.x = floor(x + hand.x * facing + down.x * _weapon_yoffset)
 		weapon.y = floor(y + hand.y * facing + down.y * _weapon_yoffset)
