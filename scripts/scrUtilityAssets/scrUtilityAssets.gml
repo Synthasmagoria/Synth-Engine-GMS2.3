@@ -1,5 +1,6 @@
 /*
 	Asset dependent utility functions
+	Warning: deleting certain assets from the engine might break these functions
 */
 
 ///@desc Checks if a section in the config exists

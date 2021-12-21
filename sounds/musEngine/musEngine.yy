@@ -1,4 +1,5 @@
 {
+  "conversionMode": 0,
   "compression": 0,
   "volume": 1.0,
   "preload": false,
@@ -11,7 +12,7 @@
     "path": "audiogroups/audiogroup_default",
   },
   "soundFile": "musEngine.wav",
-  "duration": 15.0857706,
+  "duration": 15.0807714,
   "parent": {
     "name": "Sounds",
     "path": "folders/Sounds.yy",

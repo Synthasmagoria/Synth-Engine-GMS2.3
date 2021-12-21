@@ -1,6 +1,6 @@
 {
   "resources": [
-    {"id":{"name":"fDefault","path":"fonts/fDefault/fDefault.yy",},"order":10,},
+    {"id":{"name":"fDefault","path":"fonts/fDefault/fDefault.yy",},"order":0,},
     {"id":{"name":"sSlopeRU","path":"sprites/sSlopeRU/sSlopeRU.yy",},"order":7,},
     {"id":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"order":0,},
     {"id":{"name":"oBlock16px","path":"objects/oBlock16px/oBlock16px.yy",},"order":1,},
@@ -117,7 +117,6 @@
     {"id":{"name":"sMaskCherry","path":"sprites/sMaskCherry/sMaskCherry.yy",},"order":1,},
     {"id":{"name":"oVineDIagonal","path":"objects/oVineDIagonal/oVineDIagonal.yy",},"order":15,},
     {"id":{"name":"sSlopeblocker","path":"sprites/sSlopeblocker/sSlopeblocker.yy",},"order":9,},
-    {"id":{"name":"aSinewave","path":"animcurves/aSinewave/aSinewave.yy",},"order":8,},
     {"id":{"name":"sMaskDarkBlue","path":"sprites/sMaskDarkBlue/sMaskDarkBlue.yy",},"order":2,},
     {"id":{"name":"sMaskGreen","path":"sprites/sMaskGreen/sMaskGreen.yy",},"order":3,},
     {"id":{"name":"oSpawnerRandom","path":"objects/oSpawnerRandom/oSpawnerRandom.yy",},"order":13,},
@@ -238,6 +237,7 @@
     {"folderPath":"folders/Sprites/Weapon.yy","order":10,"resourceVersion":"1.0","name":"Weapon","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Sprites/Misc/Vines.yy","order":11,"resourceVersion":"1.0","name":"Vines","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Rooms/Test.yy","order":6,"resourceVersion":"1.0","name":"Test","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Fonts.yy","order":11,"resourceVersion":"1.0","name":"Fonts","tags":[],"resourceType":"GMFolder",},
   ],
   "AudioGroups": [
     {"targets":-1,"resourceVersion":"1.3","name":"audiogroup_default","resourceType":"GMAudioGroup",},

@@ -1,4 +1,5 @@
 {
+  "conversionMode": 0,
   "compression": 0,
   "volume": 1.0,
   "preload": false,
@@ -11,7 +12,7 @@
     "path": "audiogroups/audiogroup_sound",
   },
   "soundFile": "sndPlayerShoot",
-  "duration": 0.369263,
+  "duration": 0.364263,
   "parent": {
     "name": "Player",
     "path": "folders/Sounds/Sound Effects/Player.yy",

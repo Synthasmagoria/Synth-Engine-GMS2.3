@@ -3,6 +3,7 @@
   "glyphOperations": 0,
   "interpreter": 0,
   "pointRounding": 0,
+  "applyKerning": 0,
   "fontName": "Courier New",
   "styleName": "Regular",
   "size": 12.0,
@@ -127,8 +128,8 @@
   "canGenerateBitmap": true,
   "maintainGms1Font": false,
   "parent": {
-    "name": "Synth-Engine-GMS2 v140",
-    "path": "Synth-Engine-GMS2 v140.yyp",
+    "name": "Fonts",
+    "path": "folders/Fonts.yy",
   },
   "resourceVersion": "1.0",
   "name": "fDefault",

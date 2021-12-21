@@ -1,3 +1,10 @@
+/*
+	If something doesn't have the correct volume then you should
+	check if they're in the right audio group
+	audiogroup_default - music
+	audiogroup_sound - sfx
+*/
+
 ///@desc				Gets music to be played in a room
 ///@func				bgm_get_room_music(room)
 ///@arg 				room

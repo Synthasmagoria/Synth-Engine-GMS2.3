@@ -1,4 +1,5 @@
 {
+  "conversionMode": 0,
   "compression": 0,
   "volume": 0.57,
   "preload": false,
@@ -11,7 +12,7 @@
     "path": "audiogroups/audiogroup_sound",
   },
   "soundFile": "sndBlockChange.wav",
-  "duration": 0.788673,
+  "duration": 0.783673,
   "parent": {
     "name": "Sound Effects",
     "path": "folders/Sounds/Sound Effects.yy",
