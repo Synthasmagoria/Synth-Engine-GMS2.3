@@ -32,9 +32,8 @@ function setting_set(key, value) {
 	
 		if (value) {
 			window_set_size(GAME_WIDTH, GAME_HEIGHT)
-			window_set_position(display_get_width() / 2 - GAME_WIDTH / 2, display_get_height() / 2 - GAME_HEIGHT / 2)
 		} else {
-			var w = GAME_WIDTH * global.settings[$key], h = GAME_HEIGHT * global.settings[$key]
+			var w = GAME_WIDTH * global.settings[$"scale"], h = GAME_HEIGHT * global.settings[$"scale"]
 			window_set_position(display_get_width() / 2 - w / 2, display_get_height() / 2 - h / 2)
 		}
 		break
