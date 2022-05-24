@@ -87,8 +87,8 @@ function player_set_frozen(val) {
 	}
 }
 
-///@func player_set_gravity_direction(dir)
-function player_set_gravity_direction(dir) {
+///@func player_set_gravity_direction(dir, reset_velocity)
+function player_set_gravity_direction(dir, reset_velocity = true) {
 	with oPlayer {
 		dir = wrap(dir, 0, 359)
 		
@@ -120,32 +120,10 @@ function player_set_gravity_direction(dir) {
 				weapon.set_image_angle(image_angle)
 			}
 			
-			velocity.y = 0
+			velocity.y *= !reset_velocity
 			
 			player_refresh_airjumps()
 		}
-	}
-}
-
-///@func player_set_gravity(vert_dir)
-///@ag vert_dir
-function player_set_gravity(vert_dir) {
-	vert_dir = sign(vert_dir)
-	
-	if (vert_dir != 0)
-	{
-		if (vert_dir == -1 && vertical_direction == 1) {
-			y -= 3
-			vspeed = 0
-			player_refresh_airjumps()
-		} else if (vert_dir == 1 && vertical_direction == -1) {
-			y += 3
-			vspeed = 0
-			player_refresh_airjumps()
-		}
-		
-		vertical_direction = vert_dir
-		image_yscale = abs(image_yscale) * vert_dir
 	}
 }
 

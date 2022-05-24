@@ -19,13 +19,20 @@ Handy structs (vec2, mat2, etc.) and relevant math functions
 
 No monolithic world object (see explanation below)
 
-![screen-gif](readme/Gravity-Arrows.gif))
-![screen-gif](readme/Setting-up-gravity-arrows.gif))
-![screen-gif](readme/360-Gravity-Hollow-Planet.gif))
+# 360 Gravity & slopes showcase
 
+The code in the player collision event of the gravity changer object here is simply:
+```
+player_set_gravity_direction(point_direction(other.x, other.y, x, y) + 90 + 180 * invert, false)
+```
+<img src="https://raw.githubusercontent.com/Synthasmagoria/Synth-Engine-GMS2.3/main/readme/360-Gravity-Hollow-Planet.gif" width="50%" />
+Rotate oGravityArrow in the editor. Make sure it's rotated to precisely the angle you want.
+<img src="https://raw.githubusercontent.com/Synthasmagoria/Synth-Engine-GMS2.3/main/readme/Setting-up-gravity-arrows.gif" width="50%" />
+image_blend is automatically set by the object when the game is run.
+<img src="https://raw.githubusercontent.com/Synthasmagoria/Synth-Engine-GMS2.3/main/readme/Shooty.gif" width="50%" />
 # How to set up:
  - Click code button and press download in the drop-down
- - Open 'Synth-Engine-GMS2 v140.yyp' in Gamemaker (Gamemaker Studio 2)
+ - Open 'Synth-Engine-GMS2 v140.yyp' with Gamemaker (Gamemaker Studio 2)
  - Save As... to rename your project (optional)
 
 # Engine versions (branches):
