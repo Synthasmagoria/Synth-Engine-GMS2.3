@@ -30,6 +30,7 @@ Rotate oGravityArrow in the editor. Make sure it's rotated to precisely the angl
 <img src="https://raw.githubusercontent.com/Synthasmagoria/Synth-Engine-GMS2.3/main/readme/Setting-up-gravity-arrows.gif" width="50%" />
 image_blend is automatically set by the object when the game is run.
 <img src="https://raw.githubusercontent.com/Synthasmagoria/Synth-Engine-GMS2.3/main/readme/Shooty.gif" width="50%" />
+
 # How to set up:
  - Click code button and press download in the drop-down
  - Open 'Synth-Engine-GMS2 v140.yyp' with Gamemaker (Gamemaker Studio 2)
