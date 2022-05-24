@@ -19,9 +19,9 @@ Handy structs (vec2, mat2, etc.) and relevant math functions
 
 No monolithic world object (see explanation below)
 
-![screen-gif](readme/Gravity-Arrows.gif))
-![screen-gif](readme/Setting-up-gravity-arrows.gif))
-![screen-gif](readme/360-Gravity-Hollow-Planet.gif))
+![Setting-up-gravity-arrows](readme/Setting-up-gravity-arrows.gif))
+![Gravity-arrows](readme/Gravity-Arrows.gif))
+![360-gravity](readme/360-Gravity-Hollow-Planet.gif))
 
 # How to set up:
  - Click code button and press download in the drop-down
