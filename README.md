@@ -1,41 +1,61 @@
-# Synth-Engine-GMS2.3
+## Synth-Engine-GMS2.3
 Assets that can be used to create fangames in GMS2.3
-Contact me on discord if anything is bugged etc.
 
-Discord: Synthasmagoria#6751
-Twitter: https://twitter.com/SynthasA
+# Features:
+Variable framerate settings (50 - 360fps)
 
-# Notes on engine versions:
+360 gravity (rotate oGravityArrow in the editor)
+
+A simple weapons system - Modify or inherit from oWeapon to:
+ - Fire any object
+ - Make weapon pickup stands
+ - Turn on autofire (boolean)
+
+Slopes:
+ - Inherit from oBlock and create any precise shape you like
+ - Fully compatible with 360 gravity
+
+Handy structs (vec2, mat2, etc.) and relevant math functions
+
+No monolithic world object (see explanation below)
+
+![screen-gif](readme/Gravity-Arrows.gif))
+![screen-gif](readme/Setting-up-gravity-arrows.gif))
+![screen-gif](readme/360-Gravity-Hollow-Planet.gif))
+
+# How to set up:
+ - Click code button and press download in the drop-down
+ - Open 'Synth-Engine-GMS2 v140.yyp' in Gamemaker (Gamemaker Studio 2)
+ - Save As... to rename your project (optional)
+
+# Engine versions (branches):
 tldr;
 
-If you want to modify the player and don't know basic linear algebra go for v130.
-Otherwise go for v140 (main)
+Other version numbers are mainly here for legacy purposes.
 
-## v140:
+v140 (in main) is the most stable, which is why I recommend you use it.
+
+# v140 (main):
 Adds 360 gravity, slopes and the weapon system.
 If you don't want to deal with the slightly more complicated player code I recommend you go for v130
 
-## v130:
+# v130:
 Adds controller support (also in v140)
 Doesn't have the weapons system but is mostly up to date otherwise
 
-## v120-weapons:
+# v120-weapons:
 As the name implies has the weapons system. You may bring it over to v130 if you want the code improvements and weapon system
 This version uses some outdated file i/o methods that may force you to write your own saving system if you
 want to save anything slightly complicated
 
-## v110:
-Don't
+# v110:
+Legacy, don't use. Has a lotta bugs.
 
-## v097 and older:
+# v097 and older:
 This version of the engine works for GMS2 2.2 and earlier
 Uses very outdated methods for mostly everything
-But I used this to make Platform God and HTec, so it's not completely unusable
+But I used this to make Platform God and HTec
 https://github.com/Synthasmagoria/Synth-Engine-GMS2
-
-# Open source projects that were made with this engine
-Platform God (v096) https://github.com/Synthasmagoria/I-Wanna-Pray-to-the-Platform-God
-Htec (v097) link will be added when it's out
 
 # How to work with variable framerate:
 There are two global variables
@@ -44,24 +64,35 @@ Multiply or divide this variable with the variables that need to change at diffe
 There's also global.fps_adjust_squared for variables that are responsible for
 exponential change over time - such as gravity
 
-# Notes on the world object:
-Instead of having a single world object taking care of music, saving, settings, etc.
-it has been split into multiple different objects and scripts:
-
-Previously it was like this:
-objWorld + scripts for saving, music, settings / config etc.
-
-Now it's like this:
-oGame + scrGame
-
-oAudio + scrAudio & scrRoomMusic
-
-oSettings + scrSettings
-
-oSaveData + scrSavedata
-
-oInput + scrInput
+# World
+This (fangame-) engine does not have a monolithic world object that takes care of everything persistent.
+Instead there are a lot of other more specific object that handle each of their own task.
+What they do is implied in what they're called oAudio, oInput, oSaveData, oGame.
 
 If you want to change saving behavior, then modify oSaveData & scrSavedata
 If you want to modify the way sound and music works then go into oAudio, scrAudio and scrRoomMusic
 Hopefully this makes sense.
+
+# Games I made using this (And source code if they're released)
+Platform God:
+
+Game: https://synthasmagoria.neocities.org/games/temple/temple.html
+
+Source: https://github.com/Synthasmagoria/I-Wanna-Pray-to-the-Platform-God
+
+
+HTec:
+
+Itch: https://synthasmagoria.itch.io/htec
+
+
+NUCLEAR PHYSICIST:
+
+Game: https://delicious-fruit.com/ratings/game_details.php?id=24345
+
+Source: https://github.com/Synthasmagoria/NUCLEAR-PHYSICIST
+
+# Contact
+Discord: Synthasmagoria#6751
+
+Twitter: https://twitter.com/SynthasA
